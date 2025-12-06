@@ -1,0 +1,90 @@
+{%- comment -%}
+  Accordion Details Section for AuraGems Template
+  Usage: {% render 'product-accordion-details', product: product %}
+{%- endcomment -%}
+
+<div class="product-auragems__accordions">
+  {%- # Shipping Policy -%}
+  <div class="product-auragems__accordion" data-accordion>
+    <div class="product-auragems__accordion-header">
+      <span>SHIPPING POLICY</span>
+      <svg class="product-auragems__accordion-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="product-auragems__accordion-content">
+      <div class="product-auragems__accordion-body">
+        <p>Free shipping on all orders over $65.99. Standard delivery takes 7-14 business days. Express shipping available at checkout.</p>
+      </div>
+    </div>
+  </div>
+
+  {%- # Refund Policy -%}
+  <div class="product-auragems__accordion" data-accordion>
+    <div class="product-auragems__accordion-header">
+      <span>REFUND POLICY</span>
+      <svg class="product-auragems__accordion-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="product-auragems__accordion-content">
+      <div class="product-auragems__accordion-body">
+        <p>We offer a 30-day money-back guarantee. If you're not completely satisfied, return your item for a full refund.</p>
+      </div>
+    </div>
+  </div>
+
+  {%- # About Store -%}
+  <div class="product-auragems__accordion" data-accordion>
+    <div class="product-auragems__accordion-header">
+      <span>ABOUT {{ shop.name | upcase }}</span>
+      <svg class="product-auragems__accordion-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="product-auragems__accordion-content">
+      <div class="product-auragems__accordion-body">
+        <p>In order to provide you with the best experience, all our products are made by master craftsmen with selected high-quality materials, and everyone owns its unique positive meaning. We hope these meaningful items will bring you good luck and positive change! 💎</p>
+      </div>
+    </div>
+  </div>
+
+  {%- # Product Description -%}
+  {%- if product.description != blank -%}
+    <div class="product-auragems__accordion active" data-accordion>
+      <div class="product-auragems__accordion-header">
+        <span>PRODUCT DESCRIPTION</span>
+        <svg class="product-auragems__accordion-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="product-auragems__accordion-content" style="max-height: 2000px;">
+        <div class="product-auragems__accordion-body">
+          {{ product.description }}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordions = document.querySelectorAll('[data-accordion]');
+    
+    accordions.forEach(accordion => {
+      const header = accordion.querySelector('.product-auragems__accordion-header');
+      
+      header.addEventListener('click', function() {
+        // Close other accordions
+        accordions.forEach(other => {
+          if (other !== accordion) {
+            other.classList.remove('active');
+          }
+        });
+        
+        // Toggle current accordion
+        accordion.classList.toggle('active');
+      });
+    });
+  });
+</script>

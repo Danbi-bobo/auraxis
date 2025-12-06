@@ -1,0 +1,84 @@
+{%- comment -%}
+  Zodiac Variant Selector for AuraGems Product Template
+  Usage: {% render 'product-zodiac-selector', product: product, current_variant: current_variant %}
+{%- endcomment -%}
+
+{%- liquid
+  assign zodiac_animals = 'Rat,Ox,Tiger,Rabbit,Dragon,Snake,Horse,Goat,Monkey,Rooster,Dog,Pig' | split: ','
+  assign zodiac_option_name = 'Style' 
+  
+  # Find the option index for zodiac/style
+  assign zodiac_option_index = nil
+  for option in product.options_with_values
+    if option.name == zodiac_option_name or option.name == 'Zodiac' or option.name == 'Animal'
+      assign zodiac_option_index = forloop.index0
+      break
+    endif
+  endfor
+-%}
+
+{%- if zodiac_option_index != nil -%}
+  <div class="product-auragems__zodiac-selector">
+    <label class="product-auragems__zodiac-label">
+      {{ product.options_with_values[zodiac_option_index].name }}
+    </label>
+    
+    <div class="product-auragems__zodiac-grid" data-zodiac-selector>
+      {%- for value in product.options_with_values[zodiac_option_index].values -%}
+        {%- liquid
+          assign is_active = false
+          if current_variant
+            assign option_position = zodiac_option_index | plus: 1
+            case option_position
+              when 1
+                if current_variant.option1 == value
+                  assign is_active = true
+                endif
+              when 2
+                if current_variant.option2 == value
+                  assign is_active = true
+                endif
+              when 3
+                if current_variant.option3 == value
+                  assign is_active = true
+                endif
+            endcase
+          endif
+        -%}
+        
+        <div class="product-auragems__zodiac-option{% if is_active %} active{% endif %}"
+             data-zodiac-value="{{ value | escape }}"
+             data-option-position="{{ option_position }}">
+          {{ value }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const zodiacOptions = document.querySelectorAll('[data-zodiac-value]');
+      const productForm = document.querySelector('product-form form');
+      
+      zodiacOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove active class from all
+          zodiacOptions.forEach(opt => opt.classList.remove('active'));
+          
+          // Add active to clicked
+          this.classList.add('active');
+          
+          // Update variant selection
+          const value = this.dataset.zodiacValue;
+          const position = this.dataset.optionPosition;
+          const select = productForm.querySelector(`[name="options[option${position}]"]`);
+          
+          if (select) {
+            select.value = value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        });
+      });
+    });
+  </script>
+{%- endif -%}

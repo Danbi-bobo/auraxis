@@ -1,0 +1,346 @@
+{%- comment -%}
+  Desktop Product Detail Section - Refactored
+  With Schema Blocks & Working Cart Functionality
+{%- endcomment -%}
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          primary: "#D9A44D",
+          "background-light": "#FFFFFF",
+          "background-dark": "#121212",
+          "surface-light": "#F9FAFB",
+          "surface-dark": "#1F2937",
+          "text-light": "#111827",
+          "text-dark": "#F3F4F6",
+          "subtle-light": "#6B7280",
+          "subtle-dark": "#9CA3AF",
+          "border-light": "#E5E7EB",
+          "border-dark": "#374151"
+        },
+        fontFamily: {
+          display: ["Poppins", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  .material-icons { font-size: inherit; }
+  body { font-family: 'Poppins', sans-serif; }
+</style>
+
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+    
+    {%- # Left Column - Images -%}
+    <div class="flex flex-col gap-4">
+      {%- # Main Image -%}
+      <div>
+        <img id="main-image" 
+             alt="{{ product.featured_image.alt | escape }}" 
+             class="w-full h-auto object-cover rounded-lg shadow-md" 
+             src="{{ product.featured_image | image_url: width: 800 }}">
+      </div>
+      
+      {%- # Thumbnail Gallery - Below Main Image -%}
+      <div class="flex gap-3 justify-start overflow-x-auto">
+        {%- for image in product.images limit: 6 -%}
+          <button class="flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border {% if forloop.first %}border-2 border-primary ring-2 ring-primary/50{% else %}border-border-light dark:border-border-dark hover:border-primary/70 transition{% endif %}"
+                  onclick="document.getElementById('main-image').src='{{ image | image_url: width: 800 }}'">
+            <img alt="{{ image.alt | escape }}" class="w-full h-full object-cover" src="{{ image | image_url: width: 100 }}">
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- # Right Column - Product Info -%}
+    <div class="flex flex-col space-y-6">
+      {%- # Render Blocks -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          
+          {%- when 'breadcrumb_title' -%}
+            <div class="space-y-2" {{ block.shopify_attributes }}>
+              <p class="text-sm text-subtle-light dark:text-subtle-dark">Home / {{ product.type }}</p>
+              <h1 class="text-3xl font-bold text-text-light dark:text-text-dark">{{ product.title }}</h1>
+            </div>
+
+          {%- when 'rating_price' -%}
+            <div class="space-y-3" {{ block.shopify_attributes }}>
+              {%- if block.settings.show_rating -%}
+                <div class="flex items-center space-x-2">
+                  <div class="flex text-yellow-500">
+                    <span class="material-icons text-lg">star</span>
+                    <span class="material-icons text-lg">star</span>
+                    <span class="material-icons text-lg">star</span>
+                    <span class="material-icons text-lg">star</span>
+                    <span class="material-icons text-lg">star_outline</span>
+                  </div>
+                  <span class="text-sm text-subtle-light dark:text-subtle-dark">{{ block.settings.review_count }} reviews</span>
+                </div>
+              {%- endif -%}
+              
+              <div class="flex items-baseline space-x-3">
+                <span class="text-2xl font-semibold text-red-600">{{ product.price | money }}</span>
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="text-lg line-through text-subtle-light dark:text-subtle-dark">{{ product.compare_at_price | money }}</span>
+                  {%- assign savings = product.compare_at_price | minus: product.price -%}
+                  <span class="bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 text-xs font-semibold px-2.5 py-1 rounded-full">Save {{ savings | money }}</span>
+                {%- endif -%}
+              </div>
+              
+              {%- if block.settings.show_blessing -%}
+                <p class="text-sm text-green-600 dark:text-green-400 font-medium">{{ block.settings.blessing_text }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <div {{ block.shopify_attributes }}>
+                <h3 class="text-sm font-semibold mb-2">{{ block.settings.label }}</h3>
+                <div class="grid grid-cols-2 gap-3 text-sm" id="variant-buttons">
+                  {%- for variant in product.variants -%}
+                    <button type="button" 
+                            class="variant-btn w-full text-center py-2.5 px-3 border rounded-md font-medium transition {% if forloop.first %}border-2 border-primary bg-primary/10 dark:bg-primary/20 active{% else %}border-border-light dark:border-border-dark hover:border-gray-400 dark:hover:border-gray-500{% endif %}"
+                            data-variant-id="{{ variant.id }}"
+                            data-variant-price="{{ variant.price }}">
+                      {{ variant.title }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endunless -%}
+
+          {%- when 'quantity_buy_buttons' -%}
+            <product-form {{ block.shopify_attributes }}>
+              <form method="post" action="/cart/add" id="product-form-{{ section.id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="variant-id">
+                
+                <div class="flex flex-col space-y-4">
+                  <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                      <h3 class="text-sm font-semibold mb-1">{{ block.settings.quantity_label }}</h3>
+                      <div class="flex items-center border border-border-light dark:border-border-dark rounded-md">
+                        <button type="button" class="px-3 py-2 text-subtle-light dark:text-subtle-dark hover:text-text-light dark:hover:text-text-dark transition-colors"
+                                onclick="let qty = this.nextElementSibling; qty.stepDown(); qty.dispatchEvent(new Event('change'));">-</button>
+                        <input type="number" name="quantity" value="1" min="1" 
+                               class="px-4 py-2 border-l border-r border-border-light dark:border-border-dark w-16 text-center">
+                        <button type="button" class="px-3 py-2 text-subtle-light dark:text-subtle-dark hover:text-text-light dark:hover:text-text-dark transition-colors"
+                                onclick="let qty = this.previousElementSibling; qty.stepUp(); qty.dispatchEvent(new Event('change'));">+</button>
+                      </div>
+                    </div>
+                    <div class="flex-1 pt-5">
+                      <button type="submit" name="add" class="w-full bg-text-light dark:bg-text-dark text-background-light dark:text-background-dark py-3 rounded-md font-semibold hover:opacity-90 transition-opacity">
+                        {{ block.settings.add_to_cart_text }}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {%- if block.settings.show_paypal -%}
+                    <button type="button" class="w-full bg-primary text-gray-800 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity">
+                      Pay with <span class="font-bold italic">PayPal</span>
+                    </button>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.show_more_options -%}
+                    <a href="#" class="text-center text-sm text-primary underline font-medium">{{ block.settings.more_options_text }}</a>
+                  {%- endif -%}
+                </div>
+              </form>
+            </product-form>
+
+          {%- when 'promo_banners' -%}
+            <div class="space-y-3 pt-4" {{ block.shopify_attributes }}>
+              {%- if block.settings.banner_1_image != blank -%}
+                <div class="rounded-lg overflow-hidden">
+                  <img alt="{{ block.settings.banner_1_alt }}" class="w-full h-auto object-cover" src="{{ block.settings.banner_1_image | image_url: width: 800 }}">
+                </div>
+              {%- endif -%}
+              {%- if block.settings.banner_2_image != blank -%}
+                <div class="rounded-lg overflow-hidden">
+                  <img alt="{{ block.settings.banner_2_alt }}" class="w-full h-auto object-cover" src="{{ block.settings.banner_2_image | image_url: width: 800 }}">
+                </div>
+              {%- endif -%}
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </main>
+</div>
+
+<script>
+  // Variant Switching
+  document.querySelectorAll('.variant-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Update active state
+      document.querySelectorAll('.variant-btn').forEach(b => {
+        b.classList.remove('border-2', 'border-primary', 'bg-primary/10', 'dark:bg-primary/20', 'active');
+        b.classList.add('border-border-light', 'dark:border-border-dark');
+      });
+      this.classList.add('border-2', 'border-primary', 'bg-primary/10', 'dark:bg-primary/20', 'active');
+      this.classList.remove('border-border-light', 'dark:border-border-dark');
+      
+      // Update variant ID in form
+      const variantId = this.dataset.variantId;
+      document.getElementById('variant-id').value = variantId;
+    });
+  });
+
+  // Form submission handling
+  const form = document.getElementById('product-form-{{ section.id }}');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Success - redirect to cart or show notification
+        window.location.href = '/cart';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding to cart');
+      });
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Desktop",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "breadcrumb_title",
+      "name": "Breadcrumb & Title",
+      "limit": 1
+    },
+    {
+      "type": "rating_price",
+      "name": "Rating & Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show Rating",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "review_count",
+          "label": "Review Count",
+          "default": 23
+        },
+        {
+          "type": "checkbox",
+          "id": "show_blessing",
+          "label": "Show Blessing Message",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "blessing_text",
+          "label": "Blessing Text",
+          "default": "Sacred Blessing and Cleansing from Buddha Stones"
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "STYLE"
+        }
+      ]
+    },
+    {
+      "type": "quantity_buy_buttons",
+      "name": "Quantity & Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "quantity_label",
+          "label": "Quantity Label",
+          "default": "QUANTITY"
+        },
+        {
+          "type": "text",
+          "id": "add_to_cart_text",
+          "label": "Add to Cart Text",
+          "default": "ADD TO CART"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_paypal",
+          "label": "Show PayPal Button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_more_options",
+          "label": "Show More Payment Options",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "more_options_text",
+          "label": "More Options Text",
+          "default": "More payment options"
+        }
+      ]
+    },
+    {
+      "type": "promo_banners",
+      "name": "Promotional Banners",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_1_image",
+          "label": "Banner 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_1_alt",
+          "label": "Banner 1 Alt Text",
+          "default": "Promotional Banner 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_2_image",
+          "label": "Banner 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_2_alt",
+          "label": "Banner 2 Alt Text",
+          "default": "Promotional Banner 2"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

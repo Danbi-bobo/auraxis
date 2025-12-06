@@ -1,0 +1,508 @@
+{%- comment -%}
+  Enhanced Mobile Product Template
+  With Shopify Schema Blocks for Customization
+{%- endcomment -%}
+
+{{ 'product-mobile-style.css' | asset_url | stylesheet_tag }}
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+<div class="mobile-product">
+  {%- # Sticky Header -%}
+  <header class="mobile-product__header">
+    <div class="mobile-product__header-inner">
+      <button class="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" onclick="window.history.back()">
+        <span class="material-icons-outlined">arrow_back_ios_new</span>
+      </button>
+      <h1 class="mobile-product__header-title">{{ product.title | truncate: 20 }}</h1>
+      <button class="p-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" onclick="window.location.href='/cart'">
+        <span class="material-icons-outlined">shopping_bag</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="mobile-product__main">
+    {%- # Left Column (Images on Desktop) -%}
+    <div class="mobile-product__left-column">
+      {%- # Image Carousel -%}
+      <section class="mobile-product__carousel">
+        <div class="mobile-product__carousel-inner" id="carousel">
+          {%- for image in product.images -%}
+            <div class="mobile-product__carousel-slide">
+              <img src="{{ image | image_url: width: 800 }}"
+                   alt="{{ image.alt | escape }}"
+                   class="mobile-product__carousel-image">
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if product.images.size > 1 -%}
+          <div class="mobile-product__carousel-dots" id="carousel-dots"></div>
+        {%- endif -%}
+      </section>
+    </div>
+
+    {%- # Right Column (Product Info on Desktop) -%}
+    <div class="mobile-product__right-column">
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        
+        {%- when 'product_info' -%}
+          <section class="mobile-product__section" {{ block.shopify_attributes }}>
+            <h2 class="mobile-product__title">{{ product.title }}</h2>
+            
+            {%- if block.settings.show_rating -%}
+              <div class="mobile-product__rating">
+                <div style="display: flex;">
+                  <span class="material-icons-outlined mobile-product__star">star</span>
+                  <span class="material-icons-outlined mobile-product__star">star_border</span>
+                  <span class="material-icons-outlined mobile-product__star">star_border</span>
+                  <span class="material-icons-outlined mobile-product__star">star_border</span>
+                  <span class="material-icons-outlined mobile-product__star">star_border</span>
+                </div>
+              </div>
+            {%- endif -%}
+            
+            <div class="mobile-product__price-wrapper">
+              <span class="mobile-product__price">{{ product.price | money }}</span>
+              {%- if product.compare_at_price > product.price -%}
+                <span class="mobile-product__compare-price">{{ product.compare_at_price | money }}</span>
+                {%- assign savings = product.compare_at_price | minus: product.price -%}
+                <span class="mobile-product__savings">Save {{ savings | money }}</span>
+              {%- endif -%}
+            </div>
+            
+            {%- if block.settings.show_blessing -%}
+              <p class="mobile-product__blessing">
+                <a href="{{ block.settings.blessing_link }}">{{ block.settings.blessing_text }}</a> from {{ shop.name }}
+              </p>
+            {%- endif -%}
+          </section>
+
+        {%- when 'variant_selector' -%}
+          <section class="mobile-product__section mobile-product__section--bordered" {{ block.shopify_attributes }}>
+            <div class="mobile-product__style-header">
+              <h3 class="mobile-product__style-label">{{ block.settings.label | default: 'STYLE' }}</h3>
+              {%- if block.settings.show_size_guide -%}
+                <a href="{{ block.settings.size_guide_url }}" class="mobile-product__size-guide">
+                  <span class="material-icons-outlined" style="font-size: 1rem;">straighten</span>
+                  {{ block.settings.size_guide_text | default: 'Wrist Size Guide' }}
+                </a>
+              {%- endif -%}
+            </div>
+            
+            <product-form>
+              <form method="post" action="/cart/add" accept-charset="UTF-8">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                
+                <div class="mobile-product__style-grid">
+                  {%- for variant in product.variants -%}
+                    <button type="button" 
+                            class="mobile-product__style-option {% if forloop.first %}active{% endif %}"
+                            data-variant-id="{{ variant.id }}">
+                      {{ variant.title }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </form>
+            </product-form>
+          </section>
+
+        {%- when 'quantity_buy_buttons' -%}
+          <section class="mobile-product__section" {{ block.shopify_attributes }}>
+            <h3 class="mobile-product__style-label" style="margin-bottom: 0.5rem;">{{ block.settings.quantity_label | default: 'QUANTITY' }}</h3>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="mobile-product__quantity-wrapper">
+                <button type="button" class="mobile-product__quantity-btn" onclick="this.nextElementSibling.stepDown()">
+                  <span class="material-icons-outlined" style="font-size: 1.25rem;">remove</span>
+                </button>
+                <input type="number" name="quantity" value="1" min="1" 
+                       class="mobile-product__quantity-value" 
+                       style="border: none; width: 3rem; text-align: center;">
+                <button type="button" class="mobile-product__quantity-btn" onclick="this.previousElementSibling.stepUp()">
+                  <span class="material-icons-outlined" style="font-size: 1.25rem;">add</span>
+                </button>
+              </div>
+            </div>
+            
+            <button type="submit" class="mobile-product__btn mobile-product__btn--primary" style="margin-bottom: 0.75rem;">
+              {{ block.settings.add_to_cart_text | default: 'ADD TO CART' }}
+            </button>
+            
+            {%- if block.settings.show_paypal -%}
+              <button class="mobile-product__btn mobile-product__btn--paypal" style="margin-bottom: 0.75rem;">
+                Pay with <span style="font-style: italic;">PayPal</span>
+              </button>
+            {%- endif -%}
+            
+            {%- if block.settings.show_more_options -%}
+              <a href="#" class="mobile-product__btn mobile-product__btn--more">
+                {{ block.settings.more_options_text | default: 'More payment options' }}
+              </a>
+            {%- endif -%}
+          </section>
+
+        {%- when 'bundle_section' -%}
+          <section class="mobile-product__bundle" {{ block.shopify_attributes }}>
+            <h3 class="mobile-product__bundle-title">{{ block.settings.title | default: 'Frequently Bought Together' }}</h3>
+            
+            <div class="mobile-product__bundle-preview">
+              <img src="{{ product.featured_image | image_url: width: 160 }}" 
+                   alt="{{ product.title }}"
+                   class="mobile-product__bundle-image mobile-product__bundle-image--main">
+              <span class="material-icons-outlined" style="font-size: 1.5rem; color: #6B7280;">add</span>
+              <img src="https://via.placeholder.com/80" class="mobile-product__bundle-image">
+              <span class="material-icons-outlined" style="font-size: 1.5rem; color: #6B7280;">add</span>
+              <img src="https://via.placeholder.com/80" class="mobile-product__bundle-image">
+            </div>
+            
+            <div class="mobile-product__bundle-price">
+              <p style="font-size: 0.875rem;">
+                Total price with {{ block.settings.discount_percent }}% OFF: 
+                {%- assign bundle_price = product.price | times: 0.8 -%}
+                <span style="text-decoration: line-through; color: #6B7280;">{{ product.price | money }}</span>
+                <span style="font-weight: 700; color: #DC2626;">{{ bundle_price | money }}</span>
+              </p>
+            </div>
+            
+            <button class="mobile-product__btn mobile-product__bundle-btn">
+              {{ block.settings.button_text | default: 'BUY TOGETHER & GET 20% OFF' }}
+            </button>
+            
+            <div class="mobile-product__bundle-items">
+              <div class="mobile-product__bundle-item">
+                <input type="checkbox" checked class="mobile-product__bundle-checkbox">
+                <label style="margin-left: 0.5rem; font-size: 0.875rem;">
+                  {{ product.title | truncate: 50 }}
+                </label>
+              </div>
+            </div>
+          </section>
+
+        {%- when 'accordion' -%}
+          <details class="mobile-product__accordion" {{ block.shopify_attributes }}>
+            <summary class="mobile-product__accordion-summary">
+              <span>{{ block.settings.heading }}</span>
+              <span class="material-icons-outlined mobile-product__accordion-icon">expand_more</span>
+            </summary>
+            <div class="mobile-product__accordion-content">
+              {{ block.settings.content }}
+            </div>
+          </details>
+
+        {%- when 'description' -%}
+          <div class="mobile-product__prose" {{ block.shopify_attributes }}>
+            {{ product.description }}
+          </div>
+
+        {%- when 'app_block' -%}
+          <section class="mobile-product__section" {{ block.shopify_attributes }}>
+            {%- comment -%}Frequently Bought Together app will inject here{%- endcomment -%}
+            {% render block %}
+          </section>
+
+        {%- when 'image_banners' -%}
+          <section class="mobile-product__section" {{ block.shopify_attributes }} style="margin-top: 1rem;">
+            {%- if block.settings.banner_1_image != blank -%}
+              <div style="margin-bottom: 0.5rem;">
+                <img src="{{ block.settings.banner_1_image | image_url: width: 800 }}" 
+                     alt="{{ block.settings.banner_1_alt }}"
+                     style="width: 100%; border-radius: 0.5rem;">
+              </div>
+            {%- else -%}
+              <div style="background: linear-gradient(135deg, #10B981, #059669); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem; text-align: center; font-weight: 700;">
+                🎁 Buy 2 Get 1 Free
+              </div>
+            {%- endif -%}
+            
+            {%- if block.settings.banner_2_image != blank -%}
+              <div style="margin-bottom: 0.5rem;">
+                <img src="{{ block.settings.banner_2_image | image_url: width: 800 }}" 
+                     alt="{{ block.settings.banner_2_alt }}"
+                     style="width: 100%; border-radius: 0.5rem;">
+              </div>
+            {%- else -%}
+              <div style="background: linear-gradient(135deg, #c29958, #a67c52); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem; text-align: center; font-weight: 700;">
+                🐴 Spirit of the Horse - Year of Fortune
+              </div>
+            {%- endif -%}
+            
+            {%- if block.settings.banner_3_image != blank -%}
+              <div style="margin-bottom: 0.5rem;">
+                <img src="{{ block.settings.banner_3_image | image_url: width: 800 }}" 
+                     alt="{{ block.settings.banner_3_alt }}"
+                     style="width: 100%; border-radius: 0.5rem;">
+              </div>
+            {%- else -%}
+              <div style="background: linear-gradient(135deg, #DC2626, #B91C1C); color: white; padding: 1rem; border-radius: 0.5rem; text-align: center; font-weight: 700;">
+                🔥 40% OFF - Limited Time Only
+              </div>
+            {%- endif -%}
+          </section>
+
+      {%- endcase -%}
+    {%- endfor -%}
+    </div>{%- # End right column -%}
+  </main>
+</div>
+
+<script>
+  // Carousel Dots Navigation
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('carousel');
+    const dotsContainer = document.getElementById('carousel-dots');
+    
+    if (!carousel || !dotsContainer) return;
+    
+    const slides = carousel.children;
+    const slideCount = slides.length;
+    
+    if (slideCount > 1) {
+      // Create dots
+      for (let i = 0; i < slideCount; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'mobile-product__carousel-dot';
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => {
+          carousel.scrollTo({ left: carousel.offsetWidth * i, behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+      }
+      
+      const dots = dotsContainer.children;
+      
+      // Update active dot on scroll
+      const updateDots = () => {
+        const scrollLeft = carousel.scrollLeft;
+        const slideWidth = carousel.offsetWidth;
+        const currentIndex = Math.round(scrollLeft / slideWidth);
+        
+        for (let i = 0; i < slideCount; i++) {
+          dots[i].classList.toggle('active', i === currentIndex);
+        }
+      };
+      
+      carousel.addEventListener('scroll', updateDots);
+      updateDots();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Mobile Product",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "product_info",
+      "name": "Product Info",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show Rating",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_blessing",
+          "label": "Show Blessing Message",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "blessing_text",
+          "label": "Blessing Text",
+          "default": "Sacred Blessing and Cleansing"
+        },
+        {
+          "type": "url",
+          "id": "blessing_link",
+          "label": "Blessing Link"
+        }
+      ]
+    },
+    {
+      "type": "variant_selector",
+      "name": "Variant Selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "STYLE"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_size_guide",
+          "label": "Show Size Guide Link",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "size_guide_text",
+          "label": "Size Guide Text",
+          "default": "Wrist Size Guide"
+        },
+        {
+          "type": "url",
+          "id": "size_guide_url",
+          "label": "Size Guide URL"
+        }
+      ]
+    },
+    {
+      "type": "quantity_buy_buttons",
+      "name": "Quantity & Buy Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "quantity_label",
+          "label": "Quantity Label",
+          "default": "QUANTITY"
+        },
+        {
+          "type": "text",
+          "id": "add_to_cart_text",
+          "label": "Add to Cart Button Text",
+          "default": "ADD TO CART"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_paypal",
+          "label": "Show PayPal Button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_more_options",
+          "label": "Show More Payment Options",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "more_options_text",
+          "label": "More Options Text",
+          "default": "More payment options"
+        }
+      ]
+    },
+    {
+      "type": "bundle_section",
+      "name": "Bundle Section",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Frequently Bought Together"
+        },
+        {
+          "type": "range",
+          "id": "discount_percent",
+          "label": "Discount Percentage",
+          "min": 0,
+          "max": 50,
+          "step": 5,
+          "default": 20,
+          "unit": "%"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "BUY TOGETHER & GET 20% OFF"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "SHIPPING POLICY"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Details about the policy will go here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product Description",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "type": "app_block",
+      "name": "App Bundler",
+      "limit": 1
+    },
+    {
+      "type": "image_banners",
+      "name": "Promotional Banners",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Banner 1 (Buy 2 Get 1 Free)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_1_image",
+          "label": "Banner 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_1_alt",
+          "label": "Banner 1 Alt Text",
+          "default": "Buy 2 Get 1 Free"
+        },
+        {
+          "type": "header",
+          "content": "Banner 2 (Spirit of Horse)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_2_image",
+          "label": "Banner 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_2_alt",
+          "label": "Banner 2 Alt Text",
+          "default": "Spirit of the Horse"
+        },
+        {
+          "type": "header",
+          "content": "Banner 3 (40% OFF)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_3_image",
+          "label": "Banner 3 Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_3_alt",
+          "label": "Banner 3 Alt Text",
+          "default": "40% OFF"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

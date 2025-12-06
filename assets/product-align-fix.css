@@ -1,0 +1,48 @@
+/* Custom CSS to align product media with product info */
+.product__media-wrapper {
+  align-self: flex-start !important;
+  margin-top: 0 !important;
+}
+
+.product__info-wrapper {
+  align-self: flex-start !important;
+}
+
+.product {
+  align-items: flex-start !important;
+}
+
+/* Ensure both columns align at top */
+@media screen and (min-width: 750px) {
+  .product .product__media-wrapper,
+  .product .product__info-wrapper {
+    align-self: flex-start !important;
+  }
+}
+
+/* Fix slideshow image cropping */
+.product__media-container {
+  overflow: visible !important;
+}
+
+.product__media-container img {
+  width: 100%;
+  height: auto;
+  object-fit: contain !important;
+}
+
+/* Fix swiper slide overlap - ensure full slide width */
+.product__media-list.swiper-wrapper .swiper-slide {
+  width: 100% !important;
+  flex-shrink: 0 !important;
+}
+
+.product__media-gallery-viewer.swiper {
+  overflow: hidden !important;
+}
+
+.swiper-slide {
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+

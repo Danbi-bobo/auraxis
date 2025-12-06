@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-mobile",
+      "blocks": {
+        "product_info": {
+          "type": "product_info",
+          "settings": {
+            "show_rating": true,
+            "show_blessing": true,
+            "blessing_text": "Sacred Blessing and Cleansing",
+            "blessing_link": ""
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "label": "STYLE",
+            "show_size_guide": true,
+            "size_guide_text": "Wrist Size Guide",
+            "size_guide_url": ""
+          }
+        },
+        "quantity_buttons": {
+          "type": "quantity_buy_buttons",
+          "settings": {
+            "quantity_label": "QUANTITY",
+            "add_to_cart_text": "ADD TO CART",
+            "show_paypal": true,
+            "show_more_options": true,
+            "more_options_text": "More payment options"
+          }
+        },
+        "bundle": {
+          "type": "bundle_section",
+          "settings": {
+            "title": "Frequently Bought Together",
+            "discount_percent": 20,
+            "button_text": "BUY TOGETHER & GET 20% OFF"
+          }
+        },
+        "shipping_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "SHIPPING POLICY",
+            "content": "<p>Details about the shipping policy will go here. We ship worldwide within 5-7 business days.</p>"
+          }
+        },
+        "refund_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "REFUND POLICY",
+            "content": "<p>Details about the refund policy. We offer a 30-day money-back guarantee.</p>"
+          }
+        },
+        "about_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "ABOUT BUDDHA STONES",
+            "content": "<p>Learn more about our brand, mission, and the quality of our materials.</p>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "product_info",
+        "variant_selector",
+        "quantity_buttons",
+        "bundle",
+        "shipping_accordion",
+        "refund_accordion",
+        "about_accordion",
+        "description"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

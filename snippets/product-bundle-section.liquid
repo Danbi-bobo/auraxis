@@ -1,0 +1,63 @@
+{%- comment -%}
+  Product Bundle Section for AuraGems Template
+  Usage: {% render 'product-bundle-section', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  # Get complementary products (Shopify's built-in recommendations)
+  assign bundle_products_limit = 3
+-%}
+
+<div class="product-auragems__bundle">
+  <h3 class="product-auragems__bundle-title">
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
+      <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
+    </svg>
+    Frequently Bought Together
+  </h3>
+  
+  <div class="product-auragems__bundle-products" id="bundle-products-container">
+    {%- # Placeholder for bundle products -%}
+    {%- if product.metafields.custom.bundle_products != blank -%}
+      {%- assign bundle_handles = product.metafields.custom.bundle_products | split: ',' -%}
+      {%- for handle in bundle_handles limit: bundle_products_limit -%}
+        {%- assign bundle_product = all_products[handle] -%}
+        {%- if bundle_product != blank -%}
+          <div class="product-auragems__bundle-item">
+            {%- if bundle_product.featured_image -%}
+              <img src="{{ bundle_product.featured_image | image_url: width: 160 }}" 
+                   alt="{{ bundle_product.title | escape }}"
+                   loading="lazy">
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  
+  <div class="product-auragems__bundle-price">
+    <span>Total price with 20% off:</span>
+    <span style="font-weight: 700; font-size: 1.25rem;" id="bundle-total-price">
+      {{ product.price | times: 0.8 | money }}
+    </span>
+  </div>
+  
+  <button type="button" class="product-auragems__bundle-btn" id="add-bundle-btn">
+    BUY TOGETHER & GET 20% OFF
+  </button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const bundleBtn = document.getElementById('add-bundle-btn');
+    
+    if (bundleBtn) {
+      bundleBtn.addEventListener('click', function() {
+        // Add bundle products to cart logic
+        console.log('Add bundle to cart');
+        // This would need to be implemented with your cart API
+      });
+    }
+  });
+</script>

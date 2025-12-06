@@ -1,0 +1,163 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-mobile",
+      "blocks": {
+        "product_info": {
+          "type": "product_info",
+          "settings": {
+            "show_rating": true,
+            "show_blessing": true,
+            "blessing_text": "Sacred Blessing and Cleansing",
+            "blessing_link": ""
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "label": "STYLE",
+            "show_size_guide": true,
+            "size_guide_text": "Wrist Size Guide",
+            "size_guide_url": ""
+          }
+        },
+        "quantity_buttons": {
+          "type": "quantity_buy_buttons",
+          "settings": {
+            "quantity_label": "QUANTITY",
+            "add_to_cart_text": "ADD TO CART",
+            "show_paypal": true,
+            "show_more_options": true,
+            "more_options_text": "More payment options"
+          }
+        },
+        "app_frequently_bought": {
+          "type": "app_block",
+          "settings": {}
+        },
+        "promo_banners": {
+          "type": "image_banners",
+          "settings": {
+            "banner_1_alt": "Buy 2 Get 1 Free",
+            "banner_2_alt": "Spirit of the Horse",
+            "banner_3_alt": "40% OFF"
+          }
+        },
+        "shipping_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "SHIPPING POLICY",
+            "content": "<p>We ship worldwide within 5-7 business days. Free shipping on orders over $65.</p>"
+          }
+        },
+        "refund_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "REFUND POLICY",
+            "content": "<p>30-day money-back guarantee. Return your item for a full refund if you're not satisfied.</p>"
+          }
+        },
+        "about_accordion": {
+          "type": "accordion",
+          "settings": {
+            "heading": "ABOUT BUDDHA STONES",
+            "content": "<p>All our products are made by master craftsmen with selected high-quality materials. We hope these meaningful items will bring you good luck and positive change! ❤️</p>"
+          }
+        }
+      },
+      "block_order": [
+        "product_info",
+        "variant_selector",
+        "quantity_buttons",
+        "app_frequently_bought",
+        "promo_banners",
+        "shipping_accordion",
+        "refund_accordion",
+        "about_accordion"
+      ],
+      "settings": {}
+    },
+    "rich_text_zodiac": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "🐴 Year of the Horse",
+            "heading_size": "h2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>If you were born in:</h4><p>1954, 1966, 1978, 1990, 2002, 2014, or <strong>2026</strong></p><p>Your Chinese zodiac sign is <strong>Horse</strong>. In Chinese astrology, 2026 marks the Year of the Fire Horse, symbolizing strength, success, and freedom. People under the horse zodiac are energetic, confident, and love adventure. They are natural leaders who inspire others with their passion and optimism.</p><h4>✨ How to Maximize Your Luck in 2026:</h4><ul><li><strong>Wear red:</strong> Red bracelets or clothing can ward off negativity</li><li><strong>Use horse jewelry:</strong> Brings harmony and shields against bad luck</li><li><strong>Lucky colors:</strong> Red, gold, and green boost prosperity</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "content_alignment": "left",
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
+    },
+    "image_zodiac_intro": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "image_years_table": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style='text-align: center; padding: 2rem; background: #f3f4f6;'><p style='color: #6b7280;'>Upload Chinese Zodiac Years Table Image Here</p></div>"
+      }
+    },
+    "image_personality_table": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style='text-align: center; padding: 2rem; background: #f3f4f6;'><p style='color: #6b7280;'>Upload Personality Traits Table Image Here</p></div>"
+      }
+    },
+    "multicolumn_materials": {
+      "type": "multicolumn",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading_size": "h2",
+        "column_alignment": "left",
+        "columns_desktop": 2,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_zodiac",
+    "image_zodiac_intro",
+    "image_years_table",
+    "image_personality_table",
+    "multicolumn_materials"
+  ]
+}

@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-desktop",
+      "blocks": {
+        "breadcrumb": {
+          "type": "breadcrumb_title",
+          "settings": {}
+        },
+        "rating_price": {
+          "type": "rating_price",
+          "settings": {
+            "show_rating": true,
+            "review_count": 23,
+            "show_blessing": true,
+            "blessing_text": "Sacred Blessing and Cleansing from Buddha Stones"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "label": "STYLE"
+          }
+        },
+        "quantity_buttons": {
+          "type": "quantity_buy_buttons",
+          "settings": {
+            "quantity_label": "QUANTITY",
+            "add_to_cart_text": "ADD TO CART",
+            "show_paypal": true,
+            "show_more_options": true,
+            "more_options_text": "More payment options"
+          }
+        },
+        "promo_banners": {
+          "type": "promo_banners",
+          "settings": {
+            "banner_1_alt": "Buy 2 Get 1 Free",
+            "banner_2_alt": "Spirit of the Horse"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb",
+        "rating_price",
+        "variant_picker",
+        "quantity_buttons",
+        "promo_banners"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

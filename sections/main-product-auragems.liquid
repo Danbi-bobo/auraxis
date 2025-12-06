@@ -1,0 +1,140 @@
+{%- comment -%}
+  AuraGems Custom Product Section
+  Simplified product template with custom styling
+  UPDATED: Media and Title aligned to top
+{%- endcomment -%}
+
+{{ 'product-auragems-style.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+<div class="product-auragems section-{{ section.id }}-padding page-width">
+  <div class="product flex flex-wrap" style="align-items: flex-start;">
+    {%- # Product Media -%}
+    {%- if product.media.size > 0 -%}
+      <div class="product__media-wrapper w-full md:w-1/2" style="align-self: flex-start;">
+        {% render 'product-media-gallery',
+          enable_sticky_info: false,
+          media_layout: 'carousel',
+          mobile_thumbnails: 'show',
+          variant_images: variant_images,
+          enable_image_zoom: true
+        %}
+      </div>
+    {%- endif -%}
+
+    {%- # Product Info -%}
+    <div class="product__info-wrapper w-full md:w-1/2 pl-0 md:pl-8" style="align-self: flex-start; padding-top: 0;">
+      {%- # Title -%}
+      <h1 class="product-auragems__title" style="margin-top: 0;">{{ product.title }}</h1>
+
+      {%- # Rating (placeholder) -%}
+      <div class="product-auragems__rating" style="margin-bottom: 1rem;">
+        <span style="color: var(--auragems-gold);">★★★★★</span>
+        <span style="color: var(--auragems-text-light); margin-left: 0.5rem;">({{ product.metafields.reviews.rating_count | default: 0 }} reviews)</span>
+      </div>
+
+      {%- # Price -%}
+      <div class="product-auragems__price-wrapper">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-auragems__price--sale">{{ product.price | money }}</span>
+          <span class="product-auragems__price--regular">{{ product.compare_at_price | money }}</span>
+          {%- assign savings = product.compare_at_price | minus: product.price -%}
+          <span class="product-auragems__savings">Save {{ savings | money }}</span>
+        {%- else -%}
+          <span class="product-auragems__price--sale">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- # Blessing Badge -%}
+      <div class="product-auragems__blessing-badge">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        Sacred Blessing and Cleansing from {{ shop.name }}
+      </div>
+
+      {%- # Product Form -%}
+      <product-form class="product-form">
+        <form method="post" action="/cart/add" id="product-form-{{ section.id }}" accept-charset="UTF-8" class="form" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {%- # Zodiac Selector -%}
+          {% render 'product-zodiac-selector', product: product, current_variant: product.selected_or_first_available_variant %}
+
+          {%- # Quantity -%}
+          <div class="product-auragems__quantity">
+            <label class="product-auragems__zodiac-label">Quantity</label>
+            <div class="product-auragems__quantity-controls">
+              <div class="product-auragems__quantity-input">
+                <button type="button" class="product-auragems__quantity-btn" data-quantity-minus>−</button>
+                <input type="number" name="quantity" value="1" min="1" data-quantity-input>
+                <button type="button" class="product-auragems__quantity-btn" data-quantity-plus>+</button>
+              </div>
+            </div>
+          </div>
+
+          {%- # Add to Cart Buttons -%}
+          <div class="product-auragems__buttons">
+            <button type="submit" name="add" class="product-auragems__btn-primary">
+              Add to Cart
+            </button>
+            
+            <div class="shopify-payment-button">
+              {{ form | payment_button }}
+            </div>
+          </div>
+        </form>
+      </product-form>
+
+      {%- # Bundle Section -%}
+      {% render 'product-bundle-section', product: product %}
+    </div>
+  </div>
+
+  {%- # Accordion Details -%}
+  <div class="product-auragems__details-section" style="margin-top: 4rem;">
+    {% render 'product-accordion-details', product: product %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Quantity controls
+    const minusBtn = document.querySelector('[data-quantity-minus]');
+    const plusBtn = document.querySelector('[data-quantity-plus]');
+    const input = document.querySelector('[data-quantity-input]');
+    
+    if (minusBtn && plusBtn && input) {
+      minusBtn.addEventListener('click', () => {
+        const value = parseInt(input.value);
+        if (value > 1) input.value = value - 1;
+      });
+      
+      plusBtn.addEventListener('click', () => {
+        const value = parseInt(input.value);
+        input.value = value + 1;
+      });
+    }
+  });
+</script>
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "AuraGems Product",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "default": false,
+      "label": "Enable sticky product info"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,383 @@
+/* AuraGems Product Template Custom Styles */
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap");
+
+/* Color Variables */
+:root {
+    --auragems-cream: #f9f6f1;
+    --auragems-primary-blue: #4a6fa5;
+    --auragems-dark-blue: #2c3e50;
+    --auragems-gold: #d4af37;
+    --auragems-teal: #5a8b8f;
+    --auragems-light-green: #e8f5e9;
+    --auragems-text-dark: #2c2c2c;
+    --auragems-text-light: #6b7280;
+    --auragems-red: #c41e3a;
+    --auragems-shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Product Page Layout */
+.product-auragems {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--auragems-cream);
+    color: var(--auragems-text-dark);
+}
+
+.product-auragems h1,
+.product-auragems h2,
+.product-auragems h3,
+.product-auragems h4 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+}
+
+/* Product Title */
+.product-auragems__title {
+    font-size: 2rem;
+    color: var(--auragems-dark-blue);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+/* Price Section */
+.product-auragems__price-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.product-auragems__price--sale {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--auragems-red);
+}
+
+.product-auragems__price--regular {
+    font-size: 1.25rem;
+    color: var(--auragems-text-light);
+    text-decoration: line-through;
+}
+
+.product-auragems__savings {
+    background: rgba(196, 30, 58, 0.1);
+    color: var(--auragems-red);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Blessing Badge */
+.product-auragems__blessing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(
+        135deg,
+        var(--auragems-teal),
+        var(--auragems-primary-blue)
+    );
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+/* Zodiac Selector */
+.product-auragems__zodiac-selector {
+    margin-bottom: 1.5rem;
+}
+
+.product-auragems__zodiac-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.product-auragems__zodiac-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.75rem;
+}
+
+.product-auragems__zodiac-option {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 0.75rem 0.5rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+}
+
+.product-auragems__zodiac-option:hover {
+    border-color: var(--auragems-primary-blue);
+    transform: translateY(-2px);
+}
+
+.product-auragems__zodiac-option.active {
+    border-color: var(--auragems-primary-blue);
+    background: rgba(74, 111, 165, 0.05);
+    font-weight: 600;
+}
+
+/* Quantity Selector */
+.product-auragems__quantity {
+    margin-bottom: 1.5rem;
+}
+
+.product-auragems__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-auragems__quantity-input {
+    display: flex;
+    align-items: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-auragems__quantity-btn {
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s;
+}
+
+.product-auragems__quantity-btn:hover {
+    background: var(--auragems-cream);
+}
+
+.product-auragems__quantity-input input {
+    width: 60px;
+    height: 40px;
+    border: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Buttons */
+.product-auragems__btn-primary {
+    background: var(--auragems-primary-blue);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.product-auragems__btn-primary:hover {
+    background: var(--auragems-dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px var(--auragems-shadow);
+}
+
+.product-auragems__btn-secondary {
+    background: var(--auragems-gold);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.product-auragems__btn-secondary:hover {
+    background: #b8941f;
+}
+
+/* Bundle Section */
+.product-auragems__bundle {
+    background: var(--auragems-light-green);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+}
+
+.product-auragems__bundle-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.product-auragems__bundle-products {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.product-auragems__bundle-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.product-auragems__bundle-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-auragems__bundle-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.product-auragems__bundle-btn {
+    background: var(--auragems-dark-blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.product-auragems__bundle-btn:hover {
+    background: var(--auragems-primary-blue);
+}
+
+/* Accordion */
+.product-auragems__accordion {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.product-auragems__accordion-header {
+    background: white;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.product-auragems__accordion-header:hover {
+    background: var(--auragems-cream);
+}
+
+.product-auragems__accordion-icon {
+    transition: transform 0.3s;
+}
+
+.product-auragems__accordion.active .product-auragems__accordion-icon {
+    transform: rotate(180deg);
+}
+
+.product-auragems__accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: white;
+}
+
+.product-auragems__accordion.active .product-auragems__accordion-content {
+    max-height: 2000px;
+}
+
+.product-auragems__accordion-body {
+    padding: 1.5rem;
+    line-height: 1.8;
+}
+
+/* Educational Card */
+.product-auragems__educational {
+    background: linear-gradient(
+        135deg,
+        var(--auragems-teal),
+        var(--auragems-primary-blue)
+    );
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.product-auragems__educational h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white;
+}
+
+/* Stone Benefits */
+.product-auragems__benefits {
+    background: var(--auragems-light-green);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.product-auragems__benefits-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.product-auragems__benefit-tag {
+    background: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 24px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-auragems__title {
+        font-size: 1.5rem;
+    }
+
+    .product-auragems__zodiac-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .product-auragems__price--sale {
+        font-size: 1.5rem;
+    }
+}

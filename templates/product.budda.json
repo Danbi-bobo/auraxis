@@ -1,0 +1,1125 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {
+            "show_soldout_badge": true,
+            "show_sale_badge": true,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_type": "color_swatch",
+            "button_style": "circle",
+            "button_size": 40,
+            "size_title": "Size",
+            "size_chart_from_page": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "icon_with_text": {
+          "type": "icon-with-text",
+          "disabled": true,
+          "settings": {
+            "layout": "horizontal",
+            "title_font": "body",
+            "title_size": "text-base",
+            "icon_1": "package",
+            "heading_1": "Orders over $50 ship free",
+            "icon_2": "currency-circle-dollar",
+            "heading_2": "30 day returns",
+            "icon_3": "star-four",
+            "heading_3": ""
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Pairs well with",
+            "make_collapsible_row": false,
+            "icon": "tag",
+            "product_list_limit": 4,
+            "products_per_page": 1,
+            "image_ratio": "adapt",
+            "enable_quick_add": true
+          }
+        },
+        "collapsible-row-1": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Product Information",
+            "icon": "none",
+            "content": "",
+            "custom_liquid": "",
+            "page": "product-information",
+            "default_open": false
+          }
+        },
+        "collapsible-row-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "BENEFIT PRODUCT",
+            "icon": "certificate",
+            "content": "<p></p><p></p>",
+            "custom_liquid": "",
+            "page": "products-benefit",
+            "default_open": false
+          }
+        },
+        "collapsible-row-3": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Choosing the Best Color for Your Element",
+            "icon": "none",
+            "content": "",
+            "custom_liquid": "",
+            "page": "choosing-color",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_LUg6gN": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "QUALITY COMMITMENT",
+            "icon": "certificate",
+            "content": "",
+            "custom_liquid": "",
+            "page": "quality-commitment",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_necTVe": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "HOW TO MAXIMIZE YOUR GEMSTONE'S EFFECT",
+            "icon": "check-circle",
+            "content": "",
+            "custom_liquid": "",
+            "page": "how-to-maximize-your-gemstones-effect",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_NXKNRG": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "SHIPPING & DELIVERY POLICY",
+            "icon": "check-circle",
+            "content": "",
+            "custom_liquid": "",
+            "page": "shipping-delivery-policy",
+            "default_open": false
+          }
+        },
+        "addons": {
+          "type": "addons",
+          "disabled": true,
+          "settings": {
+            "show_share": true,
+            "show_ask_question": true
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "badges",
+        "inventory",
+        "variant_picker",
+        "buy_buttons",
+        "description",
+        "icon_with_text",
+        "pickup_availability",
+        "complementary",
+        "collapsible-row-1",
+        "collapsible-row-2",
+        "collapsible-row-3",
+        "collapsible_tab_LUg6gN",
+        "collapsible_tab_necTVe",
+        "collapsible_tab_NXKNRG",
+        "addons"
+      ],
+      "custom_css": [
+        ".loox-rating {margin-top: -1rem;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "enable_sticky_info": true,
+        "media_size": "small",
+        "gallery_layout": "carousel",
+        "mobile_thumbnails": "show",
+        "enable_image_zoom": true,
+        "enable_video_looping": true,
+        "padding_top": 0,
+        "padding_bottom": 100
+      }
+    },
+    "scrolling_promotion_dmTGWm": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "image_FfEe6G": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/avt_cover_phil-01.jpg",
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_4tjC4E": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/avt_cover_phil-01.jpg",
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_iY4fGM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/avt_cover_phil-01.jpg",
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_dQqjbH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/avt_cover_phil-01.jpg",
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_ww9Dyt": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_WcxU34": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_V8fTnj": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_VmqChx": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_q9Bhrc": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        },
+        "image_jhcRQF": {
+          "type": "image",
+          "settings": {
+            "image_height": 24,
+            "image_rounded": false,
+            "image_link": "",
+            "image_height_mobile": 20
+          }
+        }
+      },
+      "block_order": [
+        "image_FfEe6G",
+        "image_4tjC4E",
+        "image_iY4fGM",
+        "image_dQqjbH",
+        "image_ww9Dyt",
+        "image_WcxU34",
+        "image_V8fTnj",
+        "image_VmqChx",
+        "image_q9Bhrc",
+        "image_jhcRQF"
+      ],
+      "disabled": true,
+      "name": "t:sections.scrolling-promotion.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "vertical_alignment": "center",
+        "direction": "left",
+        "pause_on_hover": true,
+        "speed": 0.6,
+        "h_spacing": 50,
+        "v_spacing": 10,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_divider": false,
+        "divider_layout": "vertical"
+      }
+    },
+    "1762858973a13ebe0c": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8ffcaba_qnxXxg": {
+          "type": "ai_gen_block_8ffcaba",
+          "settings": {
+            "heading": "Shared, styled, and loved by 700K+ happy customers",
+            "description": "See what others are saying......",
+            "text_alignment": "center",
+            "video_type_1": "html5",
+            "video_url_1": "https://cdn.shopify.com/videos/c/o/v/4cd4e35307ee482ab5decd21af016836.mp4",
+            "customer_name_1": "Sarah Johnson",
+            "customer_title_1": "Verified Customer ✅",
+            "video_type_2": "html5",
+            "video_url_2": "https://cdn.shopify.com/videos/c/o/v/25dc2dba4d274c94b029857eee2c3083.mp4",
+            "customer_name_2": "Michael Chen",
+            "customer_title_2": "Verified Customer ✅",
+            "video_type_3": "html5",
+            "video_url_3": "https://cdn.shopify.com/videos/c/o/v/c4b960d8cf4d4b1bab8fb9e692459998.mp4",
+            "customer_name_3": "Emily Rodriguez",
+            "customer_title_3": "Verified Customer ✅",
+            "video_type_4": "youtube",
+            "video_url_4": "",
+            "customer_name_4": "",
+            "customer_title_4": "",
+            "video_type_5": "youtube",
+            "video_url_5": "",
+            "customer_name_5": "",
+            "customer_title_5": "",
+            "columns_desktop": 3,
+            "columns_tablet": 2,
+            "grid_gap": 20,
+            "container_width": 1400,
+            "video_aspect_ratio": "177.78%",
+            "background_color": "#ffffff",
+            "heading_color": "#000000",
+            "description_color": "#000000",
+            "video_card_bg": "#f6f6f6",
+            "customer_name_color": "#000000",
+            "customer_title_color": "#666666",
+            "play_button_size": 70,
+            "play_button_bg": "#ffffff",
+            "play_button_hover_bg": "#000000",
+            "play_button_icon_color": "#000000",
+            "heading_size": 36,
+            "description_size": 16,
+            "customer_name_size": 16,
+            "customer_title_size": 14,
+            "section_padding_top": 50,
+            "section_padding_bottom": 50,
+            "header_spacing": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8ffcaba_qnxXxg"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {}
+    },
+    "feature_list_cW3d9c": {
+      "type": "feature-list",
+      "blocks": {
+        "feature_item_VbCwL3": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Free Shipping"
+          }
+        },
+        "feature_item_NzxQGa": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Money Guarantee"
+          }
+        },
+        "feature_item_yyNV9A": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Flexible Payment"
+          }
+        },
+        "feature_item_gBgLft": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Online Support"
+          }
+        },
+        "feature_item_R8A8eX": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Return within 7 days"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_VbCwL3",
+        "feature_item_NzxQGa",
+        "feature_item_yyNV9A",
+        "feature_item_gBgLft",
+        "feature_item_R8A8eX"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-7",
+        "subheading": "",
+        "heading": "",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "description": "",
+        "text_size": "text-base",
+        "item_alignment": "center",
+        "icon_size": "extra-medium",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "rich_text_7rBwdd": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_cUbnWW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Pourquoi <strong>FRESIO</strong> ?",
+            "heading_size": "h1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_cUbnWW"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".rich-text__heading {max-width: 65rem; margin: 0 auto;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "rich_text_fJ3fDz": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_wVnrXt": {
+          "type": "heading",
+          "settings": {
+            "heading": "Élevez votre confort intime, faites des économies et contribuez à une planète plus verte. FRESIO est le produit qu'il vous faut et changera votre vie à jamais...",
+            "heading_size": "h5",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wVnrXt"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 10,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "image_with_text_MgddA8": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_XLgqVJ": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Safety Ingredients"
+          }
+        },
+        "heading_J7mctK": {
+          "type": "heading",
+          "settings": {
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_A3Dahr": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A fruit enzyme, such as bromelain from pineapple or papain from papaya, helps exfoliate and soften skin by breaking down and dissolving dead skin cells. This gentle exfoliation process reveals a smoother, brighter complexion and promotes cell turnover. Suitable for all skin types, it offers a natural and less abrasive alternative to traditional chemical exfoliants.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_XLgqVJ",
+        "heading_J7mctK",
+        "text_A3Dahr"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".image-with-text__content {max-width: 57rem; margin: 0 auto;}"
+      ],
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "testimonials_8JHr3L": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_dhi3Xf": {
+          "type": "testimonial",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/4.png",
+            "text": "<p>NONE</p>",
+            "author": "Abattant FRESIO",
+            "bio": "",
+            "product": "toilette-intelligente-eva-bt-4922",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_D7Mq7i": {
+          "type": "testimonial",
+          "settings": {
+            "show_image": true,
+            "text": "<p>NONE</p>",
+            "author": "Bidet FRESIO",
+            "bio": "",
+            "product": "bidet-fresio",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_abi6JN": {
+          "type": "testimonial",
+          "disabled": true,
+          "settings": {
+            "show_image": true,
+            "text": "<p>This eye cream is a game-changer. Reduced puffiness and dark circles significantly. Gentle on sensitive skin.</p>",
+            "author": "Victoria H.",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_dhi3Xf",
+        "testimonial_D7Mq7i",
+        "testimonial_abi6JN"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".testimonial--layout-1.testimonial--has-bg .testimonial__inner {background-color: #339dff; color: #ffffff;}",
+        ".h5 {color: #ffffff;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "heading": "💬 Loved by <strong>10,000+</strong> customers | Attract positivity and balance every day.",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "card_color_scheme": "",
+        "card_layout": "1",
+        "columns_desktop": 4,
+        "column_gap": "medium",
+        "enable_slider": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "multicolumn_Mxt4d3": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_ppme79": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>-80%</strong>",
+            "heading_size": "h4",
+            "text": "<p>de PQ utilisé <strong>par jour</strong></p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_6eYcFq": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>+200%</strong>",
+            "heading_size": "h4",
+            "text": "<p>de<strong> bien-être</strong> aux WC</p><p></p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_6mMR7m": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>+90€</strong>",
+            "heading_size": "h4",
+            "text": "<p><strong>économisé </strong>en PQ par personne</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Lix6qc": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>10mins</strong>",
+            "heading_size": "h4",
+            "text": "<p>d'installation <strong>sans travaux</strong></p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Eqcqr8": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>0</strong>",
+            "heading_size": "h4",
+            "text": "<p>Sans <strong>électricité</strong> ni batteries</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_ae67Lz": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "<strong>10x</strong>",
+            "heading_size": "h4",
+            "text": "<p><strong>moins cher</strong> que les WC Japonais</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_ppme79",
+        "column_6eYcFq",
+        "column_6mMR7m",
+        "column_Lix6qc",
+        "column_Eqcqr8",
+        "column_ae67Lz"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 6,
+        "column_gap": "large",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "collapsible_tabs_phAkEE": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "collapsible_item_eFemDY": {
+          "type": "collapsible_item",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "heading": "Quelles sont les différences avec le bidet FRESIO ?",
+            "content": "<p>Chez FRESIO, on a deux stars du confort fessier, et chacune a ses atouts !</p><p><strong>Le Bidet FRESIO</strong> – compact, malin, économique. Il s’installe en un clin d’œil sous votre abattant actuel, sans électricité, sans prise de tête. Idéal pour les petits budgets et les locataires, il offre une solution simple et efficace pour passer à l’hygiène à l’eau.</p><p><strong>L’Abattant FRESIO</strong> – notre version luxe. Il remplace directement votre lunette de WC par un modèle design, avec lavage avant et arrière, fermeture silencieuse et un max de confort. Toujours sans électricité, mais avec un niveau de raffinement supérieur.</p><p>Les deux s’installent facilement, sont compatibles avec presque tous les WC… et vous laissent 14<strong> </strong>jours pour essayer sans pression.<br/></p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": true
+          }
+        },
+        "collapsible_item_RQ3WzW": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Product Information",
+            "content": "",
+            "custom_liquid": "",
+            "page": "product-information-fox",
+            "open": false
+          }
+        },
+        "collapsible_item_aKpRFm": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Comment savoir si mes WC sont compatibles ? WC suspendus ?",
+            "content": "<p>Même les WC encastrés ou suspendus peuvent se prendre au jeu avec FRESIO ! </p><p>Si vous disposez d'un lavabo proche de vos toilettes, le raccord sera facile.</p><p>Vous n'avez pas de lavabo proche ? Vous pouvez faire un petit trou discret dans le bâti-support pour faire passer le tuyau de BOKU. Un peu de bricolage et hop, le tour est joué !</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_3c4PkF": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Est-ce que l'abattant FRESIO fonctionne avec de l'électricité ?",
+            "content": "<p>Pas du tout ! L'abattant FRESIO n'utilise pas d'électricité, ce qui le rend encore plus écologique et accessible à tous.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_9ztAUf": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Comment se sécher ?",
+            "content": "<p>FRESIO vous permet de réduire en moyenne 80% de votre consommation de PQ (voire l'éliminer totalement ça dépend de vous et de vos perfects)!</p><p>Et les 20% restant servent à vous sécher et à vous assurer qu’il ne reste plus aucune trace du crime </p><p>Vous pouvez également utiliser une petite serviette pour vous sécher la prunelle après coup et le tour est joué!</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_fq8Kam": {
+          "type": "collapsible_item",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "heading": "À quelle température est l’eau ?",
+            "content": "<p>L’eau est à température ambiante ! Par ailleurs, les jets étant précis et localisés, il n’y a pas d’effet “douche froide”.</p><p>Pour les plus frileux, l’eau de l’Astra est chauffée pour un confort optimal ! </p><p>Grâce à son système de jets d’eau chaude oscillants, vous pouvez régler la température selon vos préférences et dire adieu aux sensations de froid. </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_ft9CzM": {
+          "type": "collapsible_item",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "heading": "Retour et remboursement",
+            "content": "<p>Chez FRESIO, c’est 100% satifesse ou remboursé pendant 14 jours!</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_6MXEjE": {
+          "type": "collapsible_item",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "heading": "Que faites-vous des produits retournés?",
+            "content": "<p>Les produits que nos clients retournent pendant les 14 jours d'essai sont nettoyés et reconditionnés, puis <strong>offerts à des associations partenaires.</strong></p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_item_eFemDY",
+        "collapsible_item_RQ3WzW",
+        "collapsible_item_aKpRFm",
+        "collapsible_item_3c4PkF",
+        "collapsible_item_9ztAUf",
+        "collapsible_item_fq8Kam",
+        "collapsible_item_ft9CzM",
+        "collapsible_item_6MXEjE"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_icon_size": "extra-large",
+        "padding_top": 96,
+        "padding_bottom": 100,
+        "show_section_divider": true,
+        "divider_width": "fixed"
+      }
+    },
+    "scrolling_promotion_WAekUk": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "text_P4JyaD": {
+          "type": "text",
+          "settings": {
+            "text": "For all skin types",
+            "text_link": "",
+            "text_size": "h1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "html_XAthVt": {
+          "type": "html",
+          "settings": {
+            "html": "<div class=\"flex items-center\"><div style=\"display: block;width: 6.4rem;height: 1px; background: #000\"> </div></div>"
+          }
+        },
+        "text_QpjN3F": {
+          "type": "text",
+          "settings": {
+            "text": "Glow with confidence",
+            "text_link": "",
+            "text_size": "h1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "html_ADnizU": {
+          "type": "html",
+          "settings": {
+            "html": "<div class=\"flex items-center\"><div style=\"display: block;width: 6.4rem;height: 1px; background: #000\"> </div></div>"
+          }
+        },
+        "text_WiAYMn": {
+          "type": "text",
+          "settings": {
+            "text": "Beauty in simplicity.",
+            "text_link": "",
+            "text_size": "h1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "html_4bNp7y": {
+          "type": "html",
+          "settings": {
+            "html": "<div class=\"flex items-center\"><div style=\"display: block;width: 6.4rem;height: 1px; background: #000\"> </div></div>"
+          }
+        }
+      },
+      "block_order": [
+        "text_P4JyaD",
+        "html_XAthVt",
+        "text_QpjN3F",
+        "html_ADnizU",
+        "text_WiAYMn",
+        "html_4bNp7y"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-6",
+        "vertical_alignment": "center",
+        "direction": "left",
+        "pause_on_hover": true,
+        "speed": 0.5,
+        "h_spacing": 30,
+        "v_spacing": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_divider": false,
+        "divider_layout": "vertical"
+      }
+    },
+    "176309269581655ec6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ccaf856_Je777w": {
+          "type": "ai_gen_block_ccaf856",
+          "settings": {
+            "heading": "Shared, styled, and loved by 10K+ happy customers",
+            "description": "See what our customers have to say:",
+            "video_url_1": "https://cdn.shopify.com/videos/c/o/v/c4b960d8cf4d4b1bab8fb9e692459998.mp4",
+            "customer_name_1": "Daisy Marano",
+            "show_verified_1": true,
+            "video_url_2": "https://cdn.shopify.com/videos/c/o/v/20437f9bebce4aaf8374b94c6cab14f1.mp4",
+            "customer_name_2": "Ronaldo Caasi",
+            "show_verified_2": true,
+            "video_url_3": "https://cdn.shopify.com/videos/c/o/v/4cd4e35307ee482ab5decd21af016836.mp4",
+            "customer_name_3": "Merly Francia",
+            "show_verified_3": true,
+            "video_url_4": "https://cdn.shopify.com/videos/c/o/v/0dc7d0f74c5b404d8eeb656bc5bcb42e.mp4",
+            "customer_name_4": "Edgar David",
+            "show_verified_4": true,
+            "video_url_5": "https://cdn.shopify.com/videos/c/o/v/25dc2dba4d274c94b029857eee2c3083.mp4",
+            "customer_name_5": "Jennifer Ocon",
+            "show_verified_5": true,
+            "verified_text": "Verified",
+            "customer_name_size": 14,
+            "customer_info_padding": 12,
+            "customer_info_bg": "#ffffff",
+            "customer_name_color": "#000000",
+            "verified_badge_bg": "#4caf50",
+            "verified_badge_color": "#ffffff",
+            "aspect_ratio": "9/16",
+            "columns_desktop": 3,
+            "grid_gap": 20,
+            "mobile_gap": 15,
+            "container_width": 1400,
+            "heading_size": 36,
+            "description_size": 16,
+            "background_color": "#ffffff",
+            "heading_color": "#000000",
+            "description_color": "#000000",
+            "play_button_color": "#ffffff",
+            "play_button_icon_color": "#000000",
+            "section_padding_top": 50,
+            "section_padding_bottom": 50,
+            "header_spacing": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ccaf856_Je777w"
+      ],
+      "name": "Video Feedback",
+      "settings": {}
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "limit": 6,
+        "columns": 4,
+        "column_gap": "extra-small",
+        "row_gap": "inherit",
+        "enable_slider": true,
+        "controls_position": "inside",
+        "pcard_image_ratio": "",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "contact_form_WDRWKJ": {
+      "type": "contact-form",
+      "blocks": {
+        "custom_field_zWXEFt": {
+          "type": "custom_field",
+          "settings": {
+            "field_type": "phone",
+            "heading": "Phone",
+            "placeholder": "Your placeholder",
+            "required": false,
+            "full_width": true,
+            "select_options": "Option 1, Option 2, Option 3",
+            "checkbox_checked_value": "Yes",
+            "checkbox_uncheck_value": "No",
+            "radio_options": "Option 1, Option 2, Option 3"
+          }
+        }
+      },
+      "block_order": [
+        "custom_field_zWXEFt"
+      ],
+      "name": "t:sections.contact-form.presets.name",
+      "settings": {
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
+        "heading": "Have a question? Email us anytime!",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "scrolling_promotion_dmTGWm",
+    "1762858973a13ebe0c",
+    "feature_list_cW3d9c",
+    "rich_text_7rBwdd",
+    "rich_text_fJ3fDz",
+    "image_with_text_MgddA8",
+    "testimonials_8JHr3L",
+    "multicolumn_Mxt4d3",
+    "collapsible_tabs_phAkEE",
+    "scrolling_promotion_WAekUk",
+    "176309269581655ec6",
+    "related-products",
+    "contact_form_WDRWKJ"
+  ]
+}
