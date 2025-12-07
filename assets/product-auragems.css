@@ -1,479 +1,331 @@
-/**
- * AuraGems Product Template - Custom CSS
- * Spiritual Jewelry E-commerce Design
- * Colors: Cream (#F9F6F1), Blue (#3B5998), Dark Blue (#43597D)
- */
-
-/* === PRODUCT PAGE LAYOUT === */
-.product-template {
-  background-color: #FDFDFD;
-  font-family: 'Poppins', sans-serif;
-}
-
-.product-template .page-width {
-  max-width: 1200px;
+/* Container chung */
+.auragems-product-container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
-/* === PRODUCT HEADER === */
-.product__title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #1F2937;
-  margin-bottom: 0.5rem;
+/* GRID LAYOUT - Sẽ được Liquid ghi đè tỷ lệ % theo setting */
+.auragems-product-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  /* Mặc định */
+  gap: 50px;
+  align-items: start;
+}
+
+/* --- CỘT 1: THƯ VIỆN ẢNH (GRID) --- */
+.auragems-media-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.auragems-media-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+  transition: opacity 0.3s;
+}
+
+.auragems-media-item img:hover {
+  opacity: 0.95;
+}
+
+/* --- CỘT 2: THÔNG TIN SẢN PHẨM --- */
+.auragems-product-info.sticky-content {
+  position: sticky;
+  top: 30px;
+  padding-right: 10px;
+}
+
+/* Block styles */
+.auragems-title {
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin-bottom: 10px;
   line-height: 1.2;
 }
 
-.product__price {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 1rem 0;
+.auragems-price {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.product__price .price--sale {
-  color: #3B5998;
-  font-size: 1.75rem;
-  font-weight: 700;
+.auragems-compare-price {
+  font-size: 1.4rem;
+  color: #888;
+  margin-left: 10px;
 }
 
-.product__price .price--compare {
-  color: #999;
-  text-decoration: line-through;
-  font-size: 1.25rem;
-}
-
-.product__price .price__badge-sale {
-  background: #E8F0FF;
-  color: #3B5998;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-/* === PRODUCT RATING === */
-.product-rating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-
-.product-rating .stars {
-  color: #FFD700;
-  font-size: 1.125rem;
-  letter-spacing: 2px;
-}
-
-.product-rating .review-count {
-  color: #666;
-  font-size: 0.875rem;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.product-rating .review-count:hover {
-  color: #3B5998;
-}
-
-/* === SACRED BLESSING TEXT === */
-.sacred-blessing {
-  font-size: 0.875rem;
-  color: #666;
-  font-style: italic;
-  margin: 1rem 0;
-  padding: 0.75rem 1rem;
-  background: #F9F6F1;
-  border-left: 3px solid #3B5998;
-  border-radius: 4px;
-}
-
-/* === VARIANT SELECTOR === */
+/* Các biến thể */
 .product-form__input {
-  margin: 1.5rem 0;
+  margin-bottom: 20px;
 }
 
 .product-form__input label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #1F2937;
-  font-size: 1.5rem;
-}
-
-.product-form__input fieldset {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.product-form__input input[type="radio"] {
-  display: none;
-}
-
-.product-form__input label.variant-option {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid #E5E7EB;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.875rem;
-  background: white;
-}
-
-.product-form__input label.variant-option:hover {
-  border-color: #3B5998;
-  background: #F9F6F1;
-}
-
-.product-form__input input[type="radio"]:checked + label.variant-option {
-  border-color: #3B5998;
-  background: #E8F0FF;
-  color: #3B5998;
-  font-weight: 600;
-}
-
-/* === QUANTITY SELECTOR === */
-.product-form__quantity {
-  margin: 1.5rem 0;
-}
-
-.product-form__quantity label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #1F2937;
-  font-size: 0.9rem;
-}
-
-.quantity-selector {
-  display: inline-flex;
-  align-items: center;
-  border: 2px solid #E5E7EB;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.quantity-selector button {
-  background: white;
-  border: none;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  font-size: 1.125rem;
-  color: #666;
-  transition: background 0.2s;
-}
-
-.quantity-selector button:hover {
-  background: #F9F6F1;
-  color: #3B5998;
-}
-
-.quantity-selector input {
-  border: none;
-  text-align: center;
-  width: 60px;
-  padding: 0.75rem 0.5rem;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* === BUY BUTTONS === */
-.product-form__submit {
-  background: #3B5998;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
-  transition: all 0.3s ease;
+  font-size: 1.3rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 6px rgba(59, 89, 152, 0.2);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  display: block;
 }
 
-.product-form__submit:hover {
-  background: #43597D;
-  box-shadow: 0 6px 12px rgba(59, 89, 152, 0.3);
-  transform: translateY(-2px);
-}
-
-.product-form__submit:active {
-  transform: translateY(0);
-}
-
-/* === FREQUENTLY BOUGHT TOGETHER === */
-.frequently-bought {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: #F9F6F1;
-  border-radius: 8px;
-}
-
-.frequently-bought h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #1F2937;
-}
-
-.bundle-products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.bundle-product-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.bundle-product-card:hover {
-  border-color: #3B5998;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.bundle-product-card.selected {
-  border-color: #3B5998;
-  background: #E8F0FF;
-}
-
-.bundle-product-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 0.75rem;
-}
-
-.bundle-product-card .product-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: #1F2937;
-}
-
-.bundle-product-card .product-price {
-  font-size: 0.75rem;
-  color: #666;
-}
-
-/* === BUNDLE SAVINGS === */
-.bundle-savings {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px dashed #3B5998;
-}
-
-.bundle-savings .discount-label {
-  font-size: 0.875rem;
-  color: #666;
-  margin-bottom: 0.25rem;
-}
-
-.bundle-savings .discount-price {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #3B5998;
-  margin-bottom: 1rem;
-}
-
-.bundle-savings .original-price {
-  text-decoration: line-through;
-  color: #999;
-  margin-left: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.bundle-savings .bundle-cta {
-  background: #000;
+/* Nút mua hàng */
+.auragems-btn-add {
+  margin-top: 10px;
+  background-color: #000;
   color: #fff;
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: 700;
+  padding: 16px;
+  border-radius: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   width: 100%;
+  border: 1px solid #000;
+  transition: all 0.3s;
+}
+
+.auragems-btn-add:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Mô tả */
+.auragems-description {
+  margin-top: 25px;
+  line-height: 1.7;
+  color: #555;
+  font-size: 1.5rem;
+}
+
+/* Block: Text Custom */
+.auragems-block-text {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.auragems-block-text.uppercase {
   text-transform: uppercase;
-  font-size: 0.875rem;
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
+  font-size: 0.9em;
+  letter-spacing: 1px;
 }
 
-.bundle-savings .bundle-cta:hover {
-  background: #333;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.auragems-block-text.subtitle {
+  color: #888;
+  font-size: 1.1em;
 }
 
-/* === COLLAPSIBLE TABS === */
-.product-accordion {
-  margin: 2rem 0;
-  border-top: 1px solid #E5E7EB;
+/* Block: Divider */
+.auragems-divider {
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
 }
 
-.accordion-item {
-  border-bottom: 1px solid #E5E7EB;
+/* Block: Accordion (Collapsible Tab) */
+.auragems-accordion {
+  margin-top: 15px;
+  border-top: 1px solid #e5e5e5;
 }
 
-.accordion-header {
+.auragems-accordion:last-child {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.auragems-accordion summary {
+  padding: 15px 0;
+  cursor: pointer;
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 0;
-  cursor: pointer;
-  font-weight: 600;
-  color: #1F2937;
-  transition: color 0.2s;
+  font-weight: 500;
 }
 
-.accordion-header:hover {
-  color: #3B5998;
+.auragems-accordion summary::-webkit-details-marker {
+  display: none;
 }
 
-.accordion-header .icon {
-  transition: transform 0.3s ease;
-}
-
-.accordion-item.active .accordion-header .icon {
-  transform: rotate(180deg);
-}
-
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding: 0 0.5rem;
-}
-
-.accordion-item.active .accordion-content {
-  max-height: 500px;
-  padding: 0 0.5rem 1.5rem;
-}
-
-.accordion-content p {
+.auragems-accordion .accordion-content {
+  padding-bottom: 15px;
   color: #666;
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
+  font-size: 0.95em;
 }
 
-/* === TRUST BADGES === */
-.trust-badges {
-  background: #F9F6F1;
-  border-top: 1px solid #E5E7EB;
-  border-bottom: 1px solid #E5E7EB;
-}
+/* RESPONSIVE MOBILE */
+@media screen and (max-width: 768px) {
+  .auragems-product-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 
-.trust-badge-item {
-  text-align: center;
-  padding: 1rem;
-}
+  /* Slide ngang trên mobile */
+  .auragems-media-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    padding: 0 2rem 10px 2rem;
+    -webkit-overflow-scrolling: touch;
+  }
 
-.trust-badge-item h6 {
-  font-size: 0.875rem;
-  color: #1F2937;
-  font-weight: 600;
-  margin: 0;
-}
+  .auragems-media-item {
+    min-width: 85vw;
+    scroll-snap-align: center;
+  }
 
-/* === PRODUCT GALLERY === */
-.product__media-wrapper {
-  position: sticky;
-  top: 100px;
-}
+  .auragems-product-info.sticky-content {
+    position: static;
+  }
 
-.product__media-list {
-  display: flex;
-  gap: 1rem;
-}
+  /* --- CSS BỔ SUNG CHO CÁC BLOCK MỚI --- */
 
-.product__media-item {
-  border-radius: 8px;
-  overflow: hidden;
-  background: #F9F6F1;
-}
+  /* 1. Tên thương hiệu */
+  .auragems-vendor {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    color: #666;
+    margin-bottom: 5px;
+  }
 
-.product__media-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+  /* 2. Bộ chọn số lượng (Quantity) */
+  .product-form__quantity {
+    margin-bottom: 20px;
+  }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .product__title {
+  .quantity-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: fit-content;
+    border-radius: 4px;
+  }
+
+  .quantity__button {
+    width: 40px;
+    height: 45px;
+    background: none;
+    border: none;
+    cursor: pointer;
     font-size: 1.5rem;
+    color: #333;
   }
 
-  .product__price .price--sale {
-    font-size: 1.5rem;
+  .quantity__button:hover {
+    background-color: #f5f5f5;
   }
 
-  .bundle-products {
-    grid-template-columns: repeat(2, 1fr);
+  .quantity__input {
+    width: 50px;
+    height: 45px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    font-weight: 500;
+    appearance: none;
+    /* Xóa mũi tên mặc định của input number */
+    -moz-appearance: textfield;
   }
 
-  .trust-badge-item h6 {
-    font-size: 0.75rem;
+  .quantity__input::-webkit-outer-spin-button,
+  .quantity__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
-  .product__media-wrapper {
+  /* 3. Nút chia sẻ (Share) */
+  .auragems-share {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 1.4rem;
+  }
+
+  .auragems-share a {
+    text-decoration: none;
+    color: #555;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .auragems-share a:hover {
+    border-color: #000;
+    color: #000;
+  }
+
+  /* 4. Popup (Modal) */
+  .auragems-popup-link {
+    margin: 10px 0;
+  }
+
+  .popup-trigger-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #444;
+    font-size: 1.4rem;
+  }
+
+  .auragems-modal {
+    display: none;
+    /* Mặc định ẩn */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
     top: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-form__submit {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
-  .bundle-savings .bundle-cta {
-    font-size: 0.75rem;
+  .auragems-modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    border-radius: 8px;
+  }
+
+  .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close-modal:hover {
+    color: black;
+  }
+
+  /* Select Dropdown custom icon */
+  .select {
+    position: relative;
+  }
+
+  .select .icon-caret {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    pointer-events: none;
   }
 }
-
-/* === ANIMATIONS === */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.product-info {
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* === UTILITIES === */
-.text-muted {
-  color: #666;
-}
-
-.text-primary {
-  color: #3B5998;
-}
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
