@@ -106,7 +106,7 @@
   <body
     class="{{ request.page_type }}-template {{ template.suffix }} blocks-corner--{{ settings.blocks_corner_radius }}{% if request.design_mode %} shopify-design-mode{% endif %}"
     data-initializing
-  >     {% sections 'foxify-header-group' %} 
+  >       {% sections 'foxify-header-group' %} 
     {% comment %} Custom metafield for body tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_body.value }}
     {% comment %} End custom metafield for body tab like GTag tracking {% endcomment %}
@@ -149,5 +149,5 @@
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
-  {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}     </body>
+  {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}       </body>
 </html>
