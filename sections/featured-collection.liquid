@@ -190,6 +190,40 @@
     color: rgb(var(--color-background));
     border-color: rgb(var(--color-foreground));
   }
+  /* FORCE ALL PRODUCT CARDS TO EQUAL HEIGHT */
+
+  .section-{{ section.id }} .auragems-product-item {
+    display: flex;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Make content stretch equally */
+  .section-{{ section.id }} .card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Prevent title from changing card height */
+  .section-{{ section.id }} .card__heading {
+    min-height: 3.2em; /* ~2 lines */
+  }
+
+  /* Keep bottom area stable */
+  .section-{{ section.id }} .price {
+    min-height: 2.2em; /* giữ giá 1 hoặc 2 dòng vẫn không làm lệch layout */
+  }
+
+  .section-{{ section.id }} .quick-add {
+    margin-top: auto;
+  }
+
 {%- endstyle -%}
 
 {% render 'divider', show_divider: section.settings.show_section_divider, divider_width: section.settings.divider_width %}
