@@ -50,7 +50,7 @@
   .section-{{ section.id }} .testimonial-card {
     background: rgb(var(--color-background));
     border-radius: var(--block-radius);
-    overflow: hidden; /* Để ảnh bo góc theo card */
+    overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -71,13 +71,20 @@
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
   }
 
-  /* 1. ẢNH KHÁCH HÀNG (LỚN, TRÊN CÙNG) */
+  /* 1. ẢNH KHÁCH HÀNG (ĐIỀU CHỈNH KÍCH THƯỚC) */
   .section-{{ section.id }} .testimonial-card__image-wrapper {
     width: 100%;
     position: relative;
-    padding-bottom: {{ section.settings.image_ratio | default: '100%' }}; /* Tỉ lệ vuông mặc định */
-    background-color: rgba(0,0,0,0.03); /* Placeholder color */
+    /* Thay đổi tỉ lệ ở đây: 75% = 4:3, 56.25% = 16:9. 100% = Vuông */
+    padding-bottom: {{ section.settings.image_ratio | default: '75%' }}; 
+    background-color: rgba(0,0,0,0.03);
     overflow: hidden;
+  }
+
+  /* Nếu người dùng chọn 'auto' hoặc không muốn crop, ta dùng height cố định */
+  .section-{{ section.id }} .testimonial-card__image-wrapper.fixed-height {
+      padding-bottom: 0;
+      height: 250px; /* Chiều cao cố định */
   }
 
   .section-{{ section.id }} .testimonial-card__image {
@@ -86,7 +93,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Cắt ảnh để vừa khung */
     transition: transform 0.5s ease;
   }
   
@@ -94,65 +101,64 @@
     transform: scale(1.05);
   }
 
-  /* CONTAINER NỘI DUNG BÊN DƯỚI */
+  /* CONTAINER NỘI DUNG */
   .section-{{ section.id }} .testimonial-card__content {
-    padding: 2rem;
+    padding: 1.5rem; /* Giảm padding để gọn hơn */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Căn giữa các thành phần con */
+    align-items: center;
     flex-grow: 1;
   }
 
-  /* 2. ĐÁNH GIÁ (SAO) */
+  /* 2. ICON / SAO */
   .section-{{ section.id }} .testimonial-card__icon {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: {{ section.settings.star_color | default: '#C5A059' }};
     display: flex;
     justify-content: center;
-    gap: 4px;
+    gap: 3px;
   }
   
   .section-{{ section.id }} .testimonial-card__icon svg {
-    width: 16px;
-    height: 16px;
+    width: 14px; /* Giảm kích thước sao */
+    height: 14px;
   }
 
-  /* 3. NỘI DUNG ĐÁNH GIÁ (JUSTIFIED) */
+  /* 3. TEXT */
   .section-{{ section.id }} .testimonial-card__text {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    font-size: 1.3rem; /* Font chữ vừa phải */
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
     color: rgba(var(--color-foreground), 0.85);
-    text-align: justify; /* Căn đều 2 bên theo yêu cầu */
+    text-align: justify;
     width: 100%;
   }
   
-  /* Fix lỗi justify text ngắn bị thưa */
   .section-{{ section.id }} .testimonial-card__text p {
     margin: 0;
-    text-align-last: center; /* Dòng cuối cùng căn giữa cho đẹp */
+    text-align-last: center;
   }
 
-  /* 4. TÊN KHÁCH (BÊN DƯỚI) */
+  /* 4. AUTHOR INFO */
   .section-{{ section.id }} .testimonial-card__info {
-    margin-top: auto; /* Đẩy xuống dưới cùng */
+    margin-top: auto;
     text-align: center;
     border-top: 1px solid rgba(var(--color-foreground), 0.1);
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     width: 100%;
   }
 
   .section-{{ section.id }} .testimonial-card__author {
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: rgb(var(--color-foreground));
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .section-{{ section.id }} .testimonial-card__bio {
-    font-size: 1.1rem;
+    font-size: 1rem;
     opacity: 0.6;
     display: inline-flex;
     align-items: center;
@@ -162,8 +168,8 @@
   
   .section-{{ section.id }} .verified-badge {
     color: #27ae60;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
 {%- endstyle -%}
 

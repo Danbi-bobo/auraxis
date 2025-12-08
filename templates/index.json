@@ -155,11 +155,11 @@
       "type": "featured-collection",
       "name": "Featured Collection (Auragems)",
       "settings": {
-        "collection": "",
+        "collection": "new-era-2026-fire-horse-🔥",
         "products_to_show": 8,
         "color_scheme": "",
         "subheading": "",
-        "title": "Featured Collection",
+        "title": "New Era: 2026 Fire Horse 🔥",
         "heading_size": "h1",
         "heading_highlight_style": "none",
         "description": "",
@@ -167,15 +167,15 @@
         "columns_desktop": 4,
         "enable_desktop_slider": true,
         "column_gap": "medium",
-        "image_ratio": "adapt",
-        "show_secondary_image": false,
+        "image_ratio": "square",
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "enable_quick_add": true,
         "columns_mobile": "2",
         "swipe_on_mobile": true,
         "show_view_all": true,
-        "view_all_style": "btn--outline",
+        "view_all_style": "btn--primary",
         "padding_top": 36,
         "padding_bottom": 36,
         "show_section_divider": false,
@@ -318,7 +318,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "heading": "Testimonials",
-        "heading_size": "h1",
+        "heading_size": "h3",
         "heading_highlight_style": "none",
         "subheading": "",
         "description": "",
@@ -326,8 +326,8 @@
         "card_color_scheme": "scheme-1",
         "star_color": "#c5a059",
         "image_ratio": "100%",
-        "columns_desktop": 4,
-        "column_gap": "extra-small",
+        "columns_desktop": 2,
+        "column_gap": "large",
         "enable_slider": true,
         "auto_rotate": true,
         "change_slides_speed": 5,
@@ -339,153 +339,31 @@
         "divider_width": "fixed"
       }
     },
-    "rich_text_J3XnPC": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_jLVTiL": {
-          "type": "heading",
-          "settings": {
-            "heading": "FENG SHUI BLOG",
-            "heading_size": "h3",
-            "heading_highlight_style": "none"
-          }
-        },
-        "button_jYDXnF": {
-          "type": "button",
-          "settings": {
-            "button_label": "TODAY",
-            "button_link": "",
-            "button_style": "btn--underline"
-          }
-        }
-      },
-      "block_order": [
-        "heading_jLVTiL",
-        "button_jYDXnF"
-      ],
-      "custom_css": [
-        ".rich-text {max-width: 80rem; margin: 0 auto;}"
-      ],
+    "featured_blog_LMKAqy": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
       "settings": {
         "color_scheme": "",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
-    },
-    "custom_content_dxQmWd": {
-      "type": "custom-content",
-      "blocks": {
-        "image_card_cGCnqG": {
-          "type": "image_card",
-          "settings": {
-            "color_scheme": "",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 30,
-            "heading": "<strong>What is Fengshui?</strong>",
-            "heading_size": "h3",
-            "heading_highlight_style": "none",
-            "subheading": "",
-            "description": "<p>Gemstones have fascinated humanity for thousands of years—not just for their beauty but also for their...</p>",
-            "button_label": "View Full",
-            "button_style": "btn--primary",
-            "content_position": "bottom-center",
-            "content_alignment": "center",
-            "content_spacing": "large",
-            "card_link": "shopify://blogs/news/understanding-feng-shui",
-            "color_scheme_mobile": "",
-            "show_text_below": false,
-            "content_alignment_mobile": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "image_card_6PehkE": {
-          "type": "image_card",
-          "settings": {
-            "color_scheme": "",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 30,
-            "heading": "<strong>The Spiritual Energy of the Fox Queen</strong>",
-            "heading_size": "h3",
-            "heading_highlight_style": "none",
-            "subheading": "",
-            "description": "<p><br/>THE SECRET TO ATTRACTING LOVE AND PROSPERITY<br/><br/></p>",
-            "button_label": "View Full",
-            "button_style": "btn--primary",
-            "content_position": "bottom-center",
-            "content_alignment": "center",
-            "content_spacing": "large",
-            "card_link": "shopify://blogs/news/feng-shui-fox-queen-necklace-the-secret-to-attracting-love-and-prosperity",
-            "color_scheme_mobile": "",
-            "show_text_below": false,
-            "content_alignment_mobile": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "image_card_GKVG6K": {
-          "type": "image_card",
-          "settings": {
-            "color_scheme": "",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 30,
-            "heading": "<strong>Pixiu: The Sacred Guardian that Attracts and Protects Wealth Energy.</strong>",
-            "heading_size": "h3",
-            "heading_highlight_style": "none",
-            "subheading": "",
-            "description": "<p><br/>THE SECRET TO ATTRACTING WEALTH BY EXPERT MARITES ALLEN</p>",
-            "button_label": "View Full",
-            "button_style": "btn--primary",
-            "content_position": "bottom-center",
-            "content_alignment": "center",
-            "content_spacing": "large",
-            "card_link": "shopify://blogs/news/feng-shui-pixiu-necklace-the-secret-to-attracting-wealth-by-expert-marites-allen",
-            "color_scheme_mobile": "",
-            "show_text_below": false,
-            "content_alignment_mobile": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        }
-      },
-      "block_order": [
-        "image_card_cGCnqG",
-        "image_card_6PehkE",
-        "image_card_GKVG6K"
-      ],
-      "custom_css": [
-        ".card-media--large .content-overlay {--padding-y: 5rem; --padding-x: 3rem;}",
-        "@media (max-width: 767px) {.card-media--large .content-overlay {--padding-y: 3rem; --padding-x: 2rem; }}",
-        "span,p {color: #ffffff;}"
-      ],
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "scheme-1",
-        "enable_sticky_column": false,
-        "heading": "",
-        "heading_size": "h3",
+        "heading": "Blog posts",
+        "heading_size": "h1",
         "heading_highlight_style": "none",
         "subheading": "",
         "description": "",
+        "blog": "",
+        "post_limit": 3,
+        "columns_desktop": 3,
         "column_gap": "medium",
-        "row_gap": "inherit",
-        "swipe_on_mobile": false,
         "columns_mobile": "1",
-        "padding_top": 60,
-        "padding_bottom": 100,
+        "swipe_on_mobile": true,
+        "card_title_size": "h3",
+        "show_date": true,
+        "show_excerpt": true,
+        "show_button": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
         "show_section_divider": false,
         "divider_width": "fixed"
       }
-    },
-    "176412836808e02d5f": {
-      "type": "_blocks",
-      "settings": {}
     }
   },
   "order": [
@@ -494,8 +372,6 @@
     "featured_collection_ggKwCH",
     "scrolling_promotion_6TQzbJ",
     "testimonials_bGzJVn",
-    "rich_text_J3XnPC",
-    "custom_content_dxQmWd",
-    "176412836808e02d5f"
+    "featured_blog_LMKAqy"
   ]
 }
