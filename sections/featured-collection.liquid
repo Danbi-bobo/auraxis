@@ -1,8 +1,6 @@
-{%- comment -%}
-  Sử dụng các file CSS có sẵn hoặc style inline để tránh lỗi thiếu file
-{%- endcomment -%}
-{{ 'section-featured-collection.css' | asset_url | stylesheet_tag }}
-{{ 'component-custom-card.css' | asset_url | stylesheet_tag }} 
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
 
 {% liquid
   assign products_to_display = section.settings.collection.all_products_count
@@ -29,19 +27,19 @@
 %}
 
 {%- style -%}
-  /* --- AURAGEMS FEATURED COLLECTION STYLES --- */
+  /* --- AURAGEMS GRID & SLIDER STYLES (FIXED ALIGNMENT) --- */
   
   /* 1. Grid/Slider Container */
   .auragems-product-grid {
     display: grid;
     grid-template-columns: repeat({{ columns_mobile_int }}, 1fr);
-    gap: 15px;
+    gap: 20px; /* Tăng khoảng cách để thoáng hơn */
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  /* Slider Mode (CSS Scroll Snap) */
+  /* Slider Mode */
   .auragems-product-grid.slider-active {
     display: flex;
     flex-wrap: nowrap;
@@ -52,43 +50,119 @@
     padding-bottom: 20px;
     scrollbar-width: none;
   }
-  
-  .auragems-product-grid.slider-active::-webkit-scrollbar {
-    display: none;
-  }
+  .auragems-product-grid.slider-active::-webkit-scrollbar { display: none; }
 
-  /* 2. Product Item */
+  /* 2. Product Item (Cột) - Quan trọng: height auto để flex items bằng nhau */
   .auragems-product-item {
     height: auto;
-    display: flex;
+    display: flex; 
     flex-direction: column;
   }
 
-  /* Slider Item Width */
   .auragems-product-grid.slider-active .auragems-product-item {
-    min-width: calc(100% / {{ columns_mobile_int }} - 10px);
+    min-width: calc(100% / {{ columns_mobile_int }} - 15px);
     scroll-snap-align: start;
     flex-shrink: 0;
   }
 
   /* 3. Responsive */
   @media screen and (min-width: 750px) {
-    .auragems-product-grid {
-      gap: 20px;
-    }
+    .auragems-product-grid { gap: 30px; }
   }
 
   @media screen and (min-width: 990px) {
     .auragems-product-grid {
       grid-template-columns: repeat({{ columns_desktop }}, 1fr);
     }
-
     .auragems-product-grid.slider-active .auragems-product-item {
-      min-width: calc(100% / {{ columns_desktop }} - 15px);
+      min-width: calc(100% / {{ columns_desktop }} - 20px);
     }
   }
 
-  /* 4. Controls */
+  /* 4. CARD STYLING & ALIGNMENT FIX */
+  
+  /* Card Wrapper: Phải full chiều cao của cột */
+  .section-{{ section.id }} .card-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--block-radius, 8px);
+    overflow: hidden;
+    background: rgb(var(--color-background));
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .section-{{ section.id }} .card-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-color: transparent;
+    z-index: 2;
+  }
+
+  /* Card Inner (Chứa ảnh) */
+  .section-{{ section.id }} .card__inner {
+    flex-shrink: 0; /* Không cho phép ảnh bị co lại */
+    position: relative;
+    width: 100%;
+  }
+
+  /* --- FORCE IMAGE RATIO & FIT --- */
+  /* Ép tất cả ảnh về tỉ lệ cố định và cắt (crop) để bằng nhau */
+  .section-{{ section.id }} .card__media .media {
+    position: relative;
+    width: 100%;
+    height: 0;
+    /* Mặc định là vuông (100%), nếu setting chọn khác thì CSS inline sẽ đè lên */
+    padding-bottom: 100%; 
+    overflow: hidden;
+  }
+  
+  .section-{{ section.id }} .card__media .media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important; /* Quan trọng: Cắt ảnh để lấp đầy khung */
+    object-position: center;
+  }
+
+  /* Card Content (Chứa Tên, Giá, Nút) */
+  .section-{{ section.id }} .card__content {
+    flex-grow: 1; /* Chiếm hết khoảng trống còn lại */
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    justify-content: space-between; /* Đẩy nội dung ra 2 đầu */
+  }
+
+  /* Thông tin sản phẩm (Tên, Giá) */
+  .section-{{ section.id }} .card__information {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tên sản phẩm giới hạn dòng để đều nhau hơn (Tùy chọn) */
+  .section-{{ section.id }} .card__heading {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.8rem; /* Giữ chỗ cho 2 dòng kể cả khi tên ngắn */
+  }
+
+  /* Nút Add to Cart / Quick Add */
+  .section-{{ section.id }} .quick-add {
+    margin-top: auto; /* Đẩy nút xuống đáy cùng của card */
+    width: 100%;
+  }
+  
+  .section-{{ section.id }} .quick-add__submit {
+    width: 100%;
+  }
+
+  /* Controls & Footer */
   .section-{{ section.id }} .section__footer {
     margin-top: 4rem;
     text-align: center;
@@ -346,11 +420,11 @@
       "type": "select",
       "id": "image_ratio",
       "options": [
-        { "value": "adapt", "label": "Adapt to image" },
-        { "value": "portrait", "label": "Portrait" },
-        { "value": "square", "label": "Square" }
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "adapt", "label": "Adapt to image" }
       ],
-      "default": "adapt",
+      "default": "square",
       "label": "Image Ratio"
     },
     {
