@@ -1,0 +1,53 @@
+<div class="auragems-gallery">
+  <div class="auragems-gallery__main-stage">
+    <div class="auragems-gallery__slider" id="GallerySlider-{{ section.id }}">
+      {%- for media in product.media -%}
+        <div class="auragems-gallery__slide" data-media-id="{{ media.id }}">
+          {% render 'product-media', media: media, loop: false, variant_image: false %}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if product.media.size > 1 -%}
+      <div class="auragems-gallery__dots">
+        {%- for media in product.media -%}
+          <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if product.media.size > 1 -%}
+    <div class="auragems-gallery__thumbs">
+      {%- for media in product.media -%}
+        <button class="thumbs__item {% if forloop.first %}active{% endif %}" data-target-index="{{ forloop.index0 }}">
+          <img src="{{ media.preview_image | image_url: width: 100, height: 100, crop: 'center' }}" alt="{{ media.alt | escape }}">
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('GallerySlider-{{ section.id }}');
+    if (!slider) return;
+    const dots = slider.parentElement.querySelectorAll('.dot');
+    const thumbs = slider.parentElement.parentElement.querySelectorAll('.thumbs__item');
+    
+    // Scroll Listener
+    slider.addEventListener('scroll', () => {
+      const index = Math.round(slider.scrollLeft / slider.clientWidth);
+      dots.forEach(d => d.classList.remove('active'));
+      if(dots[index]) dots[index].classList.add('active');
+    });
+
+    // Thumb Click
+    thumbs.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        slider.scrollTo({ left: slider.clientWidth * index, behavior: 'smooth' });
+        thumbs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+</script>

@@ -1,0 +1,19 @@
+{%- unless product.has_only_default_variant -%}
+  <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
+    {%- for option in product.options_with_values -%}
+      <div class="product-form__input product-form__input--dropdown" style="margin-bottom: 15px;">
+        <label class="form__label" style="display:block; margin-bottom: 5px; font-weight: 600;">{{ option.name }}</label>
+        <div class="select" style="position: relative;">
+          <select class="select__select" name="options[{{ option.name | escape }}]" form="{{ product_form_id }}" style="width: 100%; padding: 10px; border: 1px solid #ddd;">
+            {%- for value in option.values -%}
+              <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                {{ value }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+    {%- endfor -%}
+    <script type="application/json">{{ product.variants | json }}</script>
+  </variant-selects>
+{%- endunless -%}

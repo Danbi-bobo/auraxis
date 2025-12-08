@@ -1,0 +1,166 @@
+
+{% liquid
+  
+    assign locales = shop.metafields.foxify.locales.value
+    assign current_locale = request.locale.iso_code
+    assign primary_locale = current_locale
+    for locale in shop.published_locales
+    if locale.primary
+        assign primary_locale = locale.iso_code
+        break
+    endif
+    endfor
+    assign translation = locales[current_locale] | default: locales[primary_locale]
+
+    assign theme_settings = shop.metafields.foxify.theme_settings.value
+    assign productCard = theme_settings.productCard
+  
+  
+      assign foxifyCustomCss = shop.metafields.foxify['6935e76e65ef7c14cfde62b2'].value.customCss
+      assign foxifyCustomJs = shop.metafields.foxify['6935e76e65ef7c14cfde62b2'].value.customJs
+    
+%}
+
+      <script>
+        window.Foxify = window.Foxify || {}
+        Foxify.ThemeStyles = {
+          product: "https:{{ 'foxify-product.css' | asset_url }}",
+          swiper: "https:{{ 'foxify-swiper.css' | asset_url }}",
+        }
+
+        Foxify.ThemeScripts = {
+          productModel: "https:{{ 'foxify-product-model.js' | asset_url }}",
+          productMedia: "https:{{ 'foxify-media-gallery.js' | asset_url }}",
+          variantPicker: "https:{{ 'foxify-variant-picker.js' | asset_url }}"
+        }
+
+        Foxify.pageId = '1765140334TvqYL';
+        Foxify.default = false;
+      </script>
+    
+<div class="x-app x-main">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" id="Nunito Sans" data-foxify-editor="font-components" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" id="Nunito" data-foxify-editor="font-components" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@400&display=swap" id="ADLaM Display" data-foxify-editor="font-components" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" id="DM Sans" data-foxify-editor="font-components" rel="stylesheet">
+{{ 'foxify-1765140334TvqYL.css' | asset_url | stylesheet_tag }}
+<style data-foxify-custom-code-page="css">{{ foxifyCustomCss }}</style>
+<div id="x-sslbtl37" class="x-section x-sslbtl37 x-animation-pageload x-animation-pageload:xFadeIn" style="--x-container-width: 1170px;"><div class="x-container-custom x-layout-grid">{% assign product_x-3exue902 = section.settings['product_x-3exue902'] %}
+          {% unless section.settings['product_x-3exue902'] %}
+            {% assign product_x-3exue902 = all_products['buddha-stones-year-of-the-horse-999-sterling-silver-string-braided-protection-bracelet'] %}
+          {% endunless %}
+        {% if product_x-3exue902 != blank %}{{ 'foxify-product.gen2.css' | asset_url | stylesheet_tag }}<div id="x-3exue902" class="x-layout-auto x-main-product x-3exue902 x-element">{%- form 'product', product_x-3exue902, id: 'product-form-x-3exue902', class: 'x-main-product__form x-product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form', data-product-id: product_x-3exue902.id -%}<input type="hidden" name="id" value="{{ product_x-3exue902.selected_or_first_available_variant.id }}"><div id="x-rdtuzcme" class="x-layout-none x-grid x-rdtuzcme x-element sm:x-grid-1 md:x-grid-2 x-grid-2" style="--x-column-gap: 40px; --x-md-column-gap: 24px; --x-sm-column-gap: 16px; --x-row-gap: 32px; --x-md-row-gap: 24px; --x-sm-row-gap: 24px;"><div id="x-xlnq1x8p" class="x-layout-auto x-cell x-xlnq1x8p x-element"><div id="x-573xagt8" class="x-layout-none x-product-media x-573xagt8 x-element x-product-media--sticky">{% if product_x-3exue902.media.size > 0 %}<script src="{{ 'foxify-media-gallery.gen2.js' | asset_url }}" defer=""></script><x-media-gallery id="Media-Gallery-{{ section.id }}" class="x-product-media__gallery x-product-media__gallery--carousel" data-layout="carousel"><div class="x-product-media__list x-product-media--carousel"><x-carousel-component class="x-product-media__carousel x-swiper" data-swiper-options="{&quot;slidesPerView&quot;:1,&quot;autoplay&quot;:false,&quot;navigation&quot;:true,&quot;pagination&quot;:true,&quot;paginationType&quot;:&quot;fraction&quot;,&quot;autoHeight&quot;:true,&quot;enabled&quot;:true,&quot;observer&quot;:true,&quot;breakpoints&quot;:{&quot;768&quot;:{&quot;enabled&quot;:true}},&quot;effect&quot;:&quot;fade&quot;,&quot;fadeEffect&quot;:{&quot;crossFade&quot;:true}}"><div class="x-product-media__carousel-main"><div class="x-main-swiper x-swiper-container"><div class="x-swiper-wrapper">{%- for media in product_x-3exue902.media -%}<div class="x-swiper-slide{% if media.media_type != 'image' %} swiper-no-swiping{% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}" data-media-index="{{ forloop.index0 }}"><div class="x-product-media__preview x-product-media--{{ media.media_type }}"><x-image class="x-image" style="--x-aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }};">{{ media.preview_image | image_url: width: 1946 | image_tag:
+        loading: lazy,
+        sizes: '(min-width: 1200px) 715px, (min-width: 990px) calc(65.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)',
+        widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+        alt: media.preview_image.alt | escape
+      }}</x-image>{%- if media.media_type != 'image' -%}<x-deferred-media class="x-deferred-media no-js-hidden" data-media-id="{{ media.id }}" style="--x-aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }};"><button id="Deferred-Poster-Modal-{{ media.id }}" class="x-deferred-media__poster" type="button"><span class="x-deferred-media__poster-button motion-reduce">{%- if media.media_type == 'model' -%}<span class="x-visually-hidden">{{ translation.products.product.media.play_model }}</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="x-icon-3d-model" fill="none" viewBox="0 0 18 21"><path d="M7.67998 20.629L1.28002 16.723C0.886205 16.4784 0.561675 16.1368 0.337572 15.731C0.113468 15.3251 -0.00274623 14.8686 -1.39464e-05 14.405V6.59497C-0.00238367 6.13167 0.113819 5.6755 0.33751 5.26978C0.561202 4.86405 0.884959 4.52227 1.278 4.27698L7.67796 0.377014C8.07524 0.131403 8.53292 0.000877102 8.99999 9.73346e-08C9.46678 -0.000129605 9.92446 0.129369 10.322 0.374024V0.374024L16.722 4.27399C17.1163 4.51985 17.4409 4.86287 17.6647 5.27014C17.8885 5.67742 18.0039 6.13529 18 6.59998V14.409C18.0026 14.8725 17.8864 15.3289 17.6625 15.7347C17.4386 16.1405 17.1145 16.4821 16.721 16.727L10.321 20.633C9.92264 20.8742 9.46565 21.0012 8.99999 21C8.53428 20.9998 8.07761 20.8714 7.67998 20.629V20.629ZM8.72398 2.078L2.32396 5.97803C2.22303 6.04453 2.14066 6.13551 2.08452 6.24255C2.02838 6.34959 2.00031 6.46919 2.00298 6.59003V14.4C2.00026 14.5205 2.02818 14.6396 2.08415 14.7463C2.14013 14.853 2.22233 14.9438 2.32298 15.01L7.99999 18.48V10.919C8.00113 10.5997 8.08851 10.2867 8.25292 10.0129C8.41732 9.73922 8.65267 9.51501 8.93401 9.36401L15.446 5.841L9.28001 2.08002C9.19614 2.02738 9.09901 1.99962 8.99999 2C8.90251 1.99972 8.8069 2.02674 8.72398 2.078V2.078Z" fill="currentColor"></path></svg>{%- else -%}<span class="x-visually-hidden">{{ translation.products.product.media.play_video }}</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon fill="currentColor" points="5 3 19 12 5 21 5 3"></polygon></svg>{%- endif -%}</span>{{media.preview_image | image_url: width: 1946 | image_tag:
+            loading: lazy,
+            sizes: '(min-width: 1200px) 715px, (min-width: 990px) calc(65.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+            alt: media.preview_image.alt | escape
+            }}</button><template>
+          {%- liquid
+            case media.media_type
+              when 'external_video'
+                assign video_class = 'js-' | append: media.host
+                if media.host == 'youtube'
+                  echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy'
+                else
+                    echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: 'lazy'
+                endif
+              when 'video'
+                echo media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, preload: 'none'
+              when 'model'
+                echo media | media_tag: image_size: '2048x', toggleable: true
+            endcase
+          -%}
+        </template></x-deferred-media>{%- endif -%}</div></div>{%- endfor -%}</div></div></div>{%- if product_x-3exue902.media.size > 1 -%}<div class="x-product-media__carousel-thumbs"><div class="x-nav-swiper x-swiper-container" data-swiper-options="{&quot;slidesPerView&quot;:5,&quot;autoplay&quot;:false,&quot;navigation&quot;:false,&quot;pagination&quot;:false,&quot;spaceBetween&quot;:10,&quot;enabled&quot;:true,&quot;breakpoints&quot;:{&quot;768&quot;:{&quot;enabled&quot;:true,&quot;spaceBetween&quot;:15}}}"><div class="x-swiper-wrapper x-items-center">{%- for media in product_x-3exue902.media -%}<div class="x-swiper-slide"><div class="x-product-media__thumb">{%- if media.media_type != 'image' -%}<span class="x-product-media__thumb-icon">{%- if media.media_type == 'model' -%}<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="x-icon-3d-model" fill="none" viewBox="0 0 18 21"><path d="M7.67998 20.629L1.28002 16.723C0.886205 16.4784 0.561675 16.1368 0.337572 15.731C0.113468 15.3251 -0.00274623 14.8686 -1.39464e-05 14.405V6.59497C-0.00238367 6.13167 0.113819 5.6755 0.33751 5.26978C0.561202 4.86405 0.884959 4.52227 1.278 4.27698L7.67796 0.377014C8.07524 0.131403 8.53292 0.000877102 8.99999 9.73346e-08C9.46678 -0.000129605 9.92446 0.129369 10.322 0.374024V0.374024L16.722 4.27399C17.1163 4.51985 17.4409 4.86287 17.6647 5.27014C17.8885 5.67742 18.0039 6.13529 18 6.59998V14.409C18.0026 14.8725 17.8864 15.3289 17.6625 15.7347C17.4386 16.1405 17.1145 16.4821 16.721 16.727L10.321 20.633C9.92264 20.8742 9.46565 21.0012 8.99999 21C8.53428 20.9998 8.07761 20.8714 7.67998 20.629V20.629ZM8.72398 2.078L2.32396 5.97803C2.22303 6.04453 2.14066 6.13551 2.08452 6.24255C2.02838 6.34959 2.00031 6.46919 2.00298 6.59003V14.4C2.00026 14.5205 2.02818 14.6396 2.08415 14.7463C2.14013 14.853 2.22233 14.9438 2.32298 15.01L7.99999 18.48V10.919C8.00113 10.5997 8.08851 10.2867 8.25292 10.0129C8.41732 9.73922 8.65267 9.51501 8.93401 9.36401L15.446 5.841L9.28001 2.08002C9.19614 2.02738 9.09901 1.99962 8.99999 2C8.90251 1.99972 8.8069 2.02674 8.72398 2.078V2.078Z" fill="currentColor"></path></svg>{%- else -%}<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon fill="currentColor" points="5 3 19 12 5 21 5 3"></polygon></svg>{%- endif -%}</span>{%- endif -%}<x-image class="x-image" style="--x-aspect-ratio: 1;"><img srcset="{% if media.preview_image.width >= 59 %}{{ media.preview_image | image_url: width: 59 }} 59w,{% endif %}
+                                  {% if media.preview_image.width >= 118 %}{{ media.preview_image | image_url: width: 118 }} 118w,{% endif %}
+                                  {% if media.preview_image.width >= 84 %}{{ media.preview_image | image_url: width: 84 }} 84w,{% endif %}
+                                  {% if media.preview_image.width >= 200 %}{{ media.preview_image | image_url: width: 200 }} 200w,{% endif %}
+                                  {% if media.preview_image.width >= 130 %}{{ media.preview_image | image_url: width: 130 }} 130w,{% endif %}
+                                  {% if media.preview_image.width >= 260 %}{{ media.preview_image | image_url: width: 260 }} 260w{% endif %}" src="{{ media | image_url: width: 84, height: 84 }}" sizes="(min-width: 1200px) calc((1200px - 19.5rem) / 12), (min-width: 750px) calc((100vw - 16.5rem) / 8), calc((100vw - 8rem) / 5)" alt="{{ media.alt | escape }}" height="200" width="200" loading="lazy"></x-image></div></div>{%- endfor -%}</div></div></div>{%- endif -%}</x-carousel-component></div></x-media-gallery>{% endif %}</div></div><div id="x-t1fmfmxr" class="x-layout-auto x-cell x-t1fmfmxr x-element"><div id="x-r2kzq0v8" class="x-layout-auto x-stack x-r2kzq0v8 x-element x-animation-pageload x-animation-pageload:xFadeInUp">{% if product_x-3exue902 != blank %}<h2 id="x-es77vj0x" class="x-layout-none x-product-title x-es77vj0x x-element">{{ product_x-3exue902.title }}</h2>{% endif %}{% if product_x-3exue902 != blank %}<div id="x-zxv39ecg" class="x-layout-none x-product-price x-zxv39ecg x-element">{% assign show_code_x-zxv39ecg = theme_settings.showCurrencyCode %}{% render 'foxify-price', translation: translation, use_variant: true, product: product_x-3exue902, show_sale_badge: true, sale_badge_type: 'percentage', show_soldout_badge: true, show_currency_code: show_code_x-zxv39ecg, ELEMENT_KEY: 'x', PREFIX_CLASS: 'x-' %}{{ form | payment_terms }}</div>{% endif %}<script src="{{ 'foxify-variant-picker.gen2.js' | asset_url }}" defer=""></script><div id="x-tueoy4wq" class="x-layout-none x-variant-picker x-tueoy4wq x-element variant--ct">{% render 'foxify-variant-picker', product: product_x-3exue902, variant_picker_type: 'buttons', show_selected_value: true, hide_unavailable_options: false, sectionId: 'x-3exue902', label_position: 'above', ELEMENT_KEY: 'x', PREFIX_CLASS: 'x-' %}</div><div id="x-wwzcibkq" class="x-layout-none x-quantity-input x-wwzcibkq x-element"><x-quantity-input class="x-quantity" data-product-id="{{ product_x-3exue902.id }}"><button class="x-quantity__button" name="minus" type="button"><svg width="10" height="2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.917 1h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><input class="x-quantity__input x-form-control" type="number" name="quantity" id="Quantity-{{ product_x-3exue902.id }}" min="1" value="1"><button class="x-quantity__button" name="plus" type="button"><svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2.917v8.166M2.917 7h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></x-quantity-input></div>{%- capture form_id_x_qd8n5s2b_waqv -%}product-form-x-3exue902{%- endcapture -%}
+  {%- assign available_x_qd8n5s2b_waqv = product_x-3exue902.selected_or_first_available_variant.available -%}{%- capture button_label_x_qd8n5s2b_waqv -%}
+    {% if available_x_qd8n5s2b_waqv == false %}
+      {{ translation.products.product.sold_out }}
+    {% else %}
+      {{ translation.products.product.add_to_cart }}
+    {% endif %}
+  {%- endcapture -%}<x-buy-button
+          class="x-product-buy-button x-qd8n5s2b x-element x-gs-outline-button x-button"
+          id="x-qd8n5s2b"
+          data-form-id="{{ form_id_x_qd8n5s2b_waqv | escape }}"
+          name="add"
+          type="submit"
+          role="button"
+          data-notification-type="toast"
+          data-atc-text=""
+          {% unless available_x_qd8n5s2b_waqv %}disabled="true"{% endunless %}
+          data-fb-event='custom'
+          ><span class="x-btn__label">{{- button_label_x_qd8n5s2b_waqv -}}</span><svg width="16" height="16" aria-hidden="true" focusable="false" role="presentation" class="x-spinner-icon x-svg-icon" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></x-buy-button><div class="x-product-form__messages x-w-full" role="alert"></div><div id="x-lzksmx7r" class="x-layout-none x-dynamic-buy-buttons x-lzksmx7r x-element">{{ form | payment_button }}</div><div id="x-60qoccem" class="x-layout-none x-list-items x-60qoccem x-element x-list-items--none"><ul style="--x-list-style: none;"><li class="x-has-icon"><span class="x-icon" style="--x-icon-size: 16px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="f-icon-uploaded f-icon-ï¦.svg">
+<path d="M15.9375 5.78125C15.9792 5.92708 16 6.08333 16 6.25V14.5C16 14.9167 15.8542 15.2708 15.5625 15.5625C15.2708 15.8542 14.9167 16 14.5 16H1.5C1.08333 16 0.729167 15.8542 0.4375 15.5625C0.145833 15.2708 0 14.9167 0 14.5V6.25C0 6.08333 0.0208333 5.92708 0.0625 5.78125L1.65625 1.03125C1.76042 0.71875 1.9375 0.46875 2.1875 0.28125C2.45833 0.09375 2.76042 0 3.09375 0H12.9062C13.1354 0 13.3438 0.0416667 13.5312 0.125C13.7188 0.208333 13.8854 0.333333 14.0312 0.5C14.1771 0.645833 14.2812 0.822917 14.3438 1.03125L15.9375 5.78125ZM1 6.25H7.5V1H3.09375C2.84375 1 2.67708 1.11458 2.59375 1.34375L1.03125 6.09375C1.01042 6.13542 1 6.1875 1 6.25ZM15 14.5V7.25H1V14.5C1 14.6458 1.04167 14.7604 1.125 14.8438C1.22917 14.9479 1.35417 15 1.5 15H14.5C14.6458 15 14.7604 14.9479 14.8438 14.8438C14.9479 14.7604 15 14.6458 15 14.5ZM15 6.25C15 6.1875 14.9896 6.13542 14.9688 6.09375L13.4062 1.34375C13.3229 1.11458 13.1562 1 12.9062 1H8.5V6.25H15Z" fill="black"></path>
+</svg>
+</span><span class="">
+{{ 'sections.foxify-1765140334TvqYL.x-60qoccem-list_items-Item-2-title_html' | t }}</span></li></ul></div>{% assign product_x-9rfyrspd = product %}{% assign product_x-9rfyrspd = product_x-3exue902 %}{% liquid
+        assign x-9rfyrspd_collections = ''
+        for collection in product_x-9rfyrspd.collections
+           assign x-9rfyrspd_collections = x-9rfyrspd_collections | append: collection.id | append: ','
+        endfor
+        assign selected_variant = product_x-9rfyrspd.selected_or_first_available_variant
+        %}{% unless shop.metafields.foxify.foxkit == blank %}<link rel="stylesheet" href="https://assets-cdn.foxecom.com/cdn/shop/t/2/assets/bundle.css?v={{ 'now' | date: '%N' }}" type="text/css" media="all"><script src="https://assets-cdn.foxecom.com/cdn/shop/t/2/assets/bundle-layout.js?v={{ 'now' | date: '%N' }}" defer=""></script><script src="https://assets-cdn.foxecom.com/cdn/shop/t/2/assets/product-bundles.js?v={{ 'now' | date: '%N' }}" defer=""></script><div id="x-9rfyrspd" class="x-extension:foxkit-bundles x-9rfyrspd x-element"><foxkit-visible-check><foxkit-product-bundles data-plugin="Bundle" data-block-id="x-9rfyrspd" data-available="{{ product_x-9rfyrspd.available }}" data-selected-variant-id="{{ selected_variant.id }}" data-product-handle="{{ product_x-9rfyrspd.handle }}" data-product-id="{{ product_x-9rfyrspd.id }}" data-collections="{{ x-9rfyrspd_collections }}"></foxkit-product-bundles></foxkit-visible-check></div>{% endunless %}</div></div></div>{% endform %}</div>{% endif %}</div></div><div id="x-ctjmy9xl" class="x-section x-ctjmy9xl"><div class="x-container x-layout-grid"><div id="x-lvp8hhsf" class="x-layout-auto x-stack x-lvp8hhsf x-element">{% assign product_x-tr1dv301 = product %}{% assign collection_x-tr1dv301 = collection %}<h3 id="x-tr1dv301" class="x-layout-none x-text x-tr1dv301 x-element x-rte">
+{{ 'sections.foxify-1765140334TvqYL.x-tr1dv301-text_html' | t }}</h3><script src="{{ 'foxify-collapsible.gen2.js' | asset_url }}" defer=""></script><div id="x-w6nkgdx7" class="x-layout-auto x-collapsible x-w6nkgdx7 x-element x-collapsible-tab--icon-angle"><div id="x-ul6lwwas" class="x-collapsible-content x-ul6lwwas x-element"><x-collapsible-tab class="x-collapsible__item" data-hide-if-empty="true" data-one-open="true"><div class="x-collapsible__button" data-trigger="true"><span>
+{{ 'sections.foxify-1765140334TvqYL.x-ul6lwwas-title_html' | t }}</span><span class="x-collapsible__button-icon"><svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></div><div class="x-collapsible__content-wrapper" data-content="true"><div class="x-collapsible__content x-layout-auto">{% assign product_x-t50m5u62 = product %}{% assign collection_x-t50m5u62 = collection %}<p id="x-t50m5u62" class="x-layout-none x-text x-t50m5u62 x-element x-rte">
+{{ 'sections.foxify-1765140334TvqYL.x-t50m5u62-text_html' | t }}</p></div></div></x-collapsible-tab></div></div></div></div></div><div id="x-hdmh2frf" class="x-section x-hdmh2frf"><div class="x-container x-layout-grid">{% assign product_x-8k1lp9ie = product %}{% assign collection_x-8k1lp9ie = collection %}<p id="x-8k1lp9ie" class="x-layout-none x-text x-8k1lp9ie x-element x-rte">{% assign x_8k1lp9ie_text = product_x-8k1lp9ie.description  %}
+{{ 'sections.foxify-1765140334TvqYL.x-8k1lp9ie-text_html' | t: x_8k1lp9ie_text: x_8k1lp9ie_text }}</p></div></div><div id="x-1gi486s9" class="x-section x-1gi486s9"><div class="x-container x-layout-grid"><script src="{{ 'foxify-sticky-atc.gen2.js' | asset_url }}" defer=""></script>{% if shop.metafields.foxify.sticky-atc.value %}<div id="x-k08cp2ze" class="x-extension:sticky-atc-block x-k08cp2ze x-element x-sticky-atc">{% liquid 
+          assign selected_variant = product.selected_or_first_available_variant
+          assign selected_variant_available = selected_variant.available          
+        %}<div class="x-container-full"><x-sticky-atc-bar class="x-sticky-atc__inner x-flex x-items-center x-justify-center sm:x-justify-between" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" data-selected-variant-available="{{ selected_variant_available }}"><template><div><div class="x-sticky-atc__product x-hidden sm:x-flex sm:x-items-center"><div class="x-sticky-atc__product-image"><x-image class="x-image" style="--x-aspect-ratio: 1;">{{ product.featured_image | image_url: width: 100 | image_tag:
+                    loading: lazy,
+                    sizes: '(min-width: 1200px) 715px, (min-width: 990px) calc(65.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)',
+                    widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+                    alt: media.preview_image.alt | escape
+                  }}</x-image></div><div class="x-sticky-atc__product-info"><h3 class="x-sticky-atc__product-title x-gs-heading-6">{{ product.title }}</h3>{% render 'foxify-price', product: product, show_sale_badge: false, sale_badge_type: false, show_soldout_badge: false, ELEMENT_KEY: 'x', PREFIX_CLASS: 'x-' %}</div></div><div class="x-sticky-atc__price sm:x-hidden">{% render 'foxify-price', product: product, show_sale_badge: false, sale_badge_type: false, show_soldout_badge: false, ELEMENT_KEY: 'x', PREFIX_CLASS: 'x-' %}</div><x-product-form class="x-block" data-notification-type="toast">{%- form 'product', product, id: 'product-form-x-k08cp2ze', class: 'x-sticky-atc-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}<input type="hidden" name="product_id" value="{{ product.id}}"><div class="x-sticky-atc-form__wrapper">{% if product.has_only_default_variant %}<input type="hidden" name="id" value="{{ selected_variant.id }}">{% else %}<select name="id" class="x-sticky-atc__variant-select x-form-control">{% for variant in product.variants %}{% if variant.id == selected_variant.id %}<option value="{{ variant.id }}" selected="true">{{ variant.title }}</option>{% else %}<option value="{{ variant.id }}">{{ variant.title }}</option>{% endif %}{% endfor %}</select>{% endif %}<x-quantity-input class="x-quantity" data-product-id="{{ product.id }}"><button class="x-quantity__button" name="minus" type="button"><svg width="10" height="2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.917 1h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><input class="x-quantity__input x-form-control" type="number" name="quantity" id="Quantity-x-k08cp2ze-{{ product.id }}" min="1" value="1"><button class="x-quantity__button" name="plus" type="button"><svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2.917v8.166M2.917 7h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></x-quantity-input><button name="add" class="x-gs-outline-button x-button"><span class="x-btn__label">{% if selected_variant_available == false %}{{ translation.products.product.sold_out }}{% else %}{{ translation.products.product.add_to_cart }}{% endif %}</span><svg width="16" height="16" aria-hidden="true" focusable="false" role="presentation" class="x-spinner-icon x-svg-icon" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></button>{{ form | payment_button }}</div>{%- endform -%}</x-product-form></div></template></x-sticky-atc-bar></div></div>{% endif %}<div id="x-0fcr8x8w" class="x-layout-auto x-stack x-0fcr8x8w x-element">{% assign product_x-xuju3zb9 = product %}{% assign collection_x-xuju3zb9 = collection %}<h3 id="x-xuju3zb9" class="x-layout-none x-text x-xuju3zb9 x-element x-rte">
+{{ 'sections.foxify-1765140334TvqYL.x-xuju3zb9-text_html' | t }}</h3>{% assign recently_viewed = shop.metafields.foxify.recently-viewed-products.value %}{% if recently_viewed %}<script src="{{ 'foxify-recently-viewed.gen2.js' | asset_url }}" defer=""></script>{% if shop.metafields.foxify.recently-viewed-products.value %}<div id="x-pdr5spnl" class="x-layout-none x-extension:recently-viewed-section x-pdr5spnl x-element" style="--x-column-gap: 32px; --x-md-column-gap: 24px; --x-sm-column-gap: 16px; --x-row-gap: 32px; --x-md-row-gap: 24px; --x-sm-row-gap: 16px;"><x-recently-products class="x-product-recently-viewed x-block" data-max-limit="4" hidden="true"><div class="extension:recently-viewed-section__grid x-grid sm:x-grid-2 md:x-grid-4 x-grid-6" data-product-container="true" style="--x-column-gap: 32px; --x-md-column-gap: 24px; --x-sm-column-gap: 16px; --x-row-gap: 32px; --x-md-row-gap: 24px; --x-sm-row-gap: 16px;"></div></x-recently-products></div>{% endif %}{% endif %}</div></div></div>
+<script data-foxify-custom-code-page="js" defer>{{ foxifyCustomJs }}</script>
+{% liquid
+            assign theme_settings = shop.metafields.foxify.theme_settings.value
+            assign customCodeBody = theme_settings.customCodeBody
+            echo customCodeBody
+          %}
+
+</div>
+{% schema %}
+  {
+  "name": "Foxify main content",
+  "class": "foxify-main f-app",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Customize main content",
+      "info": "Go to [Foxify app](https://admin.shopify.com/store/auraandaxis/apps/foxify-builder/studio?id=1765140334TvqYL&type=product) to edit this section."
+    },
+    {
+      "id": "product_x-3exue902",
+      "type": "product",
+      "label": "Product details"
+    }
+  ],
+  "locales": {
+    "en": {
+      "x-60qoccem-list_items-Item-2-title_html": "Free Shipping & Returns: On all orders over $75 ",
+      "x-cdlvchpg-text_html": "Limited - Time offers, End in",
+      "x-yrpc47xh-day_label_html": "Days",
+      "x-yrpc47xh-hour_label_html": "Hrs",
+      "x-yrpc47xh-min_label_html": "Mins",
+      "x-yrpc47xh-sec_label_html": "Secs",
+      "x-xuju3zb9-text_html": "<h3>Recently viewed</h3>",
+      "x-tr1dv301-text_html": "Detail",
+      "x-ul6lwwas-title_html": "How long does shipping take?",
+      "x-t50m5u62-text_html": "Your sales managers will go into the field feeling energized, excited, and inspired. We are a full service business development group – we build strategies and systems. Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt.",
+      "x-8k1lp9ie-text_html": "{{ x_8k1lp9ie_text }}"
+    }
+  }
+}
+{% endschema %}
+  

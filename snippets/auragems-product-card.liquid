@@ -1,0 +1,15 @@
+<div class="auragems-card">
+  <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
+    <div class="auragems-card__image-wrapper" style="position: relative; overflow: hidden; aspect-ratio: 1/1.2; background: #f4f4f4;">
+      <img src="{{ product.featured_media | image_url: width: 500 }}" alt="{{ product.title | escape }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+      {% if product.compare_at_price > product.price %}<span style="position: absolute; top: 10px; left: 10px; background: #000; color: #fff; padding: 4px 8px; font-size: 12px;">SALE</span>{% endif %}
+    </div>
+    <div class="auragems-card__info" style="text-align: center; margin-top: 10px;">
+      <h3 style="font-size: 14px; margin: 0 0 5px; font-weight: 500;">{{ product.title }}</h3>
+      <div>
+        <span>{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}<span style="text-decoration: line-through; opacity: 0.6; font-size: 0.9em; margin-left: 5px;">{{ product.compare_at_price | money }}</span>{% endif %}
+      </div>
+    </div>
+  </a>
+</div>

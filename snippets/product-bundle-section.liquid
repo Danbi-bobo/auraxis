@@ -1,63 +1,383 @@
 {%- comment -%}
-  Product Bundle Section for AuraGems Template
-  Usage: {% render 'product-bundle-section', product: product %}
+  Product Bundle Section - Frequently Bought Together
+  Usage: {% render 'product-bundle-section', product: product, bundle_title: 'title', discount_percent: 20 %}
 {%- endcomment -%}
 
 {%- liquid
-  # Get complementary products (Shopify's built-in recommendations)
-  assign bundle_products_limit = 3
+  assign bundle_title = bundle_title | default: 'Frequently Bought Together'
+  assign discount_percent = discount_percent | default: 20
+  assign discount_decimal = discount_percent | times: 0.01
+  
+  # Try to get bundle products from metafield first
+  assign bundle_products = blank
+  if product.metafields.custom.bundle_products != blank
+    assign bundle_handles = product.metafields.custom.bundle_products | split: ','
+  else
+    # Fallback to product recommendations
+    assign bundle_handles = blank
+  endif
 -%}
 
-<div class="product-auragems__bundle">
-  <h3 class="product-auragems__bundle-title">
+<div class="product-bundle-wrapper">
+  <h3 class="product-bundle__title">
     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
       <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
       <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
     </svg>
-    Frequently Bought Together
+    {{ bundle_title }}
   </h3>
   
-  <div class="product-auragems__bundle-products" id="bundle-products-container">
-    {%- # Placeholder for bundle products -%}
-    {%- if product.metafields.custom.bundle_products != blank -%}
-      {%- assign bundle_handles = product.metafields.custom.bundle_products | split: ',' -%}
-      {%- for handle in bundle_handles limit: bundle_products_limit -%}
+  <div class="product-bundle__products" id="BundleProducts-{{ section.id }}">
+    {%- comment -%} Main Product {%- endcomment -%}
+    <div class="product-bundle__item" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-price="{{ product.price }}">
+      <input type="checkbox" id="bundle-{{ product.id }}" checked disabled class="bundle-checkbox">
+      <label for="bundle-{{ product.id }}" class="bundle-product">
+        {%- if product.featured_image -%}
+          <img 
+            src="{{ product.featured_image | image_url: width: 200 }}" 
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+            width="100"
+            height="100"
+          >
+        {%- endif -%}
+      </label>
+    </div>
+
+    {%- comment -%} Bundle Products from Metafield or Recommendations {%- endcomment -%}
+    {%- if bundle_handles != blank -%}
+      {%- for handle in bundle_handles limit: 3 -%}
+        {%- assign handle = handle | strip -%}
         {%- assign bundle_product = all_products[handle] -%}
-        {%- if bundle_product != blank -%}
-          <div class="product-auragems__bundle-item">
-            {%- if bundle_product.featured_image -%}
-              <img src="{{ bundle_product.featured_image | image_url: width: 160 }}" 
-                   alt="{{ bundle_product.title | escape }}"
-                   loading="lazy">
-            {%- endif -%}
+        {%- if bundle_product != blank and bundle_product.available -%}
+          <div class="product-bundle__item" data-product-id="{{ bundle_product.id }}" data-variant-id="{{ bundle_product.selected_or_first_available_variant.id }}" data-price="{{ bundle_product.price }}">
+            <input type="checkbox" id="bundle-{{ bundle_product.id }}" class="bundle-checkbox" checked>
+            <label for="bundle-{{ bundle_product.id }}" class="bundle-product">
+              {%- if bundle_product.featured_image -%}
+                <img 
+                  src="{{ bundle_product.featured_image | image_url: width: 200 }}" 
+                  alt="{{ bundle_product.title | escape }}"
+                  loading="lazy"
+                  width="100"
+                  height="100"
+                >
+              {%- endif -%}
+            </label>
+            <select class="bundle-variant-select" data-product-id="{{ bundle_product.id }}" style="display: none;">
+              {%- for variant in bundle_product.variants -%}
+                <option value="{{ variant.id }}" data-price="{{ variant.price }}" {% if variant.id == bundle_product.selected_or_first_available_variant.id %}selected{% endif %}>
+                  {{ variant.title }}
+                </option>
+              {%- endfor -%}
+            </select>
           </div>
         {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%} If no bundle products specified, show placeholder {%- endcomment -%}
+      {%- for i in (1..2) -%}
+        <div class="product-bundle__item product-bundle__item--placeholder">
+          <div class="bundle-product bundle-product--placeholder">
+            <div class="placeholder-image"></div>
+          </div>
+        </div>
       {%- endfor -%}
     {%- endif -%}
   </div>
   
-  <div class="product-auragems__bundle-price">
-    <span>Total price with 20% off:</span>
-    <span style="font-weight: 700; font-size: 1.25rem;" id="bundle-total-price">
-      {{ product.price | times: 0.8 | money }}
-    </span>
+  <div class="product-bundle__pricing">
+    <div class="bundle-price-row">
+      <span class="bundle-label">Total price with {{ discount_percent }}% off:</span>
+      <div class="bundle-prices">
+        <span class="bundle-price-original" id="BundleOriginalPrice-{{ section.id }}">
+          {{ product.price | money }}
+        </span>
+        <span class="bundle-price-final" id="BundleFinalPrice-{{ section.id }}">
+          {%- assign discounted_price = product.price | times: 1 | minus: product.price | times: discount_decimal -%}
+          {{ discounted_price | money }}
+        </span>
+      </div>
+    </div>
   </div>
   
-  <button type="button" class="product-auragems__bundle-btn" id="add-bundle-btn">
-    BUY TOGETHER & GET 20% OFF
+  <button 
+    type="button" 
+    class="product-bundle__add-btn" 
+    id="AddBundleBtn-{{ section.id }}"
+    data-discount="{{ discount_percent }}"
+  >
+    BUY TOGETHER & GET {{ discount_percent }}% OFF
   </button>
 </div>
 
+<style>
+.product-bundle-wrapper {
+  /* Inherited from parent .product-auragems__bundle */
+}
+
+.product-bundle__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.product-bundle__title svg {
+  flex-shrink: 0;
+}
+
+.product-bundle__products {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.product-bundle__item {
+  position: relative;
+}
+
+.bundle-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.bundle-product {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  background: white;
+}
+
+.bundle-checkbox:checked + .bundle-product {
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.bundle-checkbox:disabled + .bundle-product {
+  cursor: default;
+  opacity: 1;
+}
+
+.bundle-product img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bundle-product--placeholder {
+  border: 1px dashed #ddd;
+  cursor: default;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 25%, transparent 25%),
+              linear-gradient(225deg, #f5f5f5 25%, transparent 25%),
+              linear-gradient(45deg, #f5f5f5 25%, transparent 25%),
+              linear-gradient(315deg, #f5f5f5 25%, #e5e5e5 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}
+
+.product-bundle__pricing {
+  margin-bottom: 14px;
+}
+
+.bundle-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.bundle-label {
+  color: #666;
+}
+
+.bundle-prices {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bundle-price-original {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 14px;
+}
+
+.bundle-price-final {
+  font-weight: 700;
+  font-size: 18px;
+  color: #c41e3a;
+}
+
+.product-bundle__add-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: #000;
+  color: white;
+  border: 1px solid #000;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.product-bundle__add-btn:hover {
+  background: white;
+  color: #000;
+}
+
+.product-bundle__add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 749px) {
+  .product-bundle__products {
+    gap: 8px;
+  }
+  
+  .bundle-product {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .bundle-price-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .bundle-label {
+    font-size: 14px;
+  }
+}
+</style>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const bundleBtn = document.getElementById('add-bundle-btn');
-    
-    if (bundleBtn) {
-      bundleBtn.addEventListener('click', function() {
-        // Add bundle products to cart logic
-        console.log('Add bundle to cart');
-        // This would need to be implemented with your cart API
-      });
+(function() {
+  const bundleContainer = document.getElementById('BundleProducts-{{ section.id }}');
+  const addBundleBtn = document.getElementById('AddBundleBtn-{{ section.id }}');
+  const originalPriceEl = document.getElementById('BundleOriginalPrice-{{ section.id }}');
+  const finalPriceEl = document.getElementById('BundleFinalPrice-{{ section.id }}');
+  
+  if (!bundleContainer || !addBundleBtn) return;
+
+  const discountPercent = parseFloat(addBundleBtn.dataset.discount) || 20;
+  const discountMultiplier = 1 - (discountPercent / 100);
+
+  function formatMoney(cents) {
+    return '{{ shop.money_format }}'.replace(/\{\{\s*amount\s*\}\}/, (cents / 100).toFixed(2));
+  }
+
+  function updateBundlePrice() {
+    const items = bundleContainer.querySelectorAll('.product-bundle__item');
+    let totalPrice = 0;
+    let selectedCount = 0;
+
+    items.forEach(item => {
+      const checkbox = item.querySelector('.bundle-checkbox');
+      if (checkbox && checkbox.checked) {
+        const price = parseFloat(item.dataset.price) || 0;
+        totalPrice += price;
+        selectedCount++;
+      }
+    });
+
+    const discountedTotal = Math.round(totalPrice * discountMultiplier);
+
+    if (originalPriceEl) {
+      originalPriceEl.textContent = formatMoney(totalPrice);
+    }
+    if (finalPriceEl) {
+      finalPriceEl.textContent = formatMoney(discountedTotal);
+    }
+
+    addBundleBtn.disabled = selectedCount < 2;
+  }
+
+  // Listen to checkbox changes
+  bundleContainer.addEventListener('change', function(e) {
+    if (e.target.classList.contains('bundle-checkbox')) {
+      updateBundlePrice();
     }
   });
+
+  // Listen to variant changes
+  bundleContainer.addEventListener('change', function(e) {
+    if (e.target.classList.contains('bundle-variant-select')) {
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      const newPrice = selectedOption.dataset.price;
+      const item = e.target.closest('.product-bundle__item');
+      if (item) {
+        item.dataset.price = newPrice;
+        item.dataset.variantId = e.target.value;
+        updateBundlePrice();
+      }
+    }
+  });
+
+  // Add to cart functionality
+  addBundleBtn.addEventListener('click', function() {
+    const items = bundleContainer.querySelectorAll('.product-bundle__item');
+    const itemsToAdd = [];
+
+    items.forEach(item => {
+      const checkbox = item.querySelector('.bundle-checkbox');
+      if (checkbox && checkbox.checked) {
+        const variantId = item.dataset.variantId;
+        if (variantId) {
+          itemsToAdd.push({
+            id: variantId,
+            quantity: 1
+          });
+        }
+      }
+    });
+
+    if (itemsToAdd.length < 2) {
+      alert('Please select at least 2 products for the bundle.');
+      return;
+    }
+
+    // Add items to cart
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items: itemsToAdd })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Refresh cart or show notification
+      window.location.href = '/cart';
+    })
+    .catch(error => {
+      console.error('Error adding bundle to cart:', error);
+      alert('There was an error adding the bundle to your cart. Please try again.');
+    });
+  });
+
+  // Initial price calculation
+  updateBundlePrice();
+})();
 </script>

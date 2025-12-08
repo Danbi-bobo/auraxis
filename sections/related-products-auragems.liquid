@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="{{ 'component-related-auragems.css' | asset_url }}" media="print" onload="this.media='all'">
+<div class="related-products-auragems page-width">
+  <product-recommendations class="related-products" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <h2 class="related-products__heading">{{ section.settings.heading }}</h2>
+      <div class="related-products__grid grid grid--{{ section.settings.columns_desktop }}-col-desktop">
+        {% for recommendation in recommendations.products %}
+          <div class="grid__item">{% render 'auragems-product-card', product: recommendation %}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </product-recommendations>
+</div>
+{% javascript %}
+  class ProductRecommendations extends HTMLElement {
+    constructor() { super(); }
+    connectedCallback() {
+      const handleIntersection = (entries, observer) => {
+        if (!entries[0].isIntersecting) return;
+        observer.unobserve(this);
+        fetch(this.dataset.url).then(r => r.text()).then(text => {
+            const html = document.createElement('div'); html.innerHTML = text;
+            const recs = html.querySelector('product-recommendations');
+            if (recs && recs.innerHTML.trim().length) this.innerHTML = recs.innerHTML;
+        });
+      }
+      new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 200px 0px'}).observe(this);
+    }
+  }
+  customElements.define('product-recommendations', ProductRecommendations);
+{% endjavascript %}
+{% schema %}
+{
+  "name": "Auragems Related",
+  "settings": [
+    { "type": "text", "id": "heading", "default": "You may also like", "label": "Heading" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 10, "default": 4, "label": "Products count" },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "default": 4, "label": "Desktop columns" }
+  ],
+  "presets": [{ "name": "Auragems Related Products" }]
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+<div class="price-container">
+  <span class="price-item price-item--regular" style="font-size: 1.5em; font-weight: bold;">
+    {{ product.price | money }}
+  </span>
+  {%- if product.compare_at_price > product.price -%}
+    <span class="price-item price-item--sale" style="text-decoration: line-through; margin-left: 10px; color: #888;">
+      {{ product.compare_at_price | money }}
+    </span>
+    <span class="badge sale-badge" style="background: #000; color: #fff; padding: 2px 8px; margin-left: 10px; font-size: 0.8em;">SALE</span>
+  {%- endif -%}
+</div>

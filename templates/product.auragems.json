@@ -1,123 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "main": {
-            "type": "main-product-auragems",
-            "blocks": {
-                "vendor": {
-                    "type": "vendor",
-                    "settings": {}
-                },
-                "title": {
-                    "type": "title",
-                    "settings": {}
-                },
-                "price": {
-                    "type": "price",
-                    "settings": {}
-                },
-                "variant_picker": {
-                    "type": "variant_picker",
-                    "settings": {}
-                },
-                "quantity_selector": {
-                    "type": "quantity_selector",
-                    "settings": {}
-                },
-                "buy_buttons": {
-                    "type": "buy_buttons",
-                    "settings": {
-                        "show_dynamic_checkout": true
-                    }
-                },
-                "description": {
-                    "type": "description",
-                    "settings": {}
-                },
-                "share": {
-                    "type": "share",
-                    "settings": {}
-                },
-                "divider_1": {
-                    "type": "divider",
-                    "settings": {
-                        "margin_top": 20,
-                        "margin_bottom": 20
-                    }
-                },
-                "popup_size": {
-                    "type": "popup",
-                    "settings": {
-                        "link_label": "Hướng dẫn chọn size"
-                    }
-                }
-            },
-            "block_order": [
-                "vendor",
-                "title",
-                "price",
-                "divider_1",
-                "variant_picker",
-                "popup_size",
-                "quantity_selector",
-                "buy_buttons",
-                "share",
-                "description"
-            ],
-            "settings": {
-                "media_position": "left",
-                "media_width": 60,
-                "padding_top": 36,
-                "padding_bottom": 36
-            }
+  "sections": {
+    "main": {
+      "type": "main-product-auragems",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
         },
-        "shipping_section": {
-            "type": "collapsible-tabs",
-            "blocks": {
-                "tab_1": {
-                    "type": "collapsible_item",
-                    "settings": {
-                        "heading": "Chính sách vận chuyển",
-                        "icon": "truck",
-                        "content": "<p>Chúng tôi giao hàng toàn quốc trong 2-4 ngày làm việc.</p>"
-                    }
-                },
-                "tab_2": {
-                    "type": "collapsible_item",
-                    "settings": {
-                        "heading": "Đổi trả & Bảo hành",
-                        "icon": "recycle",
-                        "content": "<p>Đổi trả miễn phí trong vòng 7 ngày nếu có lỗi từ nhà sản xuất.</p>"
-                    }
-                }
-            },
-            "block_order": [
-                "tab_1",
-                "tab_2"
-            ],
-            "settings": {
-                "heading": "Thông tin bổ sung",
-                "container": "fixed",
-                "header_layout": "vertical"
-            }
+        "price": {
+          "type": "price",
+          "settings": {}
         },
-        "related_products": {
-            "type": "related-products",
-            "settings": {
-                "heading": "Có thể bạn cũng thích",
-                "products_to_show": 4,
-                "columns_desktop": 4,
-                "color_scheme": "scheme-1",
-                "image_ratio": "square",
-                "show_secondary_image": true,
-                "show_vendor": false,
-                "show_rating": false,
-                "columns_mobile": "2"
-            }
+        "variants": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "policy": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Return Policy",
+            "content": "<p>Returns accepted within 30 days.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Info",
+            "content": "<p>Free shipping worldwide.</p>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
         }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variants",
+        "buy_buttons",
+        "policy",
+        "shipping",
+        "description"
+      ],
+      "settings": {}
     },
-    "order": [
-        "main",
-        "shipping_section",
-        "related_products"
-    ]
+    "related": {
+      "type": "related-products-auragems",
+      "settings": {
+        "heading": "You May Also Like",
+        "products_to_show": 4,
+        "columns_desktop": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related"
+  ]
 }
