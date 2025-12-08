@@ -254,63 +254,20 @@
     "testimonials_bGzJVn": {
       "type": "testimonials",
       "blocks": {
-        "testimonial_DTf7hy": {
+        "testimonial_KVbq3Q": {
           "type": "testimonial",
           "settings": {
+            "image": "shopify://shop_images/3b1c4ae48cf4511fa6b96b64b3a888b1_720x_3b1f854d-05f7-418e-b790-dbf43731dfbe.webp",
             "show_image": true,
             "icon": "5-stars",
-            "text": "<p>What a beautiful necklace, besides the peace and luck that fox queen brings to me. I feel very confident because of its beauty. It suits me very well no matter what outfit I wear.</p>",
-            "author": "Jenny Nguyen",
-            "bio": ""
-          }
-        },
-        "testimonial_ctqhTX": {
-          "type": "testimonial",
-          "settings": {
-            "show_image": true,
-            "icon": "5-stars",
-            "text": "<p>Living on a small pension made me worry about money all the time, especially for unexpected expenses. Since I started wearing the Fox Queen, I’ve received small financial help from friends and hit the lottery jackpot. My budget isn’t as tight anymore. Fox Queen has brought me some much-needed financial relief.</p>",
-            "author": "Sophia Williams",
-            "bio": ""
-          }
-        },
-        "testimonial_yEczQq": {
-          "type": "testimonial",
-          "settings": {
-            "show_image": true,
-            "icon": "5-stars",
-            "text": "<p>Living on a small pension made me worry about money all the time, especially for unexpected expenses. Since I started wearing the Pixiu, I’ve received small financial help from friends and even won a little prize. My budget isn’t as tight anymore. Pixiu has brought me some much-needed financial relief.</p>",
-            "author": "Michael Anderson",
-            "bio": ""
-          }
-        },
-        "testimonial_ACGKgm": {
-          "type": "testimonial",
-          "settings": {
-            "show_image": true,
-            "icon": "5-stars",
-            "text": "<p>It's not hard to live anymore.I've been using Pixiu for eight months.Before, I was drowning in debt, but now my money is flowing smoothly and I feel more confident in supporting my family.<br/><br/></p>",
-            "author": "David Miller",
-            "bio": ""
-          }
-        },
-        "testimonial_x6kCYm": {
-          "type": "testimonial",
-          "settings": {
-            "show_image": true,
-            "icon": "none",
-            "text": "<p>My small food stall is thriving now. I’ve been wearing the Pixiu for eight months. Before, I failed in business twice and lost sleep from stress, hitting rock bottom at 30. The Pixiu gave me a fresh start, my business grew, and I’m more at peace. I sleep soundly every night!</p>",
-            "author": "M.Dominic",
-            "bio": ""
+            "text": "<p>\"Chất lượng sản phẩm tuyệt vời, đóng gói cẩn thận. Tôi rất hài lòng!\"</p>",
+            "author": "Nguyễn Văn A",
+            "bio": "Verified Buyer"
           }
         }
       },
       "block_order": [
-        "testimonial_DTf7hy",
-        "testimonial_ctqhTX",
-        "testimonial_yEczQq",
-        "testimonial_ACGKgm",
-        "testimonial_x6kCYm"
+        "testimonial_KVbq3Q"
       ],
       "custom_css": [
         ".testimonial__icon {color: #e5bb57;}"
@@ -326,7 +283,7 @@
         "card_color_scheme": "scheme-1",
         "star_color": "#c5a059",
         "image_ratio": "100%",
-        "columns_desktop": 2,
+        "columns_desktop": 5,
         "column_gap": "large",
         "enable_slider": true,
         "auto_rotate": true,
@@ -349,7 +306,7 @@
         "heading_highlight_style": "none",
         "subheading": "",
         "description": "",
-        "blog": "",
+        "blog": "kiến-thức-phong-thủy",
         "post_limit": 3,
         "columns_desktop": 3,
         "column_gap": "medium",

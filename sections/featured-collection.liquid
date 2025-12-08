@@ -38,6 +38,7 @@
     border-radius: var(--block-radius, 8px);
     overflow: hidden;
     background: rgb(var(--color-background));
+    border: 1px solid rgba(var(--color-foreground), 0.05);
   }
 
   /* Hiệu ứng Hover Card: Nổi lên và đổ bóng */
@@ -45,6 +46,7 @@
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.08);
     z-index: 2;
+    border-color: transparent;
   }
 
   .section-{{ section.id }} .card__inner {
@@ -67,11 +69,47 @@
     color: rgb(var(--color-foreground));
     background: transparent;
     transition: all 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
   }
   .section-{{ section.id }} .swiper-controls button:hover {
     background: rgb(var(--color-foreground));
     color: rgb(var(--color-background));
     border-color: rgb(var(--color-foreground));
+  }
+  
+  /* Grid Fix */
+  .section-{{ section.id }} .f-grid {
+    display: grid;
+    grid-template-columns: repeat({{ columns_mobile_int }}, 1fr);
+    gap: 20px;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .f-grid {
+      grid-template-columns: repeat({{ columns_tablet }}, 1fr);
+    }
+  }
+  
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} .f-grid {
+      grid-template-columns: repeat({{ columns_desktop }}, 1fr);
+    }
+  }
+  
+  /* Slider Overrides if active */
+  .section-{{ section.id }} .swiper-wrapper {
+    display: flex;
+    gap: 0; /* Gap handled by swiper */
+  }
+  .section-{{ section.id }} .swiper-slide {
+    height: auto;
+    width: auto; /* Let swiper handle width */
   }
 {%- endstyle -%}
 
@@ -84,7 +122,7 @@
   style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;">
   
   <div class="page-width">
-    <div class="section__header spacing--large md:flex justify-between items-end gap-6">
+    <div class="section__header spacing--large md:flex justify-between items-end gap-6" style="margin-bottom: 30px;">
       <div class="rich-text text-{{ section.settings.header_alignment_mobile }} md:text-{{ section.settings.header_alignment }}">
         {%- if section.settings.subheading != blank -%}
           <motion-element class="block rich-text__subheading text-subheading" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
@@ -123,7 +161,7 @@
     </div>
 
     <motion-element class="section__content block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
-      <products-showcase 
+      <div 
         class="products-showcase block {% if show_desktop_slider or show_mobile_slider %} swiper{% endif %}{% if show_mobile_slider %} swipe-mobile swipe-mobile--{{ section.settings.columns_mobile }}-cols{% endif %}"
         data-section-id="{{ section.id }}"
         {% if show_desktop_slider %}
@@ -132,7 +170,7 @@
           data-tablet-items="{{ columns_tablet }}"
         {% endif %}
       >
-        <div class="products-showcase__items f-grid f-grid-{{ columns_mobile_int }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }} {% if show_desktop_slider or show_mobile_slider %} swiper-wrapper{% endif %}{% if show_mobile_slider %} swipe-mobile__inner{% endif %}">
+        <div class="products-showcase__items {% if show_desktop_slider == false and show_mobile_slider == false %}f-grid{% endif %} {% if show_desktop_slider or show_mobile_slider %} swiper-wrapper{% endif %}{% if show_mobile_slider %} swipe-mobile__inner{% endif %}">
           
           {%- if section.settings.collection != blank and section.settings.collection.all_products_count > 0 -%}
             {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
@@ -157,7 +195,7 @@
           {%- endif -%}
           
         </div>
-      </products-showcase>
+      </div>
     </motion-element>
 
     {%- if section.settings.show_view_all and more_in_collection -%}
