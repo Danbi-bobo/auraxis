@@ -46,7 +46,7 @@
 %}
 
 {%- style -%}
-  /* --- AURAGEMS VERTICAL TESTIMONIAL STYLE --- */
+  /* --- AURAGEMS COMPACT TESTIMONIAL STYLE --- */
   .section-{{ section.id }} .testimonial-card {
     background: rgb(var(--color-background));
     border-radius: var(--block-radius);
@@ -67,24 +67,17 @@
   {% endif %}
 
   .section-{{ section.id }} .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
 
-  /* 1. ẢNH KHÁCH HÀNG (ĐIỀU CHỈNH KÍCH THƯỚC) */
+  /* 1. ẢNH KHÁCH HÀNG (COMPACT) */
   .section-{{ section.id }} .testimonial-card__image-wrapper {
     width: 100%;
     position: relative;
-    /* Thay đổi tỉ lệ ở đây: 75% = 4:3, 56.25% = 16:9. 100% = Vuông */
-    padding-bottom: {{ section.settings.image_ratio | default: '75%' }}; 
+    padding-bottom: {{ section.settings.image_ratio | default: '75%' }};
     background-color: rgba(0,0,0,0.03);
     overflow: hidden;
-  }
-
-  /* Nếu người dùng chọn 'auto' hoặc không muốn crop, ta dùng height cố định */
-  .section-{{ section.id }} .testimonial-card__image-wrapper.fixed-height {
-      padding-bottom: 0;
-      height: 250px; /* Chiều cao cố định */
   }
 
   .section-{{ section.id }} .testimonial-card__image {
@@ -93,7 +86,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cắt ảnh để vừa khung */
+    object-fit: cover;
     transition: transform 0.5s ease;
   }
   
@@ -101,34 +94,34 @@
     transform: scale(1.05);
   }
 
-  /* CONTAINER NỘI DUNG */
+  /* CONTAINER NỘI DUNG (GIẢM PADDING) */
   .section-{{ section.id }} .testimonial-card__content {
-    padding: 1.5rem; /* Giảm padding để gọn hơn */
+    padding: 1.2rem; /* Giảm từ 2rem xuống 1.2rem để gọn hơn */
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
   }
 
-  /* 2. ICON / SAO */
+  /* 2. ICON / SAO (NHỎ LẠI) */
   .section-{{ section.id }} .testimonial-card__icon {
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     color: {{ section.settings.star_color | default: '#C5A059' }};
     display: flex;
     justify-content: center;
-    gap: 3px;
+    gap: 2px;
   }
   
   .section-{{ section.id }} .testimonial-card__icon svg {
-    width: 14px; /* Giảm kích thước sao */
-    height: 14px;
+    width: 12px; /* Sao nhỏ lại */
+    height: 12px;
   }
 
-  /* 3. TEXT */
+  /* 3. TEXT (NHỎ LẠI, CĂN ĐỀU) */
   .section-{{ section.id }} .testimonial-card__text {
-    font-size: 1.3rem; /* Font chữ vừa phải */
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
+    font-size: 1.2rem; /* Giảm cỡ chữ */
+    line-height: 1.4;
+    margin-bottom: 1rem;
     color: rgba(var(--color-foreground), 0.85);
     text-align: justify;
     width: 100%;
@@ -139,18 +132,18 @@
     text-align-last: center;
   }
 
-  /* 4. AUTHOR INFO */
+  /* 4. AUTHOR INFO (GỌN HƠN) */
   .section-{{ section.id }} .testimonial-card__info {
     margin-top: auto;
     text-align: center;
     border-top: 1px solid rgba(var(--color-foreground), 0.1);
-    padding-top: 1rem;
+    padding-top: 0.8rem;
     width: 100%;
   }
 
   .section-{{ section.id }} .testimonial-card__author {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Tên nhỏ lại */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: rgb(var(--color-foreground));
@@ -158,18 +151,18 @@
   }
 
   .section-{{ section.id }} .testimonial-card__bio {
-    font-size: 1rem;
+    font-size: 0.9rem; /* Bio nhỏ lại */
     opacity: 0.6;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     justify-content: center;
   }
   
   .section-{{ section.id }} .verified-badge {
     color: #27ae60;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
   }
 {%- endstyle -%}
 
@@ -272,11 +265,11 @@
                 {%- if block.settings.show_image and block.settings.image != blank -%}
                   <div class="testimonial-card__image-wrapper">
                     <img 
-                      src="{{ block.settings.image | image_url: width: 600 }}" 
+                      src="{{ block.settings.image | image_url: width: 400 }}" 
                       alt="{{ block.settings.author | escape }}"
                       loading="lazy" 
-                      width="600" 
-                      height="{{ 600 | divided_by: block.settings.image.aspect_ratio | ceil }}"
+                      width="400" 
+                      height="{{ 400 | divided_by: block.settings.image.aspect_ratio | ceil }}"
                       class="testimonial-card__image"
                     >
                   </div>
@@ -359,7 +352,7 @@
     {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "Customer Reviews",
+      "default": "Happy Customers",
       "label": "t:sections.all.heading.label"
     },
     {
@@ -426,7 +419,8 @@
       "options": [
         { "value": "100%", "label": "Square (1:1)" },
         { "value": "133.33%", "label": "Portrait (3:4)" },
-        { "value": "66.66%", "label": "Landscape (3:2)" }
+        { "value": "66.66%", "label": "Landscape (3:2)" },
+        { "value": "75%", "label": "Compact (4:3)" }
       ]
     },
     {
@@ -437,15 +431,16 @@
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
-      "max": 4,
+      "max": 6,
       "step": 1,
-      "default": 3,
-      "label": "t:sections.all.grid.columns_desktop.label"
+      "default": 4,
+      "label": "Columns on Desktop (Max 6)"
     },
     {
       "type": "select",
       "id": "column_gap",
       "options": [
+        { "value": "small", "label": "Small" },
         { "value": "medium", "label": "Medium" },
         { "value": "large", "label": "Large" }
       ],
@@ -489,7 +484,7 @@
         { "value": "1", "label": "1 Column" },
         { "value": "2", "label": "2 Columns" }
       ],
-      "default": "1",
+      "default": "2",
       "label": "t:sections.all.mobile.columns_mobile.label"
     },
     {
