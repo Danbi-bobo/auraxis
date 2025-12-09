@@ -16,6 +16,8 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-1",
+            "background": "shopify://shop_images/pixiu-desktop-DnLomFTR.png",
+            "background_mobile": "shopify://shop_images/pixiu-mobile-VwulYD60.png",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "middle-center",
@@ -35,6 +37,8 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-3",
+            "background": "shopify://shop_images/christmas-desktop-CFGQKbhZ.png",
+            "background_mobile": "shopify://shop_images/banner-christmas-gold-chain.png",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "bottom-center",
@@ -54,6 +58,8 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-3",
+            "background": "shopify://shop_images/Gemini_Generated_Image_toftgntoftgntoft_1.png",
+            "background_mobile": "shopify://shop_images/Gemini_Generated_Image_jlxy9zjlxy9zjlxy_1.png",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "bottom-center",
@@ -68,32 +74,12 @@
             "button_link": "shopify://collections/pixiu",
             "button_style": "btn--secondary"
           }
-        },
-        "slide_AjaLBB": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-3",
-            "image_overlay_opacity": 0,
-            "show_content_in_container": true,
-            "content_position": "bottom-center",
-            "content_position_mobile": "bottom-center",
-            "text_alignment": "center",
-            "title": "",
-            "heading_size": "h6",
-            "subheading": "",
-            "description": "",
-            "description_size": "text-inherit",
-            "button_label": "SHOP NOW",
-            "button_link": "shopify://collections/all",
-            "button_style": "btn--secondary"
-          }
         }
       },
       "block_order": [
         "slide_GELJw4",
         "slide_JhU8hg",
-        "slide_P9NzMw",
-        "slide_AjaLBB"
+        "slide_P9NzMw"
       ],
       "custom_css": [
         ".slideshow__text {max-width: 46rem;}",
