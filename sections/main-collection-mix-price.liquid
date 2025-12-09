@@ -3,6 +3,10 @@
 {%- liquid
   assign columns_desktop = section.settings.columns_desktop
   assign columns_mobile = section.settings.columns_mobile | times: 1
+  assign rows_desktop = section.settings.rows_desktop
+  
+  # Tính tổng số sản phẩm hiển thị 1 lần (Cột x Hàng)
+  assign items_per_page = columns_desktop | times: rows_desktop
 -%}
 
 {% render 'divider',
@@ -18,41 +22,25 @@
     {%- paginate collection.products by section.settings.products_per_page -%}
       <div class="collection__content flex flex-col">
         
-        <div class="collection-header-row">
-          <div class="header-left">
-             <h2 class="h4" style="margin: 0;">{{ collection.title }}</h2>
-             <p class="collection-count" style="margin: 0; font-size: 13px; opacity: 0.7;">
-              {{ collections['all'].all_products_count }} products total
-            </p>
-          </div>
-          
-          <div class="carousel-controls">
-            <button id="btn-prev" class="carousel-btn" aria-label="Previous">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            
-            <span id="page-counter" class="carousel-counter">Page 1 / 1</span>
-            
-            <button id="btn-next" class="carousel-btn" aria-label="Next">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
+        <div class="collection-header-row text-center" style="justify-content: center; margin-bottom: 30px;">
+           <h2 class="h3" style="margin: 0;">{{ collection.title }}</h2>
         </div>
 
         <div class="flex flex-col flex-grow" id="ProductGridWrapper">
           <div id="ProductGridContainer">
             
-            <div id="CarouselTrack" 
-                 class="carousel-track"
+            <div id="GridTrack" 
+                 class="grid-track f-grid"
                  data-desktop-cols="{{ columns_desktop }}"
-                 data-mobile-cols="{{ columns_mobile }}">
+                 data-mobile-cols="{{ columns_mobile }}"
+                 data-items-per-page="{{ items_per_page }}">
               
               {%- assign displayed_products = "|" -%}
 
               {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
               {%- for product in collection.products -%}
                 {%- assign displayed_products = displayed_products | append: product.handle | append: "|" -%}
-                <div class="carousel-item">
+                <div class="grid-item hidden-item">
                   {%- render 'card-product',
                     product: product,
                     section_id: section.id,
@@ -63,19 +51,17 @@
                 </div>
               {%- endfor -%}
 
-              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI (GIÁ THẤP -> CAO) --- {% endcomment %}
+              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI --- {% endcomment %}
               {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
                 {%- assign other_products = collections['all'].products | sort: 'price' -%}
                 {%- assign counter = 0 -%}
-                
-                {% comment %} Lấy tối đa 30 sản phẩm bổ sung để thanh cuộn không quá nặng {% endcomment %}
-                {%- assign limit_extra = 30 -%} 
+                {%- assign limit_extra = 48 -%} 
 
                 {%- for product in other_products -%}
                   {%- assign check_handle = "|" | append: product.handle | append: "|" -%}
                   {%- unless displayed_products contains check_handle -%}
                     {%- if counter < limit_extra -%}
-                      <div class="carousel-item">
+                      <div class="grid-item hidden-item">
                         {%- render 'card-product',
                           product: product,
                           section_id: section.id,
@@ -91,6 +77,19 @@
               {%- endif -%}
 
             </div>
+
+            <div class="carousel-footer-controls">
+              <button id="btn-prev" class="carousel-btn" aria-label="Previous">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              
+              <span id="page-counter" class="carousel-counter">Page 1 / 1</span>
+              
+              <button id="btn-next" class="carousel-btn" aria-label="Next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -99,24 +98,40 @@
 </div>
 
 <style>
-  /* HEADER & CONTROLS */
-  .collection-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
+  /* GRID LAYOUT */
+  .grid-track {
+    display: grid;
+    grid-template-columns: repeat({{ columns_desktop }}, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    min-height: 400px; /* Tránh giật layout khi load */
   }
+
+  /* Ẩn hiện item bằng class */
+  .grid-item { opacity: 1; transition: opacity 0.3s ease; }
+  .grid-item.hidden-item { display: none; opacity: 0; }
   
-  .carousel-controls {
+  /* Mobile 2 cột (hoặc 1 tùy setting) */
+  @media (max-width: 767px) {
+    .grid-track {
+      grid-template-columns: repeat({{ columns_mobile }}, 1fr);
+      gap: 10px;
+    }
+  }
+
+  /* FOOTER CONTROLS */
+  .carousel-footer-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center; /* Căn giữa */
+    gap: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
   }
+  
   .carousel-btn {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border: 1px solid #ddd;
     border-radius: 50%;
     background: white;
@@ -128,122 +143,84 @@
     color: #333;
   }
   .carousel-btn:hover { background: #000; color: #fff; border-color: #000; }
-  .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; background: #eee; color: #999; border-color: #eee;}
+  .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; background: #f9f9f9; color: #ccc; border-color: #eee;}
   
   .carousel-counter { 
-    font-size: 13px; 
+    font-size: 14px; 
     font-weight: 600; 
-    min-width: 70px; 
+    min-width: 80px; 
     text-align: center;
-    background: #f5f5f5;
-    padding: 4px 10px;
-    border-radius: 20px;
+    letter-spacing: 0.5px;
   }
-
-  /* CAROUSEL TRACK LAYOUT */
-  .carousel-track {
-    display: flex !important; /* Bắt buộc dùng Flex */
-    flex-direction: row;
-    flex-wrap: nowrap; /* Không xuống dòng */
-    overflow-x: auto;  /* Cho phép cuộn ngang */
-    gap: 15px;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory; /* Bắt dính item */
-    padding-bottom: 10px;
-    
-    /* Ẩn thanh cuộn */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .carousel-track::-webkit-scrollbar { 
-    display: none; 
-  }
-
-  /* CAROUSEL ITEM SIZING */
-  .carousel-item {
-    flex: 0 0 auto; /* Không co giãn */
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    
-    /* Mobile: 2 items (hoặc 1 tùy setting) */
-    width: calc(100% / {{ columns_mobile }} - 10px);
-  }
-
-  @media (min-width: 768px) {
-    .carousel-item {
-      width: calc(100% / 3 - 15px); /* Tablet 3 cột */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .carousel-item {
-      width: calc(100% / {{ columns_desktop }} - 15px); /* Desktop */
-    }
-  }
-  
-  /* Fix lỗi ảnh bị méo */
-  .carousel-item .card-wrapper { height: 100%; }
-  .carousel-item .card { height: 100%; }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const track = document.getElementById('CarouselTrack');
+  const track = document.getElementById('GridTrack');
+  const items = track.querySelectorAll('.grid-item');
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
   const counterEl = document.getElementById('page-counter');
 
-  if (!track || !btnPrev || !btnNext) return;
+  if (!track || items.length === 0) return;
 
-  function updateCounter() {
-    const trackWidth = track.clientWidth; // Độ rộng hiển thị
-    const scrollLeft = track.scrollLeft;  // Vị trí đang cuộn
-    const totalWidth = track.scrollWidth; // Tổng độ dài thực tế
-    
-    if (totalWidth <= trackWidth) {
-        counterEl.innerText = "1 / 1";
-        btnPrev.disabled = true;
-        btnNext.disabled = true;
-        return;
-    }
-
-    // Tính số trang
-    const currentPage = Math.round(scrollLeft / trackWidth) + 1;
-    const totalPages = Math.round(totalWidth / trackWidth);
-    
-    counterEl.innerText = `Page ${currentPage} / ${totalPages}`;
-
-    // Disable nút
-    btnPrev.disabled = scrollLeft <= 10;
-    btnNext.disabled = scrollLeft >= (totalWidth - trackWidth - 10);
+  // Lấy cấu hình số lượng
+  let itemsPerPage = parseInt(track.getAttribute('data-items-per-page')) || 12;
+  
+  // Trên mobile có thể muốn hiện ít hơn (tùy chọn)
+  if (window.innerWidth < 768) {
+     // Ví dụ: Mobile hiện 4 sp/trang
+     // itemsPerPage = 4; 
   }
 
-  btnPrev.addEventListener('click', () => {
-    track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
-  });
+  const totalItems = items.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  let currentPage = 1;
 
-  btnNext.addEventListener('click', () => {
-    track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
-  });
+  function showPage(page) {
+    // Validate page
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    currentPage = page;
 
-  track.addEventListener('scroll', updateCounter);
-  window.addEventListener('resize', updateCounter);
-  
-  // Chạy lần đầu sau 0.5s để đợi ảnh load xong
-  setTimeout(updateCounter, 500);
+    // Tính toán index bắt đầu và kết thúc
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    // Loop qua tất cả items để ẩn/hiện
+    items.forEach((item, index) => {
+      if (index >= start && index < end) {
+        item.classList.remove('hidden-item');
+      } else {
+        item.classList.add('hidden-item');
+      }
+    });
+
+    // Cập nhật UI
+    counterEl.innerText = `Page ${currentPage} / ${totalPages}`;
+    btnPrev.disabled = currentPage === 1;
+    btnNext.disabled = currentPage === totalPages;
+    
+    // Scroll nhẹ lên đầu grid nếu đang ở dưới
+    // track.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  btnPrev.addEventListener('click', () => showPage(currentPage - 1));
+  btnNext.addEventListener('click', () => showPage(currentPage + 1));
+
+  // Khởi chạy
+  showPage(1);
 });
 </script>
 
 {% schema %}
 {
-  "name": "Carousel Mix Price",
+  "name": "Mix Price Grid (Paged)",
   "class": "collection-section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Template dạng thanh cuộn ngang (Carousel) kết hợp Mix Price."
+      "content": "Dạng lưới phân trang tại chỗ (Client-side Pagination)."
     },
     {
       "type": "color_scheme",
@@ -254,21 +231,35 @@ document.addEventListener("DOMContentLoaded", function() {
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 10,
+      "min": 12,
       "max": 50,
       "step": 2,
-      "default": 20,
-      "label": "Limit Products (Số lượng SP tối đa)",
-      "info": "Nên để cao (vd: 30-50) để thanh cuộn dài hơn."
+      "default": 48,
+      "label": "Total Products Load (Tổng tải)",
+      "info": "Số lượng sản phẩm tối đa được tải về để phân trang."
+    },
+    {
+        "type": "header",
+        "content": "Grid Settings"
     },
     {
       "type": "range",
       "id": "columns_desktop",
-      "min": 3,
-      "max": 6,
+      "min": 2,
+      "max": 5,
       "step": 1,
       "default": 4,
-      "label": "Columns on Desktop (Số cột)"
+      "label": "Columns (Số cột)"
+    },
+    {
+      "type": "range",
+      "id": "rows_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "label": "Rows (Số hàng hiển thị)",
+      "info": "Ví dụ: 4 cột x 3 hàng = 12 sản phẩm / trang."
     },
     {
       "type": "select",
