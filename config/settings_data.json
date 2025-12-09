@@ -95,6 +95,11 @@
         "type": "shopify://apps/foxify-page-builder/blocks/app-embed/4e19e422-f550-4994-9ea0-84f23728223d",
         "disabled": false,
         "settings": {}
+      },
+      "14634609474538694927": {
+        "type": "shopify://apps/fether-frequently-bought/blocks/widget-embed/f96a0d1a-35b8-40ef-ad54-1cb7fb011e11",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

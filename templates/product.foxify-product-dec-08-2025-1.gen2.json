@@ -12,9 +12,27 @@
     "foxify-1765177980A3dGc": {
       "type": "foxify-1765177980A3dGc",
       "settings": {}
+    },
+    "17652930581c921523": {
+      "type": "apps",
+      "blocks": {
+        "fether_frequently_bought_widget_block_dxUhWg": {
+          "type": "shopify://apps/fether-frequently-bought/blocks/widget-block/f96a0d1a-35b8-40ef-ad54-1cb7fb011e11",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "fether_frequently_bought_widget_block_dxUhWg"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
-    "foxify-1765177980A3dGc"
+    "foxify-1765177980A3dGc",
+    "17652930581c921523"
   ]
 }
