@@ -13,7 +13,7 @@
       "type": "main-collection-banner",
       "settings": {
         "color_scheme": "scheme-1",
-        "show_collection_image": false
+        "show_collection_image": true
       }
     },
     "product-grid": {
