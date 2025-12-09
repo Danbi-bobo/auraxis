@@ -86,13 +86,16 @@
     "product-grid": {
       "type": "main-collection-mix-price",
       "settings": {
-        "color_scheme": "",
-        "products_per_page": 8,
+        "products_per_page": 15,
         "columns_desktop": 5,
-        "show_section_divider": false,
-        "divider_width": "fixed",
+        "pagination": "number",
         "padding_top": 50,
-        "padding_bottom": 50
+        "padding_bottom": 50,
+        "color_scheme": "",
+        "grid_layout": "standard",
+        "columns_mobile": "2",
+        "show_section_divider": false,
+        "divider_width": "fixed"
       }
     }
   },
