@@ -41,10 +41,9 @@
     {%- paginate collection.products by section.settings.products_per_page -%}
       <div class="collection__content flex flex-col">
         
-        {% comment %} --- HIỂN THỊ TỔNG SỐ SẢN PHẨM --- {% endcomment %}
-        <div class="collection-header text-center" style="margin-bottom: 30px;">
-          <h2 class="h3">{{ collection.title }}</h2>
-          <p class="collection-count">
+        {% comment %} --- CHỈNH SỬA: XÓA TÊN, ĐƯA SỐ LƯỢNG SANG TRÁI --- {% endcomment %}
+        <div class="collection-header text-left" style="margin-bottom: 15px; width: 100%;">
+          <p class="collection-count" style="margin: 0; font-size: 14px; opacity: 0.8;">
             {{ collections['all'].all_products_count }} products
           </p>
         </div>
@@ -150,7 +149,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Template này đã tắt bộ lọc và hiển thị tổng số sản phẩm của toàn shop."
+      "content": "Template này đã tắt bộ lọc, ẩn tên collection và hiển thị tổng số sản phẩm bên trái."
     },
     {
       "type": "color_scheme",
