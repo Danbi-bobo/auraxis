@@ -87,8 +87,8 @@
       "type": "main-collection-mix-price",
       "settings": {
         "color_scheme": "",
-        "products_per_page": 16,
-        "columns_desktop": 4,
+        "products_per_page": 8,
+        "columns_desktop": 5,
         "grid_layout": "standard",
         "pagination": "number",
         "show_section_divider": false,
