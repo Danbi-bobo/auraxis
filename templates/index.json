@@ -308,91 +308,66 @@
         "divider_width": "fixed"
       }
     },
-    "featured_products_tab_ngH8tV": {
-      "type": "featured-products-tab",
+    "product_tabs_fVXaTT": {
+      "type": "product-tabs",
       "blocks": {
-        "tab_LQH36L": {
-          "type": "tab",
-          "settings": {
-            "title": "Product list 1{{ block.settings.collection.title }}",
-            "description": "",
-            "products": [],
-            "collection": "new-era-2026-fire-horse-🔥"
-          }
-        },
-        "tab_Nypf3J": {
+        "tab_wPnWqU": {
           "type": "tab",
           "settings": {
             "title": "{{ block.settings.collection.title }}",
-            "description": "",
-            "products": [],
-            "collection": "heal-balance"
+            "collection": "new-era-2026-fire-horse-🔥"
           }
         },
-        "tab_ia3EXa": {
+        "tab_eMUKx4": {
           "type": "tab",
           "settings": {
-            "title": "Product list 3",
-            "description": "",
-            "products": [],
-            "collection": ""
+            "title": "{{ block.settings.collection.title }}",
+            "collection": "unlock-destiny"
+          }
+        },
+        "tab_9BdcWg": {
+          "type": "tab",
+          "settings": {
+            "title": "{{ block.settings.collection.title }}",
+            "collection": "protect-your-energy"
+          }
+        },
+        "tab_wtMame": {
+          "type": "tab",
+          "settings": {
+            "title": "{{ block.settings.collection.title }}",
+            "collection": "heal-balance"
           }
         }
       },
       "block_order": [
-        "tab_LQH36L",
-        "tab_Nypf3J",
-        "tab_ia3EXa"
+        "tab_wPnWqU",
+        "tab_eMUKx4",
+        "tab_9BdcWg",
+        "tab_wtMame"
       ],
-      "name": "t:sections.featured-products-tab.presets.name",
+      "name": "t:sections.product-tabs.presets.name",
       "settings": {
         "color_scheme": "",
-        "enable_video_autoplay": true,
-        "heading": "Shop by collections",
+        "header_layout": "vertical",
+        "heading": "Product tabs",
         "heading_size": "h1",
         "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "description_size": "text-sm",
         "limit": 4,
-        "column_gap": "small",
-        "row_gap": "small",
-        "pcard_image_ratio": "3/4",
-        "pcard_thumbnail_ratio": "",
+        "columns": 4,
+        "column_gap": "medium",
+        "row_gap": "inherit",
+        "grid_layout": "standard",
+        "pcard_image_ratio": "",
+        "columns_mobile": "1",
         "swipe_on_mobile": true,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "tabs_nav_style": "design-1",
         "padding_top": 50,
         "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
-    },
-    "featured_collection_atefdY": {
-      "type": "featured-collection",
-      "name": "Featured Collection (Auragems)",
-      "settings": {
-        "collection": "heal-balance",
-        "products_to_show": 8,
-        "color_scheme": "",
-        "subheading": "",
-        "title": "Featured Collection",
-        "heading_size": "h2",
-        "heading_highlight_style": "none",
-        "description": "",
-        "header_alignment": "center",
-        "columns_desktop": 4,
-        "enable_desktop_slider": true,
-        "column_gap": "large",
-        "image_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_quick_add": true,
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "show_view_all": true,
-        "view_all_style": "btn--outline",
-        "padding_top": 36,
-        "padding_bottom": 36,
         "show_section_divider": false,
         "divider_width": "fixed"
       }
@@ -404,8 +379,7 @@
     "featured_collection_ggKwCH",
     "scrolling_promotion_6TQzbJ",
     "testimonials_bGzJVn",
-    "featured_blog_LMKAqy",
-    "featured_products_tab_ngH8tV",
-    "featured_collection_atefdY"
+    "product_tabs_fVXaTT",
+    "featured_blog_LMKAqy"
   ]
 }
