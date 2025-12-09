@@ -11,7 +11,9 @@
   "sections": {
     "foxify-1765177980A3dGc": {
       "type": "foxify-1765177980A3dGc",
-      "settings": {}
+      "settings": {
+        "collection_x-7sxbulmq": "frontpage"
+      }
     }
   },
   "order": [
