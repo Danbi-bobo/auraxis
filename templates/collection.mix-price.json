@@ -9,6 +9,38 @@
  */
 {
   "sections": {
+    "breadcrumbs_LnwNTM": {
+      "type": "breadcrumbs",
+      "name": "t:sections.breadcrumbs.name",
+      "settings": {
+        "text_alignment": "center"
+      }
+    },
+    "rich_text_J8gPax": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_C3Uxq9": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Why Are We Giving Away These For FREE?</strong>",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_C3Uxq9"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "full"
+      }
+    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -27,6 +59,30 @@
         "padding_bottom": 50
       }
     },
+    "rich_text_wdCdg8": {
+      "type": "rich-text",
+      "blocks": {
+        "text_NCmap4": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>We believe that what modern people need most is healing and unity. We pay close attention to the public welfare of Tibet. Through free products in exchange for everyone's care for the poor in Tibet. </li><li>We support more than 300 craftsmans in Tibet, and every craftsman joins us in the mission of making perfect crystal product. Upon ordering the free bracelet , you are welcome to purchase other products to support our store. This is really a great support for our movement. </li><li>You are helping us heal Tibet. For every product sold, BuddhaStones will donate part of the proceeds to the Tibet Charity Project to help poor children in Tibet get a good education. </li></ul>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "text_NCmap4"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "left",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
     "product-grid": {
       "type": "main-collection-mix-price",
       "settings": {
@@ -40,51 +96,11 @@
         "padding_top": 50,
         "padding_bottom": 50
       }
-    },
-    "rich_text_wdCdg8": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_AFUfGk": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "hd1",
-            "heading_highlight_style": "none"
-          }
-        },
-        "text_NCmap4": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_size": "text-base"
-          }
-        },
-        "button_WhFKf6": {
-          "type": "button",
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style": "btn--primary"
-          }
-        }
-      },
-      "block_order": [
-        "heading_AFUfGk",
-        "text_NCmap4",
-        "button_WhFKf6"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
     }
   },
   "order": [
+    "breadcrumbs_LnwNTM",
+    "rich_text_J8gPax",
     "banner",
     "rich_text_wdCdg8",
     "product-grid"
