@@ -22,6 +22,10 @@
   endif
 
   assign columns_desktop = section.settings.columns_desktop
+  assign columns_tablet = columns_desktop
+  if columns_desktop > 3
+    assign columns_tablet = columns_desktop | divided_by: 2.0 | ceil
+  endif
   
   assign motion_delay = 50
 %}
@@ -33,7 +37,7 @@
   .auragems-product-grid {
     display: grid;
     grid-template-columns: repeat({{ columns_mobile_int }}, 1fr);
-    gap: 20px; /* Tăng khoảng cách để thoáng hơn */
+    gap: 20px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -52,7 +56,7 @@
   }
   .auragems-product-grid.slider-active::-webkit-scrollbar { display: none; }
 
-  /* 2. Product Item (Cột) - Quan trọng: height auto để flex items bằng nhau */
+  /* 2. Product Item (Cột) */
   .auragems-product-item {
     height: auto;
     display: flex; 
@@ -79,9 +83,8 @@
     }
   }
 
-  /* 4. CARD STYLING & ALIGNMENT FIX */
+  /* 4. CARD STYLING - FIXED IMAGE HEIGHT */
   
-  /* Card Wrapper: Phải full chiều cao của cột */
   .section-{{ section.id }} .card-wrapper {
     height: 100%;
     width: 100%;
@@ -101,22 +104,21 @@
     z-index: 2;
   }
 
-  /* Card Inner (Chứa ảnh) */
-  .section-{{ section.id }} .card__inner {
-    flex-shrink: 0; /* Không cho phép ảnh bị co lại */
+  /* --- FIX IMAGE RATIO HERE --- */
+  .section-{{ section.id }} .card__media {
     position: relative;
     width: 100%;
+    overflow: hidden;
   }
 
-  /* --- FORCE IMAGE RATIO & FIT --- */
-  /* Ép tất cả ảnh về tỉ lệ cố định và cắt (crop) để bằng nhau */
   .section-{{ section.id }} .card__media .media {
     position: relative;
     width: 100%;
     height: 0;
-    /* Mặc định là vuông (100%), nếu setting chọn khác thì CSS inline sẽ đè lên */
-    padding-bottom: 100%; 
-    overflow: hidden;
+    /* Dùng padding-bottom để tạo khung tỉ lệ cố định */
+    /* 100% = Vuông 1:1, 133.33% = Dọc 3:4 */
+    padding-bottom: {% if section.settings.image_ratio == 'portrait' %}133.33%{% elsif section.settings.image_ratio == 'square' %}100%{% else %}100%{% endif %};
+    display: block;
   }
   
   .section-{{ section.id }} .card__media .media img {
@@ -125,36 +127,33 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover !important; /* Quan trọng: Cắt ảnh để lấp đầy khung */
+    object-fit: cover !important; /* Cắt ảnh để vừa khung */
     object-position: center;
   }
 
-  /* Card Content (Chứa Tên, Giá, Nút) */
+  /* Card Content */
   .section-{{ section.id }} .card__content {
-    flex-grow: 1; /* Chiếm hết khoảng trống còn lại */
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    justify-content: space-between; /* Đẩy nội dung ra 2 đầu */
+    justify-content: space-between;
   }
 
-  /* Thông tin sản phẩm (Tên, Giá) */
   .section-{{ section.id }} .card__information {
     margin-bottom: 1.5rem;
   }
 
-  /* Tên sản phẩm giới hạn dòng để đều nhau hơn (Tùy chọn) */
   .section-{{ section.id }} .card__heading {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Tối đa 2 dòng */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.8rem; /* Giữ chỗ cho 2 dòng kể cả khi tên ngắn */
+    min-height: 2.8rem;
   }
 
-  /* Nút Add to Cart / Quick Add */
   .section-{{ section.id }} .quick-add {
-    margin-top: auto; /* Đẩy nút xuống đáy cùng của card */
+    margin-top: auto;
     width: 100%;
   }
   
@@ -162,7 +161,7 @@
     width: 100%;
   }
 
-  /* Controls & Footer */
+  /* Controls */
   .section-{{ section.id }} .section__footer {
     margin-top: 4rem;
     text-align: center;
@@ -190,40 +189,6 @@
     color: rgb(var(--color-background));
     border-color: rgb(var(--color-foreground));
   }
-  /* FORCE ALL PRODUCT CARDS TO EQUAL HEIGHT */
-
-  .section-{{ section.id }} .auragems-product-item {
-    display: flex;
-    height: 100%;
-  }
-
-  .section-{{ section.id }} .card-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  /* Make content stretch equally */
-  .section-{{ section.id }} .card__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Prevent title from changing card height */
-  .section-{{ section.id }} .card__heading {
-    min-height: 3.2em; /* ~2 lines */
-  }
-
-  /* Keep bottom area stable */
-  .section-{{ section.id }} .price {
-    min-height: 2.2em; /* giữ giá 1 hoặc 2 dòng vẫn không làm lệch layout */
-  }
-
-  .section-{{ section.id }} .quick-add {
-    margin-top: auto;
-  }
-
 {%- endstyle -%}
 
 {% render 'divider', show_divider: section.settings.show_section_divider, divider_width: section.settings.divider_width %}
@@ -456,7 +421,7 @@
       "options": [
         { "value": "square", "label": "Square (1:1)" },
         { "value": "portrait", "label": "Portrait (3:4)" },
-        { "value": "adapt", "label": "Adapt to image" }
+        { "value": "adapt", "label": "Adapt to image (Not Fixed)" }
       ],
       "default": "square",
       "label": "Image Ratio"
