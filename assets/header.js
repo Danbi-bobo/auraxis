@@ -236,7 +236,7 @@ class DetailsDropdown extends HTMLDetailsElement {
       // Perform the transition in animation
       await this.showWithTransition();
 
-      // Check for reverse condition (not implemented here for brevity)
+      // Check for reverse condition (OPTIMIZED)
       this.needsReverse();
 
       // Wait for the after show event
@@ -340,8 +340,10 @@ class DetailsDropdown extends HTMLDetailsElement {
   }
 
   needsReverse() {
-    const totalWidth = this.contentElement.offsetLeft + this.contentElement.clientWidth * 2;
-    if (totalWidth > window.innerWidth) {
+    // FIX: Sử dụng getBoundingClientRect để tính toán chính xác hơn khi menu full
+    const rect = this.contentElement.getBoundingClientRect();
+    // Nếu mép phải của menu con vượt quá chiều rộng màn hình
+    if (rect.right > window.innerWidth) {
       this.contentElement.classList.add('needs-reverse');
     }
   }
