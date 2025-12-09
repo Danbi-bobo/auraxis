@@ -2,31 +2,8 @@
 
 {%- liquid
   assign columns_desktop = section.settings.columns_desktop
-  assign columns_tablet = 3
   assign columns_mobile = section.settings.columns_mobile | times: 1
-  assign default_grid_mobile = 'f-grid-' | append: columns_mobile | append: '-cols'
-
-  assign is_metro = false
-  if section.settings.grid_layout == 'metro'
-    assign is_metro = true
-  endif
 -%}
-
-{%- if is_metro -%}
-  {%- render 'product-grid-metro-style',
-    section_id: section.id,
-    desktop_breakpoint: 1280,
-    columns_desktop: columns_desktop,
-    columns_tablet: columns_tablet,
-    columns_mobile: columns_mobile
-  -%}
-{%- endif -%}
-
-{%- capture image_sizes -%}
-(max-width: 767px) calc((100vw - 38px) / {{ columns_mobile }}),
-(max-width: 1279px) calc((100vw - 90px) / {{ columns_tablet }}),
-{{ settings.page_width | divided_by: columns_desktop }}px
-{%- endcapture -%}
 
 {% render 'divider',
   show_divider: section.settings.show_section_divider,
@@ -41,97 +18,71 @@
     {%- paginate collection.products by section.settings.products_per_page -%}
       <div class="collection__content flex flex-col">
         
-        <div class="collection-header text-left" style="margin-bottom: 15px; width: 100%;">
-          <p class="collection-count" style="margin: 0; font-size: 14px; opacity: 0.8;">
-            Showing {{ collection.products.size }} of {{ collections['all'].all_products_count }} products
-          </p>
+        <div class="collection-header-row">
+          <div class="header-left">
+             <h2 class="h4" style="margin: 0;">{{ collection.title }}</h2>
+             <p class="collection-count" style="margin: 0; font-size: 13px; opacity: 0.7;">
+              {{ collections['all'].all_products_count }} products total
+            </p>
+          </div>
+          
+          <div class="carousel-controls">
+            <button id="btn-prev" class="carousel-btn" aria-label="Previous">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            
+            <span id="page-counter" class="carousel-counter">Page 1 / 1</span>
+            
+            <button id="btn-next" class="carousel-btn" aria-label="Next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
         </div>
 
         <div class="flex flex-col flex-grow" id="ProductGridWrapper">
-          
           <div id="ProductGridContainer">
-            <grid-list
-              id="ProductsList"
-              class="grid-list products-list f-grid md:f-grid-{{ columns_tablet }}-cols xl:f-grid-{{ columns_desktop }}-cols {{ default_grid_mobile }} f-grid--gap-medium"
-            >
+            
+            <div id="CarouselTrack" 
+                 class="carousel-track"
+                 data-desktop-cols="{{ columns_desktop }}"
+                 data-mobile-cols="{{ columns_mobile }}">
               
               {%- assign displayed_products = "|" -%}
 
               {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
               {%- for product in collection.products -%}
                 {%- assign displayed_products = displayed_products | append: product.handle | append: "|" -%}
-                <div class="f-column card">
-                  {%- if is_metro -%}
-                    {%- render 'card-product-metro',
-                      product: product,
-                      image_sizes: image_sizes,
-                      section_id: section.id,
-                      section_index: 2,
-                      index: forloop.index,
-                      index0: forloop.index0,
-                      desktop_breakpoint: 1280,
-                      columns_desktop: columns_desktop,
-                      columns_tablet: columns_tablet,
-                      columns_mobile: columns_mobile
-                    -%}
-                  {%- else -%}
-                    {%- render 'card-product',
-                      product: product,
-                      image_sizes: image_sizes,
-                      section_id: section.id,
-                      section_index: 2,
-                      index: forloop.index
-                    -%}
-                  {%- endif -%}
+                <div class="carousel-item">
+                  {%- render 'card-product',
+                    product: product,
+                    section_id: section.id,
+                    index: forloop.index,
+                    show_vendor: false,
+                    show_rating: false
+                  -%}
                 </div>
               {%- endfor -%}
 
-              {% comment %} --- PHẦN 2: SẢN PHẨM BỔ SUNG (GIÁ THẤP -> CAO) --- {% endcomment %}
+              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI (GIÁ THẤP -> CAO) --- {% endcomment %}
               {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
                 {%- assign other_products = collections['all'].products | sort: 'price' -%}
                 {%- assign counter = 0 -%}
                 
-                {% comment %} 
-                  Tính toán số lượng cần bổ sung để đủ lưới (đẹp đội hình)
-                  Ví dụ: Trang cần 12, collection có 5 -> Bổ sung 7
-                {% endcomment %}
-                {%- assign items_needed = section.settings.products_per_page | minus: collection.products.size -%}
-                
-                {% comment %} Nếu collection đã đủ hoặc thừa thì không bổ sung, ngược lại thì lấy tối đa limit_extra {% endcomment %}
-                {%- if items_needed > 0 -%}
-                    {%- assign limit_extra = items_needed -%}
-                {%- else -%}
-                    {%- assign limit_extra = 0 -%}
-                {%- endif -%}
+                {% comment %} Lấy tối đa 30 sản phẩm bổ sung để thanh cuộn không quá nặng {% endcomment %}
+                {%- assign limit_extra = 30 -%} 
 
                 {%- for product in other_products -%}
                   {%- assign check_handle = "|" | append: product.handle | append: "|" -%}
-                  
                   {%- unless displayed_products contains check_handle -%}
                     {%- if counter < limit_extra -%}
-                      <div class="f-column card">
-                        {%- if is_metro -%}
-                          {%- render 'card-product-metro',
-                            product: product,
-                            image_sizes: image_sizes,
-                            section_id: section.id,
-                            section_index: 2,
-                            index: forloop.index,
-                            index0: forloop.index0,
-                            desktop_breakpoint: 1280,
-                            columns_desktop: columns_desktop,
-                            columns_tablet: columns_tablet,
-                            columns_mobile: columns_mobile
-                          -%}
-                        {%- else -%}
-                          {%- render 'card-product',
-                            product: product,
-                            image_sizes: image_sizes,
-                            section_id: section.id,
-                            section_index: 2,
-                            index: forloop.index
-                          -%}
-                        {%- endif -%}
+                      <div class="carousel-item">
+                        {%- render 'card-product',
+                          product: product,
+                          section_id: section.id,
+                          index: forloop.index,
+                          show_vendor: false,
+                          show_rating: false
+                        -%}
                       </div>
                       {%- assign counter = counter | plus: 1 -%}
                     {%- endif -%}
@@ -139,13 +90,7 @@
                 {%- endfor -%}
               {%- endif -%}
 
-            </grid-list>
-
-            {%- liquid
-              if paginate.pages > 1
-                render 'pagination', paginate: paginate, type: section.settings.pagination
-              endif
-            -%}
+            </div>
           </div>
         </div>
       </div>
@@ -153,69 +98,152 @@
   </div>
 </div>
 
+<style>
+  /* HEADER & CONTROLS */
+  .collection-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #333;
+  }
+  .carousel-btn:hover { background: #000; color: #fff; border-color: #000; }
+  .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; background: #eee; color: #999; border-color: #eee;}
+  
+  .carousel-counter { 
+    font-size: 13px; 
+    font-weight: 600; 
+    min-width: 70px; 
+    text-align: center;
+    background: #f5f5f5;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* CAROUSEL TRACK LAYOUT */
+  .carousel-track {
+    display: flex !important; /* Bắt buộc dùng Flex */
+    flex-direction: row;
+    flex-wrap: nowrap; /* Không xuống dòng */
+    overflow-x: auto;  /* Cho phép cuộn ngang */
+    gap: 15px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; /* Bắt dính item */
+    padding-bottom: 10px;
+    
+    /* Ẩn thanh cuộn */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .carousel-track::-webkit-scrollbar { 
+    display: none; 
+  }
+
+  /* CAROUSEL ITEM SIZING */
+  .carousel-item {
+    flex: 0 0 auto; /* Không co giãn */
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    
+    /* Mobile: 2 items (hoặc 1 tùy setting) */
+    width: calc(100% / {{ columns_mobile }} - 10px);
+  }
+
+  @media (min-width: 768px) {
+    .carousel-item {
+      width: calc(100% / 3 - 15px); /* Tablet 3 cột */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-item {
+      width: calc(100% / {{ columns_desktop }} - 15px); /* Desktop */
+    }
+  }
+  
+  /* Fix lỗi ảnh bị méo */
+  .carousel-item .card-wrapper { height: 100%; }
+  .carousel-item .card { height: 100%; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const track = document.getElementById('CarouselTrack');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const counterEl = document.getElementById('page-counter');
+
+  if (!track || !btnPrev || !btnNext) return;
+
+  function updateCounter() {
+    const trackWidth = track.clientWidth; // Độ rộng hiển thị
+    const scrollLeft = track.scrollLeft;  // Vị trí đang cuộn
+    const totalWidth = track.scrollWidth; // Tổng độ dài thực tế
+    
+    if (totalWidth <= trackWidth) {
+        counterEl.innerText = "1 / 1";
+        btnPrev.disabled = true;
+        btnNext.disabled = true;
+        return;
+    }
+
+    // Tính số trang
+    const currentPage = Math.round(scrollLeft / trackWidth) + 1;
+    const totalPages = Math.round(totalWidth / trackWidth);
+    
+    counterEl.innerText = `Page ${currentPage} / ${totalPages}`;
+
+    // Disable nút
+    btnPrev.disabled = scrollLeft <= 10;
+    btnNext.disabled = scrollLeft >= (totalWidth - trackWidth - 10);
+  }
+
+  btnPrev.addEventListener('click', () => {
+    track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+  });
+
+  btnNext.addEventListener('click', () => {
+    track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+  });
+
+  track.addEventListener('scroll', updateCounter);
+  window.addEventListener('resize', updateCounter);
+  
+  // Chạy lần đầu sau 0.5s để đợi ảnh load xong
+  setTimeout(updateCounter, 500);
+});
+</script>
+
 {% schema %}
 {
-  "name": "Mix Price (3 Cols)",
+  "name": "Carousel Mix Price",
   "class": "collection-section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Cấu hình hiển thị lưới sản phẩm."
-    },
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "min": 12,
-      "max": 50,
-      "step": 1,
-      "default": 12,
-      "label": "Products per page (Số lượng/Trang)",
-      "info": "Mặc định 12 để có 4 hàng."
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 2,
-      "max": 5,
-      "step": 1,
-      "default": 3,
-      "label": "Columns on Desktop (Số cột)",
-      "info": "Chọn 3 cột để hiển thị to rõ."
-    },
-    {
-      "type": "select",
-      "id": "pagination",
-      "label": "Pagination Type",
-      "options": [
-        { "value": "infinite", "label": "Infinite Scroll" },
-        { "value": "load_more", "label": "Load More Button" },
-        { "value": "number", "label": "Page Numbers" }
-      ],
-      "default": "number"
-    },
-    {
-        "type": "header",
-        "content": "Layout & Spacing"
-    },
-    {
-        "type": "range",
-        "id": "padding_top",
-        "min": 0,
-        "max": 100,
-        "step": 2,
-        "unit": "px",
-        "label": "Padding Top",
-        "default": 50
-    },
-    {
-        "type": "range",
-        "id": "padding_bottom",
-        "min": 0,
-        "max": 100,
-        "step": 2,
-        "unit": "px",
-        "label": "Padding Bottom",
-        "default": 50
+      "content": "Template dạng thanh cuộn ngang (Carousel) kết hợp Mix Price."
     },
     {
       "type": "color_scheme",
@@ -224,14 +252,23 @@
       "default": "scheme-1"
     },
     {
-      "type": "select",
-      "id": "grid_layout",
-      "options": [
-        { "value": "standard", "label": "Standard" },
-        { "value": "metro", "label": "Metro" }
-      ],
-      "default": "standard",
-      "label": "Grid layout"
+      "type": "range",
+      "id": "products_per_page",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "default": 20,
+      "label": "Limit Products (Số lượng SP tối đa)",
+      "info": "Nên để cao (vd: 30-50) để thanh cuộn dài hơn."
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns on Desktop (Số cột)"
     },
     {
       "type": "select",
@@ -244,10 +281,34 @@
       ]
     },
     {
+        "type": "header",
+        "content": "Spacing"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 30
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 30
+    },
+    {
       "type": "checkbox",
       "id": "show_section_divider",
       "default": false,
-      "label": "Show divider"
+      "label": "Show Divider"
     },
     {
       "type": "select",
