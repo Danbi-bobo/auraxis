@@ -35,6 +35,7 @@
       "custom_css": [],
       "settings": {
         "color_scheme": "scheme-inverse",
+        "show_collection_image": true,
         "image_overlay_opacity": 10,
         "image_position": "as-bg",
         "image_height": "extra-small",
@@ -55,6 +56,7 @@
         "columns_desktop": 4,
         "grid_layout": "standard",
         "pagination": "infinite",
+        "enable_color_swatch": false,
         "enable_filtering": true,
         "filter_type": "drawer",
         "enable_sorting": true,

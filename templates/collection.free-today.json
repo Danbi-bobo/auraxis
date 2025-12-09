@@ -55,8 +55,8 @@
       ],
       "settings": {
         "color_scheme": "scheme-1",
-        "products_per_page": 15,
-        "columns_desktop": 3,
+        "products_per_page": 36,
+        "columns_desktop": 5,
         "grid_layout": "standard",
         "pagination": "number",
         "enable_color_swatch": true,

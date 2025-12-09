@@ -1,1 +1,79 @@
-{"order":["breadcrumbs_Gxg9wp","banner","product-grid","collapsible_tabs_MMFhUC"],"sections":{"banner":{"block_order":["collection_info_zUNyKV"],"blocks":{"collection_info_zUNyKV":{"settings":{"heading_size":"hd2","heading_tag":"h1","padding_bottom":0,"padding_top":0,"show_description":true},"type":"collection_info"}},"custom_css":[],"disabled":true,"settings":{"color_scheme":"scheme-1","enable_parallax":true,"image_height":"extra-small","image_height_mobile":"auto","image_overlay_opacity":0,"image_position":"top","padding_bottom":60,"padding_top":38,"parallax_direction":"vertical","show_collection_image":false,"text_alignment":"center"},"type":"main-collection-banner"},"breadcrumbs_Gxg9wp":{"settings":{"text_alignment":"center"},"type":"breadcrumbs"},"collapsible_tabs_MMFhUC":{"block_order":["collapsible_item_B7PkDe","collapsible_item_UmqqDU","collapsible_item_3gULYN"],"blocks":{"collapsible_item_3gULYN":{"settings":{"content":"\u003ch2\u003e✈ Worldwide Shipping Policy ✈\u003c/h2\u003e\u003cp\u003e🌍 We proudly ship \u003cstrong\u003eworldwide\u003c/strong\u003e from our fulfillment center in the \u003cstrong\u003ePhilippines\u003c/strong\u003e.\u003cbr/\u003eAll orders over \u003cstrong\u003e$100\u003c/strong\u003e qualify for \u003cstrong\u003eFree Standard Shipping\u003c/strong\u003e.\u003c/p\u003e\u003cp\u003e\u003cstrong\u003eProcessing Time:\u003c/strong\u003e 2–5 business days\u003cbr/\u003e\u003cstrong\u003e⏱ Delivery Time:\u003c/strong\u003e 15–20 business days (total 20–25 days including processing)\u003c/p\u003e\u003cp\u003eBecause we ship directly from the Philippines, international deliveries may take longer depending on customs, local carriers, and holidays.\u003c/p\u003e\u003cp\u003eIf you entered the wrong address, please contact us within \u003cstrong\u003e2 hours\u003c/strong\u003e after placing your order. Once shipped, we cannot change or redirect the address.\u003c/p\u003e\u003cp\u003eWe are \u003cstrong\u003enot liable for misdelivered packages\u003c/strong\u003e caused by incorrect addresses or shipments to \u003cstrong\u003ePO Boxes\u003c/strong\u003e. If your order is returned as “Return to Sender,” customers are responsible for any additional reshipping fees.\u003c/p\u003e\u003cp\u003e🚚 In rare cases where a package is \u003cstrong\u003elost in transit\u003c/strong\u003e, we will send a \u003cstrong\u003ereplacement\u003c/strong\u003e once confirmed by the carrier. However, we are \u003cstrong\u003enot responsible for lost or stolen packages after they are marked as “Delivered.”\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e📬 For any questions, please contact our support team at \u003ca\u003e\u003cstrong\u003eplp.topas@skywardtopas.com\u003c/strong\u003e\u003c/a\u003e.\u003c/p\u003e\u003cp\u003e📦 Each of our gemstone jewelry pieces is \u003cstrong\u003ehandcrafted and energy-cleansed\u003c/strong\u003e before shipping to ensure you receive it in its most \u003cstrong\u003epositive and powerful state\u003c/strong\u003e — ready to attract \u003cstrong\u003eluck, harmony, and prosperity\u003c/strong\u003e.\u003c/p\u003e","custom_liquid":"","heading":"Free Shipping \u0026 Return Policy","icon":"none","open":false,"page":""},"type":"collapsible_item"},"collapsible_item_B7PkDe":{"settings":{"content":"","custom_liquid":"","heading":"Description","icon":"none","open":false,"page":"fox-des"},"type":"collapsible_item"},"collapsible_item_UmqqDU":{"settings":{"content":"","custom_liquid":"","heading":"Information","icon":"none","open":false,"page":"fox"},"type":"collapsible_item"}},"disabled":true,"name":"t:sections.collapsible-tabs.presets.name","settings":{"button_label":"","button_link":"","button_style":"btn--primary","color_scheme":"","column_gap":"large","container":"fixed","description":"","divider_width":"fixed","header_layout":"vertical","heading":"Description","heading_highlight_style":"none","heading_size":"h3","item_color_scheme":"","item_heading_font":"heading","item_heading_size":"h4","item_icon_size":"extra-large","item_style":"standard","padding_bottom":50,"padding_top":50,"row_gap":"inherit","show_section_divider":false,"subheading":"","text_size":"text-base"},"type":"collapsible-tabs"},"product-grid":{"custom_css":["/* Ẩn các phần tử có class chứa \"sold\" hoặc \"inventory\" trong card/grid/tab sản phẩm */.product-card [class*=\"sold\"],.product-grid [class*=\"sold\"],.product-list [class*=\"sold\"],.product-tabs [class*=\"sold\"],.product-card [class*=\"inventory\"],.product-grid [class*=\"inventory\"],.product-tabs [class*=\"inventory\"] {display: none !important;}"],"settings":{"color_scheme":"scheme-1","columns_desktop":3,"columns_mobile":"2","divider_width":"fixed","enable_color_swatch":true,"enable_filtering":true,"enable_sorting":true,"expand_filter_groups":"Availability, Price, Color, Size, Product type","filter_type":"vertical","grid_layout":"standard","padding_bottom":100,"padding_top":40,"pagination":"number","products_per_page":15,"show_section_divider":true},"type":"main-collection-product-grid"}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "order": [
+    "breadcrumbs_Gxg9wp",
+    "banner",
+    "product-grid"
+  ],
+  "sections": {
+    "breadcrumbs_Gxg9wp": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "center"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "collection_info_zUNyKV": {
+          "type": "collection_info",
+          "settings": {
+            "heading_size": "hd2",
+            "heading_tag": "h1",
+            "show_description": true,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "collection_info_zUNyKV"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_collection_image": false,
+        "image_overlay_opacity": 0,
+        "image_position": "top",
+        "image_height": "extra-small",
+        "text_alignment": "center",
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "image_height_mobile": "auto",
+        "padding_top": 38,
+        "padding_bottom": 60
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        "/* Ẩn các phần tử có class chứa \"sold\" hoặc \"inventory\" trong card/grid/tab sản phẩm */.product-card [class*=\"sold\"],.product-grid [class*=\"sold\"],.product-list [class*=\"sold\"],.product-tabs [class*=\"sold\"],.product-card [class*=\"inventory\"],.product-grid [class*=\"inventory\"],.product-tabs [class*=\"inventory\"] {display: none !important;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "products_per_page": 15,
+        "columns_desktop": 3,
+        "grid_layout": "standard",
+        "pagination": "number",
+        "enable_color_swatch": true,
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "expand_filter_groups": "Availability, Price, Color, Size, Product type",
+        "columns_mobile": "2",
+        "padding_top": 40,
+        "padding_bottom": 100,
+        "show_section_divider": true,
+        "divider_width": "fixed"
+      }
+    }
+  }
+}

@@ -89,6 +89,7 @@
         "image": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/pixiu-mobile-VwulYD60.png",
             "image_position": "left"
           }
         },
