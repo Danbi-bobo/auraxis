@@ -1,25 +1,9 @@
 {{ 'collection.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign current_filter_size = 0
   assign columns_desktop = section.settings.columns_desktop
   assign columns_tablet = 3
   assign columns_mobile = section.settings.columns_mobile | times: 1
-
-  for filter in collection.filters
-    assign current_filter_size = current_filter_size | plus: filter.active_values.size
-  endfor
-
-  assign enable_sorting = section.settings.enable_sorting
-  assign enable_filtering = section.settings.enable_filtering
-  assign filter_type = section.settings.filter_type
-  assign show_toolbar = false
-  if enable_filtering or enable_sorting
-    assign show_toolbar = true
-  endif
-
   assign default_grid_mobile = 'f-grid-' | append: columns_mobile | append: '-cols'
 
   assign is_metro = false
@@ -41,11 +25,7 @@
 {%- capture image_sizes -%}
 (max-width: 767px) calc((100vw - 38px) / {{ columns_mobile }}),
 (max-width: 1279px) calc((100vw - 90px) / {{ columns_tablet }}),
-{%- if enable_filtering -%}
-  calc({{ settings.page_width}}px / {{ columns_desktop | plus: 1 }})
-{%- else -%}
 {{ settings.page_width | divided_by: columns_desktop }}px
-{%- endif -%}
 {%- endcapture -%}
 
 {% render 'divider',
@@ -59,115 +39,29 @@
 >
   <div class="collection page-width">
     {%- paginate collection.products by section.settings.products_per_page -%}
-      <div class="collection__content flex">
-        {%- if collection.all_products_count > 0 -%}
-          <div
-            class="hidden{% if enable_filtering and filter_type == 'vertical' %} xl:block{% endif %}"
-            id="FacetFiltersContainer"
-          >
-            <div class="sticky-element z-10">
-              {%- render 'facets', context: 'vertical', results: collection -%}
-            </div>
-          </div>
-        {%- endif -%}
+      <div class="collection__content flex flex-col">
         
-        <div class="flex flex-col flex-grow{% if show_toolbar %} show-toolbar{% endif %}" id="ProductGridWrapper">
-          <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
-            {%- if enable_filtering or enable_sorting -%}
-              <div class="collection__toolbar flex items-center justify-between">
-                {%- if filter_type == 'drawer' and collection.all_products_count > 0 and enable_filtering -%}
-                  {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                {%- endif -%}
+        {% comment %} --- HIỂN THỊ TỔNG SỐ SẢN PHẨM --- {% endcomment %}
+        <div class="collection-header text-center" style="margin-bottom: 30px;">
+          <h2 class="h3">{{ collection.title }}</h2>
+          <p class="collection-count">
+            {{ collections['all'].all_products_count }} products
+          </p>
+        </div>
 
-                {%- if filter_type == 'vertical' and collection.all_products_count > 0 and enable_filtering -%}
-                  <div class="flex xl:hidden">
-                    {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                  </div>
-                {%- endif -%}
-
-                <div class="gap-10 hidden md:flex items-center justify-between{% if filter_type == 'vertical' or enable_filtering == false %} xl:flex-grow{% endif %}">
-                  {%- if collection.all_products_count > 0 -%}
-                    <div data-facet-loading>
-                      {%- render 'loading-spinner' -%}
-                      <p id="ProductCount" class="m-0" role="status">
-                        {%- liquid
-                          if collection.results_count
-                            echo 'products.facets.filters_selected' | t: terms: collection.terms, count: collection.results_count
-                          elsif collection.products_count == collection.all_products_count
-                            echo 'products.facets.product_count_simple' | t: count: collection.products_count
-                          else
-                            echo 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count
-                          endif
-                        -%}
-                      </p>
-                    </div>
-                  {%- endif -%}
-                  {%- if enable_sorting and collection.all_products_count > 0 -%}
-                    <div class="flex items-center gap-3" id="SortByContainer">
-                      {%- render 'facet-short',
-                        results: collection,
-                        icon_size: 'extra-small',
-                        label_class: 'font-body-bolder'
-                      -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-
-                <layout-switcher class="flex md:hidden gap-2" style="--buttons-width: 4rem;">
-                  {%- for per_row in (1..2) -%}
-                    {%- assign layout = 'f-grid-' | append: per_row | append: '-cols' -%}
-                    <button
-                      class="btn btn--icon{% if layout == default_grid_mobile %} btn--active{% endif %}"
-                      data-layout-mode="grid-{{ per_row }}"
-                      aria-label="{{ 'accessibility.layout_switcher' | t: col: per_row }}"
-                    >
-                      {%- render 'icon-grid-column', layout: per_row, classes: 'pointer-events-none' -%}
-                    </button>
-                  {%- endfor -%}
-                </layout-switcher>
-              </div>
-            {%- endif -%}
-          </div>
-          {%- liquid
-            if enable_filtering
-              render 'facets-active', results: collection
-            endif
-          -%}
+        <div class="flex flex-col flex-grow" id="ProductGridWrapper">
           
           <div id="ProductGridContainer">
-            {%- if collection.products.size == 0 -%}
-              <div class="empty-state flex flex-col items-center justify-center gap-6 text-center">
-                {%- if collection.all_products_count > 0 -%}
-                  <div class="gap-3 flex flex-col items-center justify-center text-center">
-                    {%- render 'icon-empty-state' -%}
-                    <p class="h4">{{ 'collections.general.no_results' | t }}</p>
-                    <p class="m-0">{{ 'collections.general.use_fewer_filters' | t }}</p>
-                  </div>
-                  <a class="btn btn--primary" href="{{ collection.url }}" is="facet-remove">
-                    {{- 'products.facets.clear_all' | t -}}
-                  </a>
-                {%- else -%}
-                  <div class="gap-3 flex flex-col items-center justify-center text-center">
-                    {%- render 'icon-empty-state' -%}
-                    <p class="h4">{{ 'collections.general.empty' | t }}</p>
-                  </div>
-                  <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">
-                    {{ 'collections.general.continue_shopping' | t }}
-                  </a>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-
             <grid-list
               id="ProductsList"
               class="grid-list products-list f-grid md:f-grid-{{ columns_tablet }}-cols xl:f-grid-{{ columns_desktop }}-cols {{ default_grid_mobile }} f-grid--gap-medium"
             >
               
-              {%- assign displayed_products = "" -%}
+              {%- assign displayed_products = "|" -%}
 
-              {% comment %} --- PHẦN 1: HIỂN THỊ SẢN PHẨM CỦA COLLECTION HIỆN TẠI --- {% endcomment %}
+              {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
               {%- for product in collection.products -%}
-                {%- assign displayed_products = displayed_products | append: product.handle | append: "," -%}
+                {%- assign displayed_products = displayed_products | append: product.handle | append: "|" -%}
                 <div class="f-column card">
                   {%- if is_metro -%}
                     {%- render 'card-product-metro',
@@ -194,17 +88,16 @@
                 </div>
               {%- endfor -%}
 
-              {% comment %} 
-                --- PHẦN 2: HIỂN THỊ CÁC SẢN PHẨM KHÁC (GIÁ TỪ THẤP ĐẾN CAO) --- 
-              {% endcomment %}
-              
+              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI (GIÁ THẤP -> CAO) --- {% endcomment %}
               {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
                 {%- assign other_products = collections['all'].products | sort: 'price' -%}
                 {%- assign counter = 0 -%}
                 {%- assign limit_extra = 24 -%} 
 
                 {%- for product in other_products -%}
-                  {%- unless displayed_products contains product.handle -%}
+                  {%- assign check_handle = "|" | append: product.handle | append: "|" -%}
+                  
+                  {%- unless displayed_products contains check_handle -%}
                     {%- if counter < limit_extra -%}
                       <div class="f-column card">
                         {%- if is_metro -%}
@@ -252,12 +145,12 @@
 
 {% schema %}
 {
-  "name": "Collection Mix Price",
+  "name": "Mix Price (No Filter)",
   "class": "collection-section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Template này hiển thị sản phẩm Collection trước, sau đó là sản phẩm toàn shop xếp theo giá thấp->cao."
+      "content": "Template này đã tắt bộ lọc và hiển thị tổng số sản phẩm của toàn shop."
     },
     {
       "type": "color_scheme",
@@ -271,7 +164,7 @@
       "min": 8,
       "max": 36,
       "step": 1,
-      "default": 15,
+      "default": 16,
       "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
     },
     {
@@ -342,32 +235,8 @@
       "label": "Divider width"
     },
     {
-        "type": "checkbox",
-        "id": "enable_filtering",
-        "default": true,
-        "label": "Enable filtering"
-    },
-    {
-        "type": "select",
-        "id": "filter_type",
-        "options": [
-          {
-            "value": "vertical",
-            "label": "Vertical"
-          },
-          {
-            "value": "drawer",
-            "label": "Drawer"
-          }
-        ],
-        "default": "vertical",
-        "label": "Filter type"
-    },
-    {
-        "type": "checkbox",
-        "id": "enable_sorting",
-        "default": true,
-        "label": "Enable sorting"
+        "type": "header",
+        "content": "Padding"
     },
     {
         "type": "range",

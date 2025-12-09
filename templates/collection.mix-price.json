@@ -13,20 +13,80 @@
       "type": "main-collection-banner",
       "settings": {
         "color_scheme": "scheme-1",
-        "show_collection_image": true
+        "show_collection_image": true,
+        "image": "shopify://shop_images/collection_70f63f37-899c-4c78-a592-1d384e3ba4e7.webp",
+        "image_overlay_opacity": 0,
+        "image_position": "as-bg",
+        "image_height": "small",
+        "text_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "image_mobile": "shopify://shop_images/collection_70f63f37-899c-4c78-a592-1d384e3ba4e7.webp",
+        "image_height_mobile": "auto",
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     },
     "product-grid": {
       "type": "main-collection-mix-price",
       "settings": {
+        "color_scheme": "",
         "products_per_page": 16,
         "columns_desktop": 4,
-        "pagination": "number"
+        "grid_layout": "standard",
+        "pagination": "number",
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "rich_text_wdCdg8": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_AFUfGk": {
+          "type": "heading",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_NCmap4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button_WhFKf6": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_AFUfGk",
+        "text_NCmap4",
+        "button_WhFKf6"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
       }
     }
   },
   "order": [
     "banner",
+    "rich_text_wdCdg8",
     "product-grid"
   ]
 }
