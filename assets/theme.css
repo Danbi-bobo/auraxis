@@ -6618,6 +6618,11 @@ body:not(.header-pinned) .header-scrolled .header {
   .footer__copyright {
     order: 2;
   }
+
+  /* Tạo viền đen cho ô nhập email newsletter */
+  input[name="contact[email]"] {
+    border: 1px solid black !important;
+}
 }
 p:contains("Sold"),
 span:contains("Sold"),
