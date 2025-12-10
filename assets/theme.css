@@ -6618,14 +6618,15 @@ body:not(.header-pinned) .header-scrolled .header {
   .footer__copyright {
     order: 2;
   }
-
-  /* Tạo viền đen cho ô nhập email newsletter */
-  input[name="contact[email]"] {
-    border: 1px solid black !important;
-}
 }
 p:contains("Sold"),
 span:contains("Sold"),
 div:contains("Sold") {
   display: none !important;
+}
+
+/* --- Cập nhật: Luôn hiển thị viền đen cho ô email --- */
+input[name="contact[email]"] {
+    border: 1px solid black !important; /* Viền đen 1px */
+    outline: none !important; /* Xóa viền xanh mặc định khi bấm vào */
 }
