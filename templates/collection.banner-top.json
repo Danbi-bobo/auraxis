@@ -32,11 +32,13 @@
       "block_order": [
         "collection_info_zUNyKV"
       ],
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 767px) {.collection-hero__info {padding-top: 3.2rem; }}"
       ],
       "settings": {
         "color_scheme": "scheme-1",
+        "show_collection_image": true,
         "image_overlay_opacity": 0,
         "image_position": "top",
         "image_height": "extra-small",
@@ -57,6 +59,7 @@
         "columns_desktop": 4,
         "grid_layout": "standard",
         "pagination": "load_more",
+        "enable_color_swatch": true,
         "enable_filtering": true,
         "filter_type": "drawer",
         "enable_sorting": true,
