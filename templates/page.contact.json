@@ -1,1 +1,76 @@
-{"sections":{"breadcrumbs_xYaBHj":{"type":"breadcrumbs","settings":{"text_alignment":"center"}},"main":{"type":"main-page","disabled":true,"settings":{"padding_top":36,"padding_bottom":36}},"form":{"type":"contact-form","blocks":{"image_card_yBPyAg":{"type":"image_card","settings":{"color_scheme":"scheme-2","image":"shopify:\/\/shop_images\/christmas-mobile-DTltb_2D.png","image_overlay_opacity":0,"heading":"","heading_size":"h3","subheading":"","description":"","button_label":"","button_style":"btn--primary","content_position":"bottom-left","content_alignment":"left","content_spacing":"large","card_link":"","color_scheme_mobile":"scheme-1","show_text_below":true,"content_alignment_mobile":"left"}}},"block_order":["image_card_yBPyAg"],"custom_css":["@media (min-width: 768px) {.card-media {border-radius: 0; }}","@media (max-width: 767px) {.contact-form {padding-block-end: 0; } .contact-form__wrapper {border-radius: 0; margin-left: -1.5rem; margin-right: -1.5rem; } .card-media {padding: 0 1.5rem 4.8rem; }}"],"settings":{"section_color_scheme":"scheme-4","color_scheme":"scheme-1","heading":"<strong>Our expert is now ready to help you!<\/strong>","heading_size":"h3","heading_highlight_style":"none","padding_top":50,"padding_bottom":100,"show_section_divider":false,"divider_width":"fixed"}}},"order":["breadcrumbs_xYaBHj","main","form"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_xYaBHj": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "center"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "blocks": {
+        "image_card_yBPyAg": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "image": "shopify://shop_images/pixiu-mobile-VwulYD60.png",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h3",
+            "subheading": "",
+            "description": "",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "bottom-left",
+            "content_alignment": "left",
+            "content_spacing": "large",
+            "card_link": "",
+            "color_scheme_mobile": "scheme-1",
+            "show_text_below": true,
+            "content_alignment_mobile": "left"
+          }
+        }
+      },
+      "block_order": [
+        "image_card_yBPyAg"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {.card-media {border-radius: 0; }}",
+        "@media (max-width: 767px) {.contact-form {padding-block-end: 0; } .contact-form__wrapper {border-radius: 0; margin-left: -1.5rem; margin-right: -1.5rem; } .card-media {padding: 0 1.5rem 4.8rem; }}"
+      ],
+      "settings": {
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-1",
+        "heading": "<strong>Our expert is now ready to help you!</strong>",
+        "heading_size": "h3",
+        "heading_highlight_style": "none",
+        "padding_top": 50,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_xYaBHj",
+    "main",
+    "form"
+  ]
+}
