@@ -41,7 +41,7 @@
         "image_J68fdX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner-email-quy-tr-nh-ch-n-l-c-qu-th-c-ng.png",
+            "image": "shopify://shop_images/20251210-173608.webp",
             "width": "100%",
             "alignment": "center",
             "block_custom_class": ""
@@ -86,8 +86,8 @@
         "heading_highlight_style": "none",
         "subheading": "",
         "description": "",
-        "column_gap": "large",
-        "row_gap": "large",
+        "column_gap": "none",
+        "row_gap": "extra-small",
         "swipe_on_mobile": false,
         "columns_mobile": "1",
         "padding_top": 50,
