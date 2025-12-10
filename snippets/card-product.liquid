@@ -249,11 +249,11 @@
       <div class="product-card__info">
         <div class="product-card__meta flex items-center justify-between">
           {%- comment -%} --- Sold Count --- {%- endcomment -%}
-          <div class="product-card__sold">
+          {% comment %} <div class="product-card__sold">
             <span class="sold-count text-xs text-gray-400">
               Sold: {{ product.metafields.custom.sold_count | default: 0 }}
             </span>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
       
