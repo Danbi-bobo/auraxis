@@ -36,7 +36,7 @@
             "heading": "",
             "heading_size": "h4",
             "menu": "main-menu-1",
-            "open_default": false,
+            "open_default": true,
             "show_divider": false
           }
         },
