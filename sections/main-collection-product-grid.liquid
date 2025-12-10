@@ -172,14 +172,16 @@
                       columns_mobile: columns_mobile
                     -%}
                   {%- else -%}
-                    {%- render 'card-product-mix',
-                      product: product,
-                      image_sizes: image_sizes,
-                      section_id: section.id,
-                      section_index: 2,
-                      show_secondary_image: true,
-                      index: forloop.index
-                    -%}
+                    {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                    <div class="grid-item hidden-item">
+                      {%- render 'card-product-mix',
+                        product: product,
+                        section_id: section.id,
+                        index: forloop.index,
+                        show_vendor: false,
+                        show_rating: false
+                      -%}
+                    </div>
                   {%- endif -%}
                 </div>
               {%- endfor -%}
