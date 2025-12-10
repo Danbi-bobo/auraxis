@@ -51,32 +51,6 @@
                   -%}
                 </div>
               {%- endfor -%}
-
-              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI --- {% endcomment %}
-              {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
-                {%- assign other_products = collections.all.products | sort: 'price' -%}
-                {%- assign counter = 0 -%}
-                {%- assign limit_extra = 48 -%}
-
-                {%- for product in other_products -%}
-                  {%- assign check_handle = '|' | append: product.handle | append: '|' -%}
-                  {%- unless displayed_products contains check_handle -%}
-                    {%- if counter < limit_extra -%}
-                      <div class="grid-item hidden-item">
-                        {%-
-                          render 'card-product-mix',
-                          product: product,
-                          section_id: section.id,
-                          index: forloop.index,
-                          show_vendor: false,
-                          show_rating: false
-                        -%}
-                      </div>
-                      {%- assign counter = counter | plus: 1 -%}
-                    {%- endif -%}
-                  {%- endunless -%}
-                {%- endfor -%}
-              {%- endif -%}
             </div>
 
             <div class="carousel-footer-controls">
