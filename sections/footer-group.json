@@ -17,12 +17,12 @@
         "image_text_F3FNhx": {
           "type": "image_text",
           "settings": {
-            "block_width": 20,
+            "block_width": 25,
             "heading": "",
             "heading_size": "h4",
             "image": "shopify://shop_images/1534eb07-2ddb-4e3b-aa0f-a8c80ab9dc9c.png",
             "image_width": 200,
-            "text": "",
+            "text": "<p>Email: support@taichigemstone.com</p>",
             "button_label": "",
             "button_link": "",
             "open_default": true,
@@ -33,20 +33,9 @@
           "type": "menu",
           "settings": {
             "block_width": 22,
-            "heading": "TAICHI GEMSTONE",
+            "heading": "",
             "heading_size": "h4",
             "menu": "main-menu-1",
-            "open_default": false,
-            "show_divider": false
-          }
-        },
-        "menu_4eCrBB": {
-          "type": "menu",
-          "settings": {
-            "block_width": 16,
-            "heading": "HELP",
-            "heading_size": "h3",
-            "menu": "footer",
             "open_default": false,
             "show_divider": false
           }
@@ -68,7 +57,6 @@
       "block_order": [
         "image_text_F3FNhx",
         "menu_DEKGYP",
-        "menu_4eCrBB",
         "newsletter_3qCrWc"
       ],
       "custom_css": [
