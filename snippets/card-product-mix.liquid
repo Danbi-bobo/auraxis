@@ -1,0 +1,91 @@
+{% comment %}
+  Renders a product card with custom price layout.
+  Usage:
+  {% render 'card-product-mix', product: product %}
+{% endcomment %}
+
+<div class="card-wrapper underline-links-hover">
+  <div class="card card--standard card--media" style="--ratio-percent: 100%;">
+    
+    <div class="card__inner color-{{ settings.card_color_scheme }} gradient ratio" style="--ratio-percent: 100%;">
+      <div class="card__media">
+        <div class="media media--transparent media--hover-effect">
+          {% comment %} Ảnh chính {% endcomment %}
+          <img
+            src="{{ product.featured_media | image_url: width: 533 }}"
+            alt="{{ product.featured_media.alt | escape }}"
+            class="motion-reduce"
+            loading="lazy"
+            width="{{ product.featured_media.width }}"
+            height="{{ product.featured_media.height }}"
+          >
+          {% comment %} Ảnh hover (nếu có) {% endcomment %}
+          {%- if product.media[1] != nil -%}
+            <img
+              src="{{ product.media[1] | image_url: width: 533 }}"
+              alt="{{ product.media[1].alt | escape }}"
+              class="motion-reduce"
+              loading="lazy"
+              width="{{ product.media[1].width }}"
+              height="{{ product.media[1].height }}"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+      
+      <div class="card__badge {{ settings.badge_position }}">
+        {%- if product.available == false -%}
+          <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">
+            {{ 'products.product.sold_out' | t }}
+          </span>
+        {%- elsif product.compare_at_price > product.price -%}
+          <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">
+            -{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%
+          </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="card__content">
+      <div class="card__information">
+        
+        <h3 class="card__heading h5">
+          <a href="{{ product.url }}" class="full-unstyled-link">
+            {{ product.title | escape }}
+          </a>
+        </h3>
+
+        <div class="card-information">
+          <div class="price price--on-sale">
+            <div class="price__container">
+              <div class="price__regular">
+                <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
+                <span class="price-item price-item--regular">
+                  {{ product.price | money }}
+                </span>
+              </div>
+              
+              <div class="price__sale">
+                <span class="price-item price-item--sale price-item--last" style="color: #B12704; font-weight: bold; font-size: 16px;">
+                  {{ product.price | money }}
+                </span>
+                
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
+                  <span class="price-item price-item--regular" style="text-decoration: line-through; color: #565959; font-size: 13px; margin-left: 5px;">
+                    {{ product.compare_at_price | money }}
+                  </span>
+                  
+                  <div class="price-saved" style="font-size: 12px; color: #B12704; margin-top: 2px;">
+                    You save: {{ product.compare_at_price | minus: product.price | money }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    </div>
+  </div>
+</div>
