@@ -1,1 +1,98 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"footer","blocks":{"image_text_F3FNhx":{"type":"image_text","settings":{"block_width":17,"heading":"","heading_size":"h4","image":"shopify:\/\/shop_images\/Thi_t_k_ch_a_co_ten_30.png","image_width":120,"text":"","button_label":"","button_link":"","open_default":false,"show_divider":false}},"menu_DEKGYP":{"type":"menu","settings":{"block_width":22,"heading":"TAICHI GEMSTONE","heading_size":"h4","menu":"main-menu","open_default":false,"show_divider":false}},"menu_4eCrBB":{"type":"menu","settings":{"block_width":16,"heading":"HELP","heading_size":"h3","menu":"footer","open_default":false,"show_divider":false}},"newsletter_3qCrWc":{"type":"newsletter","settings":{"block_width":41,"heading":"Welcome to the World of Manifested Dreams","heading_size":"h4","newsletter_description":"<p>Start your journey with 50% OFF your first purchase when you sign up for email and text.<\/p>","newsletter_term":"<p>By signing up you agree to receive recurring automated marketing messages from Taichi Gemst . Read more about our: <a href=\"\/policies\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a> & <a href=\"\/policies\/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service<\/a><\/p>","newsletter_text_alignment":"left","form_width":465,"order_first":false}}},"block_order":["image_text_F3FNhx","menu_DEKGYP","menu_4eCrBB","newsletter_3qCrWc"],"custom_css":[".form-control {--color-border: var(--color-field);}"],"settings":{"color_scheme":"scheme-2","enable_follow_on_shop":true,"show_social":true,"enable_country_selector":true,"enable_language_selector":true,"payment_enable":true,"footer_bottom_menu":"","show_section_divider":true,"divider_width":"full"}},"1764576862d3520eae":{"type":"_blocks","settings":{}}},"order":["footer","1764576862d3520eae"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "image_text_F3FNhx": {
+          "type": "image_text",
+          "settings": {
+            "block_width": 100,
+            "heading": "",
+            "heading_size": "h4",
+            "image": "shopify://shop_images/Generated_Image_November_08_2025_-_1_20PM_5200cc98-47a5-427d-b16c-7bcd177d7471.png",
+            "image_width": 120,
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "open_default": true,
+            "show_divider": false
+          }
+        },
+        "menu_DEKGYP": {
+          "type": "menu",
+          "settings": {
+            "block_width": 22,
+            "heading": "TAICHI GEMSTONE",
+            "heading_size": "h4",
+            "menu": "main-menu-1",
+            "open_default": false,
+            "show_divider": false
+          }
+        },
+        "menu_4eCrBB": {
+          "type": "menu",
+          "settings": {
+            "block_width": 16,
+            "heading": "HELP",
+            "heading_size": "h3",
+            "menu": "footer",
+            "open_default": false,
+            "show_divider": false
+          }
+        },
+        "newsletter_3qCrWc": {
+          "type": "newsletter",
+          "settings": {
+            "block_width": 41,
+            "heading": "Welcome to the World of Manifested Dreams",
+            "heading_size": "h4",
+            "newsletter_description": "<p>Start your journey with 50% OFF your first purchase when you sign up for email and text.</p>",
+            "newsletter_term": "<p>By signing up you agree to receive recurring automated marketing messages from Taichi Gemst . Read more about our: <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy</a> & <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Service</a></p>",
+            "newsletter_text_alignment": "left",
+            "form_width": 465,
+            "order_first": false
+          }
+        }
+      },
+      "block_order": [
+        "image_text_F3FNhx",
+        "menu_DEKGYP",
+        "menu_4eCrBB",
+        "newsletter_3qCrWc"
+      ],
+      "custom_css": [
+        ".form-control {--color-border: var(--color-field);}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "footer_bottom_menu": "",
+        "show_section_divider": true,
+        "divider_width": "full"
+      }
+    },
+    "1764576862d3520eae": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer",
+    "1764576862d3520eae"
+  ]
+}
