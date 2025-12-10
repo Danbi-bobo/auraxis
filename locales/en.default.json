@@ -760,7 +760,8 @@
       "x-qhnh10hi-text_html": "<strong>You may also like</strong>",
       "x-79fzasfm-title_html": "Description",
       "x-e4gjse1f-title_html": "Item detail",
-      "x-0xiy0hlo-text_html": "{{ x_0xiy0hlo_text }}"
+      "x-0xiy0hlo-text_html": "{{ x_0xiy0hlo_text }}",
+      "x-qi0n17uh-text_html": "{{ x_qi0n17uh_text }}"
     }
   },
   "templates": {
