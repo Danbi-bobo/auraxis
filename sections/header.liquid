@@ -53,8 +53,9 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --logo-width: {{ settings.logo_width }}px;
-    --logo-width-mobile: {{ settings.logo_width_mobile }}px;
+    /* Cập nhật dòng dưới để lấy từ section settings */
+    --logo-width: {{ section.settings.logo_width | default: settings.logo_width }}px;
+    --logo-width-mobile: {{ section.settings.logo_width_mobile | default: settings.logo_width_mobile }}px;
     --color-transparent: {{ section.settings.transparent_header_color.red }},{{ section.settings.transparent_header_color.green }},{{ section.settings.transparent_header_color.blue }};
   }
   
@@ -147,13 +148,14 @@
   >
     {%- if settings.logo != blank -%}
       {%- liquid
-        assign logo = settings.logo
-        assign logo_width = settings.logo_width
-        assign logo_width_2x = settings.logo_width | times: 2
+        # Ưu tiên lấy logo từ Section, nếu không có thì lấy từ Settings chung
+        assign logo = section.settings.logo | default: settings.logo
+        assign logo_width = section.settings.logo_width | default: settings.logo_width
+        assign logo_width_2x = logo_width | times: 2
 
-        assign logo_mobile = settings.logo_mobile
-        assign logo_width_mobile = settings.logo_width_mobile
-        assign logo_width_mobile_2x = settings.logo_width_mobile | times: 2
+        assign logo_mobile = section.settings.logo_mobile | default: settings.logo_mobile
+        assign logo_width_mobile = section.settings.logo_width_mobile | default: settings.logo_width_mobile
+        assign logo_width_mobile_2x = logo_width_mobile | times: 2
 
         assign logo_transparent = settings.logo_transparent
         assign logo_transparent_mobile = settings.logo_transparent_mobile
@@ -348,6 +350,40 @@
   "name": "t:sections.header.name",
   "class": "header-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "default": 100,
+      "unit": "px",
+      "label": "Logo Width (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Mobile Logo Image (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "default": 80,
+      "unit": "px",
+      "label": "Logo Width (Mobile)"
+    },
     {
       "type": "paragraph",
       "content": "[Read How-to](https://foxecom.link/tB2Czta)"
