@@ -20,6 +20,24 @@
     "custom_content_wN3EKJ": {
       "type": "custom-content",
       "blocks": {
+        "text_tTpqHi": {
+          "type": "text",
+          "settings": {
+            "heading": "<strong>Why Choose Taichi Gemstone</strong>",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "",
+            "description": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "content_alignment": "center",
+            "width": "100%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        },
         "image_J68fdX": {
           "type": "image",
           "settings": {
@@ -49,6 +67,7 @@
         }
       },
       "block_order": [
+        "text_tTpqHi",
         "image_J68fdX",
         "text_DmBBtg"
       ],
@@ -62,7 +81,7 @@
         "container": "full",
         "color_scheme": "scheme-2",
         "enable_sticky_column": false,
-        "heading": "Why Choose Taichi Gemstone",
+        "heading": "",
         "heading_size": "h2",
         "heading_highlight_style": "none",
         "subheading": "",
