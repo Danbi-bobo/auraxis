@@ -1,1 +1,66 @@
-{"sections":{"breadcrumbs_F4iNAA":{"type":"breadcrumbs","settings":{"text_alignment":"center"}},"main":{"type":"main-blog","blocks":{"featured_post_fgVGy7":{"type":"featured_post","settings":{"color_scheme":"scheme-3","image_overlay_opacity":30,"image_height":"medium","heading_size":"h3"}},"tags_cTH8Uh":{"type":"tags","settings":{"limit":4,"alignment":"center"}}},"block_order":["featured_post_fgVGy7","tags_cTH8Uh"],"settings":{"heading_size":"h3","post_limit":9,"columns_desktop":3,"column_gap":"small","card_title_size":"h3","show_date":true,"show_excerpt":true,"show_button":true,"padding_top":36,"padding_bottom":100}}},"order":["breadcrumbs_F4iNAA","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_F4iNAA": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "center"
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h3",
+        "post_limit": 9,
+        "columns_desktop": 3,
+        "column_gap": "small",
+        "card_title_size": "h3",
+        "show_date": true,
+        "show_excerpt": true,
+        "show_button": true,
+        "padding_top": 36,
+        "padding_bottom": 100
+      }
+    },
+    "featured_blog_eETP76": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "blog": "awaken-energy-create-peace-2",
+        "post_limit": 4,
+        "columns_desktop": 3,
+        "column_gap": "medium",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "card_title_size": "h3",
+        "show_date": true,
+        "show_excerpt": true,
+        "show_button": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_F4iNAA",
+    "main",
+    "featured_blog_eETP76"
+  ]
+}

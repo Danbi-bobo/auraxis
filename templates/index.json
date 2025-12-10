@@ -125,6 +125,7 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "fixed",
+        "image": "shopify://shop_images/abc.png",
         "desktop_height": "extra-small",
         "overlay_opacity": 35,
         "enable_parallax": false,

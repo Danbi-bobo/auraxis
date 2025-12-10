@@ -23,6 +23,7 @@
         "image_J68fdX": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/banner-email-quy-tr-nh-ch-n-l-c-qu-th-c-ng.png",
             "width": "100%",
             "alignment": "center",
             "block_custom_class": ""
@@ -103,6 +104,7 @@
       "settings": {
         "section_color_scheme": "",
         "color_scheme": "",
+        "image": "shopify://shop_images/agate-stones-BSzeZTRI_d68d5414-506b-4fbf-b4e1-d9b6f4e91205_1.webp",
         "image_height": "adapt",
         "layout": "image_first",
         "desktop_content_position": "center",
@@ -143,6 +145,7 @@
       "settings": {
         "section_color_scheme": "",
         "color_scheme": "",
+        "image": "shopify://shop_images/crystal-activation-BaG7njXV.webp",
         "image_height": "adapt",
         "layout": "text_first",
         "desktop_content_position": "center",
@@ -174,6 +177,7 @@
       "settings": {
         "section_color_scheme": "",
         "color_scheme": "",
+        "image": "shopify://shop_images/wealth-attraction-2-Br-prjMw.webp",
         "image_height": "adapt",
         "layout": "image_first",
         "desktop_content_position": "center",
