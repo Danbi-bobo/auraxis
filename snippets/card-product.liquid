@@ -23,10 +23,6 @@
     assign show_type = settings.pcard_show_type
   endif
 
-  if show_product_option == null
-    assign show_product_option = settings.pcard_show_color_swatch
-  endif
-
   assign first_media_type = product.featured_media.media_type
   assign featured_media = product.featured_media
 
@@ -62,11 +58,6 @@
 
   assign custom_tags = product.tags | where: 'tag__'
 
-  assign atc_button_tag = 'a'
-  unless settings.pcard_choose_options_actions == 'product_page'
-    assign atc_button_tag = 'button'
-  endunless
-
   assign product_url = product.url
 
   if remove_params
@@ -94,6 +85,7 @@
   assign image_sizes = image_sizes | default: '450px'
   assign image_widths = '70, 140, 165, 355, 450, 535, 710, 900, 1070, 1420'
 -%}
+
 <div
   class="product-card product-card-style-{{ settings.pcard_style }}{% if settings.pcard_style == 'card' %} color-{{ settings.pcard_color_scheme }}{% endif %}{{ card_wrapper_class }}{% if list_on_mobile %} product-card-list-on-mobile{% endif %}"
 >
@@ -157,6 +149,7 @@
           {%- endif -%}
         </motion-element>
       </a>
+      
       {%- if product.available == false or on_sale or custom_tags.size > 0 -%}
         <div class="product-card__badge">
           {%- if product.available == false and show_soldout -%}
@@ -195,6 +188,7 @@
           {%- endfor -%}
         </div>
       {%- endif -%}
+
       {%- if enable_quick_view -%}
         <button
           class="product-card__quickview btn btn--icon-circle {{ settings.quickview_button_style }} no-js-hidden"
@@ -202,95 +196,14 @@
           aria-controls="{{ quick_view_modal_id }}"
           aria-haspopup="dialog"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-magnifying-glass icon--large"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-magnifying-glass icon--large">
             <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"/>
             <path d="M16.4434 16.4453L20.9997 21.0016"/>
           </svg>
         </button>
       {%- endif -%}
-      {%- if enable_quick_add -%}
-        {%- liquid
-          assign product_form_id = 'quick-add-' | append: section.id | append: product.id
-          assign qty_rules = false
-          if variant.quantity_rule.min > 1 or variant.quantity_rule.max != null or variant.quantity_rule.increment > 1
-            assign qty_rules = true
-          endif
-        -%}
-        {%- if product.variants.size > 1 or qty_rules -%}
-          <div class="product-card__actions product-card__main-actions">
-            <{{ atc_button_tag }}
-              {% if settings.pcard_choose_options_actions == 'product_page' %}
-                href="{{- product_url -}}"
-              {% else %}
-                aria-controls="{{ quick_view_modal_id }}"
-                aria-haspopup="dialog"
-              {% endif %}
-              class="product-card__atc product-card__action-button btn {{ settings.pcard_button_style }}"
-            >
-              <span class="product-card__atc-icon product-card__action-icon inline-flex md:hidden">
-                {%- render 'icon-cart', name: settings.cart_icon -%}
-              </span>
-              <span class="product-card__atc-text product-card__action-text">
-                {{- 'products.product.choose_options' | t -}}
-              </span>
-            </{{ atc_button_tag }}>
-          </div>
-        {%- else -%}
-          {%- form 'product',
-            product,
-            id: product_form_id,
-            class: 'product-card__actions product-card__main-actions',
-            novalidate: 'novalidate',
-            data-type: 'add-to-cart-form',
-            is: 'product-form'
-          -%}
-            <input
-              type="hidden"
-              name="id"
-              value="{{- variant.id -}}"
-              class="product-variant-id"
-              {% if variant.available == false %}
-                disabled
-              {% endif %}
-            >
-            <button
-              id="{{ product_form_id }}-submit"
-              type="submit"
-              name="add"
-              {% if variant.available == false %}
-                disabled
-              {% endif %}
-              aria-label="{{ 'products.product.add_to_cart' | t }}"
-              class="product-card__atc product-card__action-button btn {{ settings.pcard_button_style }}"
-            >
-              <span class="product-card__atc-icon product-card__action-icon inline-flex md:hidden">
-                {%- render 'icon-cart', name: settings.cart_icon -%}
-              </span>
-              <span class="product-card__atc-text product-card__action-text">
-                {%- if variant.available -%}
-                  {{- 'products.product.add_to_cart' | t -}}
-                {%- else -%}
-                  {{- 'products.product.sold_out' | t -}}
-                {%- endif -%}
-              </span>
-              {% render 'loading-spinner' %}
-            </button>
-          {%- endform -%}
-        {%- endif -%}
-      {%- endif -%}
     </div>
+
     <div class="product-card__info text-{{ settings.pcard_content_alignment }}">
       {%- if show_vendor -%}
         <p class="product-card__vendor text-sm m-0">
@@ -304,39 +217,37 @@
           {{ product.type }}
         </p>
       {%- endif -%}
+      
       <h3 class="product-card__title text-pcard-title">
         <a class="reversed-link" href="{{ product.url }}">{{- product.title -}}</a>
       </h3>
-<!-- Start of Judge.me code -->
-  <div class='jdgm-widget jdgm-preview-badge'>
-    {{ product.metafields.judgeme.badge }}
-  </div>
-<!-- End of Judge.me code -->
-      {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+
+      <div class='jdgm-widget jdgm-preview-badge'>
+        {{ product.metafields.judgeme.badge }}
+      </div>
+      <div class="product-card__price">
+        {%- if compare_at_price > price -%}
+          <div class="price price--on-sale flex flex-wrap items-center gap-2">
+            <span class="price-item price-item--sale" style="color: #B12704; font-weight: bold; font-size: 16px;">
+              {{ price | money }}
+            </span>
+            <span class="price-item price-item--regular" style="text-decoration: line-through; color: #565959; font-size: 13px;">
+              {{ compare_at_price | money }}
+            </span>
+            <div class="price-saved w-full" style="font-size: 12px; color: #B12704; font-weight: 500;">
+              You save: {{ compare_at_price | minus: price | money }}
+            </div>
+          </div>
+        {%- else -%}
+          <div class="price">
+            <span class="price-item price-item--regular" style="font-weight: bold; font-size: 16px; color: #000;">
+              {{ price | money }}
+            </span>
+          </div>
+        {%- endif -%}
+      </div>
       <div class="product-card__info">
         <div class="product-card__meta flex items-center justify-between">
-          {%- comment -%} --- Reviews --- {%- endcomment -%}
-          <div class="product-card__reviews">
-            {% if product.metafields.reviews.rating.value %}
-              {% assign rating = product.metafields.reviews.rating.value %}
-              {% assign count = product.metafields.reviews.rating_count %}
-              <div class="reviews flex items-center gap-1">
-                <div class="stars flex">
-                  {% for i in (1..5) %}
-                    {% if rating >= i %}
-                      <span class="star text-yellow-200">★</span>
-                    {% else %}
-                      <span class="star empty text-gray-200">★</span>
-                    {% endif %}
-                  {% endfor %}
-                </div>
-                <span class="reviews-count text-sm text-gray-500">
-                  ({{ count }})
-                </span>
-              </div>
-            {% endif %}
-          </div>
-
           {%- comment -%} --- Sold Count --- {%- endcomment -%}
           <div class="product-card__sold">
             <span class="sold-count text-xs text-gray-400">
@@ -344,16 +255,6 @@
             </span>
           </div>
         </div>
-          {%- comment -%} --- Add to Cart Button --- {%- endcomment -%}
-          <div class="product-card__add-to-cart mt-2">
-            <form method="post" action="/cart/add">
-              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-              <button type="submit" 
-                      class="add-to-cart-btn w-full bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">
-                Add to cart
-              </button>
-            </form>
-          </div>
       </div>
       
       {%- if show_color_swatches -%}
