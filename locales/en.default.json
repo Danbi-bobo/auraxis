@@ -754,14 +754,18 @@
       "x-0x2myigs-text_html": "Recent View",
       "x-3ao471p6-text_html": "{{ x_3ao471p6_text }}<br><br>{{ x_3ao471p6_text_1 }}<br><br><span style=\"color: rgb(208, 2, 27);\"><strong>Usage Note:</strong></span> <br>{{ x_3ao471p6_text_2 }}",
       "x-29zudf1g-text_html": "Details",
-      "x-y3sspa9z-title_html": "SHIPPING POLICY",
-      "x-xm02y7u6-title_html": "REFUND POLICY",
+      "x-y3sspa9z-title_html": "Description",
+      "x-xm02y7u6-title_html": "Item detail",
       "x-lh0qswkd-button_label_html": " Size Guide",
       "x-qhnh10hi-text_html": "<strong>You may also like</strong>",
       "x-79fzasfm-title_html": "Description",
       "x-e4gjse1f-title_html": "Item detail",
       "x-0xiy0hlo-text_html": "{{ x_0xiy0hlo_text }}",
-      "x-qi0n17uh-text_html": "{{ x_qi0n17uh_text }}"
+      "x-qi0n17uh-text_html": "<span style=\"color: rgb(0, 0, 0);\">{{ x_qi0n17uh_text }}</span>",
+      "x-tiduuvog-title_html": "SHIPPING POLICY",
+      "x-lyyqskz8-title_html": "REFUND POLICY",
+      "x-0f6jgtcr-text_html": "<span style=\"color: rgb(0, 0, 0);\">{{ x_0f6jgtcr_text }}</span>",
+      "x-igq2blzy-text_html": "{{ x_igq2blzy_text }}"
     }
   },
   "templates": {
