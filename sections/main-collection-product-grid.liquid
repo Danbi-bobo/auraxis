@@ -1,49 +1,13 @@
 {{ 'collection.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+
 {%- liquid
-  assign current_filter_size = 0
   assign columns_desktop = section.settings.columns_desktop
-  assign columns_tablet = 3
   assign columns_mobile = section.settings.columns_mobile | times: 1
+  assign rows_desktop = section.settings.rows_desktop
 
-  for filter in collection.filters
-    assign current_filter_size = current_filter_size | plus: filter.active_values.size
-  endfor
-
-  assign enable_sorting = section.settings.enable_sorting
-  assign enable_filtering = section.settings.enable_filtering
-  assign filter_type = section.settings.filter_type
-  assign show_toolbar = false
-  if enable_filtering or enable_sorting
-    assign show_toolbar = true
-  endif
-
-  assign default_grid_mobile = 'f-grid-' | append: columns_mobile | append: '-cols'
-
-  assign is_metro = false
-  if section.settings.grid_layout == 'metro'
-    assign is_metro = true
-  endif
+  # Tính tổng số sản phẩm hiển thị 1 lần (Cột x Hàng)
+  assign items_per_page = columns_desktop | times: rows_desktop
 -%}
-{%- if is_metro -%}
-  {%- render 'product-grid-metro-style',
-    section_id: section.id,
-    desktop_breakpoint: 1280,
-    columns_desktop: columns_desktop,
-    columns_tablet: columns_tablet,
-    columns_mobile: columns_mobile
-  -%}
-{%- endif -%}
-{%- capture image_sizes -%}
-(max-width: 767px) calc((100vw - 38px) / {{ columns_mobile }}),
-(max-width: 1279px) calc((100vw - 90px) / {{ columns_tablet }}),
-{%- if enable_filtering -%}
-  calc({{ settings.page_width}}px / {{ columns_desktop | plus: 1 }})
-{%- else -%}
-{{ settings.page_width | divided_by: columns_desktop }}px
-{%- endif -%}
-{%- endcapture -%}
 
 {% render 'divider',
   show_divider: section.settings.show_section_divider,
@@ -56,141 +20,100 @@
 >
   <div class="collection page-width">
     {%- paginate collection.products by section.settings.products_per_page -%}
-      <div class="collection__content flex">
-        {%- if collection.all_products_count > 0 -%}
-          <div
-            class="hidden{% if enable_filtering and filter_type == 'vertical' %} xl:block{% endif %}"
-            id="FacetFiltersContainer"
-          >
-            <div class="sticky-element z-10">
-              {%- render 'facets', context: 'vertical', results: collection -%}
-            </div>
-          </div>
-        {%- endif -%}
-        <div class="flex flex-col flex-grow{% if show_toolbar %} show-toolbar{% endif %}" id="ProductGridWrapper">
-          <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
-            {%- if enable_filtering or enable_sorting -%}
-              <div class="collection__toolbar flex items-center justify-between">
-                {%- if filter_type == 'drawer' and collection.all_products_count > 0 and enable_filtering -%}
-                  {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                {%- endif -%}
+      <div class="collection__content flex flex-col">
+        <div class="collection-header-row" style="display: flex; justify-content: flex-start; margin-bottom: 20px;">
+          <p class="collection-count" style="margin: 0; font-size: 14px; opacity: 0.8; font-weight: 500;">
+            {{ collections.all.all_products_count }} products
+          </p>
+        </div>
 
-                {%- if filter_type == 'vertical' and collection.all_products_count > 0 and enable_filtering -%}
-                  <div class="flex xl:hidden">
-                    {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                  </div>
-                {%- endif -%}
-
-                <div class="gap-10 hidden md:flex items-center justify-between{% if filter_type == 'vertical' or enable_filtering == false %} xl:flex-grow{% endif %}">
-                  {%- if collection.all_products_count > 0 -%}
-                    <div data-facet-loading>
-                      {%- render 'loading-spinner' -%}
-                      <p id="ProductCount" class="m-0" role="status">
-                        {%- liquid
-                          if collection.results_count
-                            echo 'products.facets.filters_selected' | t: terms: collection.terms, count: collection.results_count
-                          elsif collection.products_count == collection.all_products_count
-                            echo 'products.facets.product_count_simple' | t: count: collection.products_count
-                          else
-                            echo 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count
-                          endif
-                        -%}
-                      </p>
-                    </div>
-                  {%- endif -%}
-                  {%- if enable_sorting and collection.all_products_count > 0 -%}
-                    <div class="flex items-center gap-3" id="SortByContainer">
-                      {%- render 'facet-short',
-                        results: collection,
-                        icon_size: 'extra-small',
-                        label_class: 'font-body-bolder'
-                      -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-
-                <layout-switcher class="flex md:hidden gap-2" style="--buttons-width: 4rem;">
-                  {%- for per_row in (1..2) -%}
-                    {%- assign layout = 'f-grid-' | append: per_row | append: '-cols' -%}
-                    <button
-                      class="btn btn--icon{% if layout == default_grid_mobile %} btn--active{% endif %}"
-                      data-layout-mode="grid-{{ per_row }}"
-                      aria-label="{{ 'accessibility.layout_switcher' | t: col: per_row }}"
-                    >
-                      {%- render 'icon-grid-column', layout: per_row, classes: 'pointer-events-none' -%}
-                    </button>
-                  {%- endfor -%}
-                </layout-switcher>
-              </div>
-            {%- endif -%}
-          </div>
-          {%- liquid
-            if enable_filtering
-              render 'facets-active', results: collection
-            endif
-          -%}
+        <div class="flex flex-col flex-grow" id="ProductGridWrapper">
           <div id="ProductGridContainer">
-            {%- if collection.products.size == 0 -%}
-              <div class="empty-state flex flex-col items-center justify-center gap-6 text-center">
-                {%- if collection.all_products_count > 0 -%}
-                  <div class="gap-3 flex flex-col items-center justify-center text-center">
-                    {%- render 'icon-empty-state' -%}
-                    <p class="h4">{{ 'collections.general.no_results' | t }}</p>
-                    <p class="m-0">{{ 'collections.general.use_fewer_filters' | t }}</p>
-                  </div>
-                  <a class="btn btn--primary" href="{{ collection.url }}" is="facet-remove">
-                    {{- 'products.facets.clear_all' | t -}}
-                  </a>
-                {%- else -%}
-                  <div class="gap-3 flex flex-col items-center justify-center text-center">
-                    {%- render 'icon-empty-state' -%}
-                    <p class="h4">{{ 'collections.general.empty' | t }}</p>
-                  </div>
-                  <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">
-                    {{ 'collections.general.continue_shopping' | t }}
-                  </a>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-            <grid-list
-              id="ProductsList"
-              class="grid-list products-list f-grid md:f-grid-{{ columns_tablet }}-cols xl:f-grid-{{ columns_desktop }}-cols {{ default_grid_mobile }} f-grid--gap-medium"
+            <div
+              id="GridTrack"
+              class="grid-track f-grid"
+              data-desktop-cols="{{ columns_desktop }}"
+              data-mobile-cols="{{ columns_mobile }}"
+              data-items-per-page="{{ items_per_page }}"
             >
+              {%- assign displayed_products = '|' -%}
+
+              {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
               {%- for product in collection.products -%}
-                <div class="f-column card">
-                  {%- if is_metro -%}
-                    {%- render 'card-product-metro',
-                      product: product,
-                      image_sizes: image_sizes,
-                      section_id: section.id,
-                      section_index: 2,
-                      index: forloop.index,
-                      index0: forloop.index0,
-                      desktop_breakpoint: 1280,
-                      columns_desktop: columns_desktop,
-                      columns_tablet: columns_tablet,
-                      columns_mobile: columns_mobile
-                    -%}
-                  {%- else -%}
-                    {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
-                    <div class="grid-item hidden-item">
-                      {%- render 'card-product-mix',
-                        product: product,
-                        section_id: section.id,
-                        index: forloop.index,
-                        show_vendor: false,
-                        show_rating: false
-                      -%}
-                    </div>
-                  {%- endif -%}
+                {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                <div class="grid-item hidden-item">
+                  {%- render 'card-product-mix',
+                    product: product,
+                    section_id: section.id,
+                    index: forloop.index,
+                    show_vendor: false,
+                    show_rating: false
+                  -%}
                 </div>
               {%- endfor -%}
-            </grid-list>
-            {%- liquid
-              if paginate.pages > 1
-                render 'pagination', paginate: paginate, type: section.settings.pagination
-              endif
-            -%}
+
+              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI --- {% endcomment %}
+              {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
+                {%- assign other_products = collections.all.products | sort: 'price' -%}
+                {%- assign counter = 0 -%}
+                {%- assign limit_extra = 48 -%}
+
+                {%- for product in other_products -%}
+                  {%- assign check_handle = '|' | append: product.handle | append: '|' -%}
+                  {%- unless displayed_products contains check_handle -%}
+                    {%- if counter < limit_extra -%}
+                      <div class="grid-item hidden-item">
+                        {%-
+                          render 'card-product-mix',
+                          product: product,
+                          section_id: section.id,
+                          index: forloop.index,
+                          show_vendor: false,
+                          show_rating: false
+                        -%}
+                      </div>
+                      {%- assign counter = counter | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+
+            <div class="carousel-footer-controls">
+              <button id="btn-prev" class="carousel-btn" aria-label="Previous">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+
+              <span id="page-counter" class="carousel-counter">Page 1 / 1</span>
+
+              <button id="btn-next" class="carousel-btn" aria-label="Next">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -198,146 +121,191 @@
   </div>
 </div>
 
+<style>
+    /* GRID LAYOUT */
+    .grid-track {
+      display: grid;
+      grid-template-columns: repeat({{ columns_desktop }}, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+      min-height: 400px;
+    }
+
+    /* Ẩn hiện item */
+    .grid-item { opacity: 1; transition: opacity 0.3s ease; }
+    .grid-item.hidden-item { display: none; opacity: 0; }
+
+    @media (max-width: 767px) {
+      .grid-track {
+        grid-template-columns: repeat({{ columns_mobile }}, 1fr);
+        gap: 10px;
+      }
+    }
+
+    /* FOOTER CONTROLS */
+    .carousel-footer-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Căn giữa */
+      gap: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #333;
+    }
+    .carousel-btn:hover { background: #000; color: #fff; border-color: #000; }
+    .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; background: #f9f9f9; color: #ccc; border-color: #eee;}
+
+    .carousel-counter {
+      font-size: 14px;
+      font-weight: 600;
+      min-width: 80px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    /* FIX LỖI ẢNH HOVER */
+
+  /* Mặc định: Ẩn ảnh thứ 2 (ảnh hover) đi */
+  .card__media .media--hover-effect > img:nth-child(2) {
+      opacity: 0 !important;
+      transition: opacity 0.3s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+  }
+
+  /* Khi rê chuột vào card: Hiện ảnh thứ 2 lên */
+  .card:hover .card__media .media--hover-effect > img:nth-child(2) {
+      opacity: 1 !important;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('GridTrack');
+    const items = track.querySelectorAll('.grid-item');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const counterEl = document.getElementById('page-counter');
+
+    if (!track || items.length === 0) return;
+
+    // Lấy cấu hình số lượng từ data attribute
+    let itemsPerPage = parseInt(track.getAttribute('data-items-per-page')) || 12;
+
+    // Mobile config (nếu muốn)
+    if (window.innerWidth < 768) {
+      // itemsPerPage = 4; // Ví dụ
+    }
+
+    const totalItems = items.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    let currentPage = 1;
+
+    function showPage(page) {
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPage = page;
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      items.forEach((item, index) => {
+        if (index >= start && index < end) {
+          item.classList.remove('hidden-item');
+        } else {
+          item.classList.add('hidden-item');
+        }
+      });
+
+      counterEl.innerText = `Page ${currentPage} / ${totalPages}`;
+      btnPrev.disabled = currentPage === 1;
+      btnNext.disabled = currentPage === totalPages;
+    }
+
+    btnPrev.addEventListener('click', () => showPage(currentPage - 1));
+    btnNext.addEventListener('click', () => showPage(currentPage + 1));
+
+    showPage(1);
+  });
+</script>
+
 {% schema %}
 {
-  "name": "t:sections.main-collection-product-grid.name",
+  "name": "Mix Price Grid (Paged)",
   "class": "collection-section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "[Read How-to](https://foxecom.link/LgqT3v8)"
+      "content": "Hiển thị dạng lưới, phân trang tại chỗ, hiển thị tổng số lượng bên trái."
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 8,
-      "max": 36,
-      "step": 1,
-      "default": 15,
-      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "default": 48,
+      "label": "Total Loaded Products",
+      "info": "Tổng số sản phẩm tải về để phân trang."
+    },
+    {
+      "type": "header",
+      "content": "Grid Settings"
     },
     {
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
-      "max": 6,
+      "max": 5,
       "step": 1,
       "default": 4,
-      "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
+      "label": "Columns (Số cột)"
     },
     {
-      "type": "select",
-      "id": "grid_layout",
-      "options": [
-        {
-          "value": "standard",
-          "label": "t:sections.product-tabs.settings.grid_layout.options__1.label"
-        },
-        {
-          "value": "metro",
-          "label": "t:sections.product-tabs.settings.grid_layout.options__2.label"
-        }
-      ],
-      "default": "standard",
-      "info": "t:sections.product-tabs.settings.grid_layout.info",
-      "label": "t:sections.product-tabs.settings.grid_layout.label"
-    },
-    {
-      "type": "select",
-      "id": "pagination",
-      "label": "t:sections.main-collection-product-grid.settings.pagination.label",
-      "options": [
-        {
-          "value": "infinite",
-          "label": "t:sections.main-collection-product-grid.settings.pagination.options__1.label"
-        },
-        {
-          "value": "load_more",
-          "label": "t:sections.main-collection-product-grid.settings.pagination.options__2.label"
-        },
-        {
-          "value": "number",
-          "label": "t:sections.main-collection-product-grid.settings.pagination.options__3.label"
-        }
-      ],
-      "default": "number"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_color_swatch",
-      "label": "t:settings_schema.color_swatches.settings.enable_color_swatch.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_filtering",
-      "default": true,
-      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
-      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
-    },
-    {
-      "type": "select",
-      "id": "filter_type",
-      "options": [
-        {
-          "value": "vertical",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__2.label"
-        },
-        {
-          "value": "drawer",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__3.label"
-        }
-      ],
-      "default": "vertical",
-      "label": "t:sections.main-collection-product-grid.settings.filter_type.label",
-      "info": "t:sections.main-collection-product-grid.settings.filter_type.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sorting",
-      "default": true,
-      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
-    },
-    {
-      "type": "text",
-      "id": "expand_filter_groups",
-      "label": "t:sections.main-collection-product-grid.settings.expand_filter_groups.label",
-      "placeholder": "Color, Price, Size",
-      "info": "t:sections.main-collection-product-grid.settings.expand_filter_groups.info"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.main-collection-product-grid.settings.header_mobile.content"
+      "type": "range",
+      "id": "rows_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "label": "Rows (Số hàng hiển thị)",
+      "info": "Ví dụ: 4 cột x 3 hàng = 12 sản phẩm / trang."
     },
     {
       "type": "select",
       "id": "columns_mobile",
       "default": "2",
-      "label": "t:sections.main-collection-product-grid.settings.columns_mobile.label",
+      "label": "Columns on Mobile",
       "options": [
-        {
-          "value": "1",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
-        }
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
       ]
     },
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Spacing"
     },
     {
       "type": "range",
@@ -346,8 +314,8 @@
       "max": 100,
       "step": 2,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 50
+      "label": "Padding Top",
+      "default": 30
     },
     {
       "type": "range",
@@ -356,34 +324,24 @@
       "max": 100,
       "step": 2,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 50
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.divider.content"
+      "label": "Padding Bottom",
+      "default": 30
     },
     {
       "type": "checkbox",
       "id": "show_section_divider",
       "default": false,
-      "label": "t:sections.all.divider.settings.show_divider.label"
+      "label": "Show Divider"
     },
     {
       "type": "select",
       "id": "divider_width",
       "options": [
-        {
-          "value": "fixed",
-          "label": "t:sections.all.container.options__fixed.label"
-        },
-        {
-          "value": "full",
-          "label": "t:sections.all.container.options__full.label"
-        }
+        { "value": "fixed", "label": "Fixed" },
+        { "value": "full", "label": "Full" }
       ],
       "default": "fixed",
-      "label": "t:sections.all.divider.settings.divider_width.label"
+      "label": "Divider width"
     }
   ]
 }
