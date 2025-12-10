@@ -43,7 +43,7 @@
               {%- for product in collection.products -%}
                 {%- assign displayed_products = displayed_products | append: product.handle | append: "|" -%}
                 <div class="grid-item hidden-item">
-                  {%- render 'card-product',
+                  {%- render 'card-product-mix',
                     product: product,
                     section_id: section.id,
                     index: forloop.index,
@@ -64,7 +64,7 @@
                   {%- unless displayed_products contains check_handle -%}
                     {%- if counter < limit_extra -%}
                       <div class="grid-item hidden-item">
-                        {%- render 'card-product',
+                        {%- render 'card-product-mix,
                           product: product,
                           section_id: section.id,
                           index: forloop.index,
