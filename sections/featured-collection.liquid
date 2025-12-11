@@ -243,7 +243,7 @@
         {%- if section.settings.collection != blank and section.settings.collection.all_products_count > 0 -%}
           {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
             <div class="auragems-product-item">
-              {% render 'card-product',
+              {% render 'card-product-mix',
                 product: product,
                 media_aspect_ratio: section.settings.image_ratio,
                 show_secondary_image: section.settings.show_secondary_image,
