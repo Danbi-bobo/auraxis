@@ -144,38 +144,27 @@
   {%- endif -%}
   <a
     href="{{ routes.root_url }}"
-    class="h3 relative flex{% unless settings.logo %} header__logo--text{% else %} header__logo--image{% endunless %}"
+    class="h3 relative flex{% unless section.settings.logo or settings.logo %} header__logo--text{% else %} header__logo--image{% endunless %}"
   >
-    {%- if settings.logo != blank -%}
-      {%- liquid
-        # Ưu tiên lấy logo từ Section, nếu không có thì lấy từ Settings chung
-        assign logo = section.settings.logo | default: settings.logo
-        assign logo_width = section.settings.logo_width | default: settings.logo_width
-        assign logo_width_2x = logo_width | times: 2
+    {%- liquid
+      # --- LOGIC MỚI: Ưu tiên logo từ Section ---
+      assign logo = section.settings.logo | default: settings.logo
+      assign logo_width = section.settings.logo_width | default: settings.logo_width
+      assign logo_width_2x = logo_width | times: 2
 
-        assign logo_mobile = section.settings.logo_mobile | default: settings.logo_mobile
-        assign logo_width_mobile = section.settings.logo_width_mobile | default: settings.logo_width_mobile
-        assign logo_width_mobile_2x = logo_width_mobile | times: 2
+      assign logo_mobile = section.settings.logo_mobile | default: settings.logo_mobile
+      assign logo_width_mobile = section.settings.logo_width_mobile | default: settings.logo_width_mobile
+      assign logo_width_mobile_2x = logo_width_mobile | times: 2
 
-        assign logo_transparent = settings.logo_transparent
-        assign logo_transparent_mobile = settings.logo_transparent_mobile
+      assign logo_transparent = settings.logo_transparent
+      assign logo_transparent_mobile = settings.logo_transparent_mobile
 
-        if logo_mobile == blank
-          assign logo_mobile = logo
-        endif
+      if logo_mobile == blank
+        assign logo_mobile = logo
+      endif
+    -%}
 
-        if logo_transparent == blank
-          assign logo_transparent = logo
-        endif
-
-        if logo_transparent_mobile == blank
-          if logo_transparent == blank
-            assign logo_transparent_mobile = logo_mobile
-          else
-            assign logo_transparent_mobile = logo_transparent
-          endif
-        endif
-      -%}
+    {%- if logo != blank -%}
       {%- if logo_mobile -%}
         <img
           srcset="{{ logo_mobile | image_url: width: logo_width_mobile }} 1x, {{ logo_mobile | image_url: width: logo_width_mobile_2x }} 2x"
@@ -197,7 +186,6 @@
         class="logo header__logo--desktop md:block hidden"
       >
       {%- if enable_transparent_header and logo_transparent != blank -%}
-        {%- if logo_transparent != blank -%}
           <img
             srcset="{{ logo_transparent | image_url: width: logo_width }} 1x, {{ logo_transparent | image_url: width: logo_width_2x }} 2x"
             src="{{ logo_transparent | image_url: width: logo_width }}"
@@ -207,18 +195,6 @@
             alt="{{ logo_transparent.alt | default: shop.name | escape }}"
             class="logo header__logo--desktop header__logo--transparent hidden md:block absolute"
           >
-        {%- endif -%}
-        {%- if logo_transparent_mobile != blank -%}
-          <img
-            srcset="{{ logo_transparent_mobile | image_url: width: logo_width_mobile }} 1x, {{ logo_transparent_mobile | image_url: width: logo_width_mobile_2x }} 2x"
-            src="{{ logo_transparent_mobile | image_url: width: logo_width_mobile }}"
-            loading="eager"
-            width="{{ logo_transparent_mobile.width }}"
-            height="{{ logo_transparent_mobile.height }}"
-            alt="{{ logo_transparent_mobile.alt | default: shop.name | escape }}"
-            class="logo header__logo--mobile header__logo--transparent md:hidden absolute"
-          >
-        {%- endif -%}
       {%- endif -%}
     {%- else -%}
       {{ shop.name }}
