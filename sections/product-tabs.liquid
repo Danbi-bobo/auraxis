@@ -134,18 +134,20 @@
               <div class="products-list f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}{% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
                 {%- if collection != blank -%}
                   {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
-              {%- for product in collection.products -%}
-                {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
-                <div class="grid-item hidden-item">
-                  {%- render 'card-product-mix',
-                    product: product,
-                    section_id: section.id,
-                    index: forloop.index,
-                    show_vendor: false,
-                    show_rating: false
-                  -%}
-                </div>
-              {%- endfor -%}
+                  {%- for product in collection.products -%}
+                    {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                    <div class="grid-item hidden-item">
+                      {%-
+                        render 'card-product-mix',
+                        product: product,
+                        section_id: section.id,
+                        index: forloop.index,
+                        show_vendor: false,
+                        show_rating: false,
+                        show_secondary_image: true  <-- QUAN TRỌNG: Thêm dòng này để bật hover
+                      -%}
+                    </div>
+                  {%- endfor -%}
                 {%- else -%}
                   {%- for i in (1..limit) -%}
                     <div class="f-column">
