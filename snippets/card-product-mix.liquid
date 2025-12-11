@@ -54,7 +54,7 @@
                 {{ 'products.product.sold_out' | t }}
               </span>
             {%- elsif product.compare_at_price > product.price -%}
-              <span id="Badge-{{ section_id }}-{{ product.id }}" class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}" style="color:rgb(255, 255, 255); font-weight: bold; font-size: 16px; background:rgb(255, 0, 0); border-radius: 20px">
+              <span id="Badge-{{ section_id }}-{{ product.id }}" class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}" style="color:rgb(255, 255, 255); font-weight: bold; font-size: 16px; background: #B12704; border-radius: 20px; padding: 5px">
                 -{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%
               </span>
             {%- endif -%}
