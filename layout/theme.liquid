@@ -149,5 +149,5 @@
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
-  {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}       </body>
+  {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}       <div class="shopify-dynamic-checkout---buttons" style="display:none!important;">{{ content_for_additional_checkout_buttons }}</div></body>
 </html>
