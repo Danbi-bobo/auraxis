@@ -6630,3 +6630,30 @@ input[name="contact[email]"] {
     border: 1px solid black !important; /* Viền đen 1px */
     outline: none !important; /* Xóa viền xanh mặc định khi bấm vào */
 }
+
+/* --- FIX LỖI CART DRAWER BỊ ĐÈ BỞI STICKY BAR --- */
+
+/* 1. Đưa Cart Drawer lên lớp cao nhất (cao hơn mọi thứ khác) */
+cart-drawer, 
+.drawer, 
+#CartDrawer, 
+.cart-drawer {
+    z-index: 2147483647 !important; /* Số lớn nhất có thể trong CSS */
+    position: fixed !important; /* Đảm bảo nó luôn nổi */
+}
+
+/* 2. Đưa lớp màn đen (Overlay) lên ngay phía sau Drawer */
+.drawer__overlay, 
+.cart-drawer-overlay,
+#CartDrawer-Overlay {
+    z-index: 2147483646 !important;
+}
+
+/* 3. (Tùy chọn) Ẩn luôn thanh Sticky Bar khi Giỏ hàng đang mở 
+   để khách tập trung thanh toán và không bị che nút Checkout */
+body.overflow-hidden .foxify-sticky-bar,
+body.overflow-hidden .product-sticky-bar,
+body.overflow-hidden .sticky-atc {
+    z-index: 0 !important;
+    display: none !important;
+}
