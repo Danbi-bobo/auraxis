@@ -67,7 +67,7 @@
                         {%- assign displayed_products = displayed_products | append: product.handle | append: "|" -%}
                         
                         <div class="grid-item hidden-item">
-                          {%- render 'card-product-mix',
+                          {%- render 'card-product',
                             product: product,
                             section_id: section.id,
                             index: counter,
