@@ -25,7 +25,7 @@
         "announcement_bar_CDrgnt": {
           "type": "announcement_bar",
           "settings": {
-            "text": "🚚 <strong>FREE SHIPPING on all orders $159+</strong>",
+            "text": "🚚 <strong>FREE SHIPPING on all orders $99+</strong>",
             "link": ""
           }
         },
@@ -64,7 +64,7 @@
         "logo": "shopify://shop_images/1534eb07-2ddb-4e3b-aa0f-a8c80ab9dc9c_e6e64226-6ff9-4f71-b5e4-f9aa084d7eef.png",
         "logo_width": 200,
         "logo_mobile": "shopify://shop_images/1534eb07-2ddb-4e3b-aa0f-a8c80ab9dc9c_e6e64226-6ff9-4f71-b5e4-f9aa084d7eef.png",
-        "logo_width_mobile": 120,
+        "logo_width_mobile": 150,
         "container": "full",
         "color_scheme": "scheme-1",
         "menu": "main-menu-1",
