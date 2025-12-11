@@ -32,7 +32,7 @@
     display: grid;
     /* Dùng minmax(0, 1fr) để bắt buộc các cột bằng nhau bất kể nội dung to hay nhỏ */
     grid-template-columns: repeat({{ columns_mobile_int }}, minmax(0, 1fr));
-    gap: 15px;
+    gap: 10px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -69,11 +69,11 @@
 
   /* --- 4. RESPONSIVE --- */
   @media screen and (min-width: 750px) {
-    .auragems-product-grid { gap: 30px; }
+    .auragems-product-grid { gap: 15px; }
     
     .auragems-product-grid.slider-active .auragems-product-item {
-      width: calc(100% / {{ columns_desktop }} - 30px);
-      flex: 0 0 calc(100% / {{ columns_desktop }} - 30px);
+      width: calc(100% / {{ columns_desktop }} - 15px);
+      flex: 0 0 calc(100% / {{ columns_desktop }} - 15px);
     }
   }
 
