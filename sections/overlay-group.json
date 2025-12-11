@@ -19,7 +19,7 @@
         "show_free_shipping_goal": true,
         "enable_cart_recommendations": true,
         "cart_recommendations_heading": "You may also like",
-        "cart_recommendations_limit": 3
+        "cart_recommendations_limit": 10
       }
     },
     "search-drawer": {
