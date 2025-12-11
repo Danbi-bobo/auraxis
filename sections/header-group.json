@@ -61,6 +61,9 @@
       "type": "header",
       "custom_css": [],
       "settings": {
+        "logo": "shopify://shop_images/1534eb07-2ddb-4e3b-aa0f-a8c80ab9dc9c.png",
+        "logo_width": 180,
+        "logo_width_mobile": 80,
         "container": "full",
         "color_scheme": "scheme-1",
         "menu": "main-menu-1",
