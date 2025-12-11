@@ -99,24 +99,6 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "image_with_text_overlay_qnrYEz": {
-      "type": "image-with-text-overlay",
-      "name": "t:sections.image-with-text-overlay.name",
-      "settings": {
-        "container": "fixed",
-        "image": "shopify://shop_images/abc.png",
-        "desktop_height": "extra-small",
-        "overlay_opacity": 35,
-        "enable_parallax": false,
-        "parallax_direction": "zoom",
-        "color_scheme": "",
-        "content_position": "bottom-center",
-        "content_alignment": "center",
-        "mobile_height": "medium",
-        "padding_top": 50,
-        "padding_bottom": 50
-      }
-    },
     "scrolling_promotion_6TQzbJ": {
       "type": "scrolling-promotion",
       "blocks": {
@@ -213,7 +195,7 @@
         "view_all_style": "btn--outline",
         "padding_top": 20,
         "padding_bottom": 0,
-        "show_section_divider": true,
+        "show_section_divider": false,
         "divider_width": "fixed"
       }
     },
@@ -339,7 +321,6 @@
   },
   "order": [
     "slideshow_q3U4Jn",
-    "image_with_text_overlay_qnrYEz",
     "scrolling_promotion_6TQzbJ",
     "featured_collection_Yznd7d",
     "featured_collection_UejkyJ",
