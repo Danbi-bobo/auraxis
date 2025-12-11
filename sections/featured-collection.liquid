@@ -106,16 +106,6 @@
     width: 100%;
     overflow: hidden;
   }
-
-  .section-{{ section.id }} .card__media .media {
-    position: relative;
-    width: 100%;
-    height: 0;
-    /* Dùng padding-bottom để tạo khung tỉ lệ cố định */
-    /* 100% = Vuông 1:1, 133.33% = Dọc 3:4 */
-    padding-bottom: {% if section.settings.image_ratio == 'portrait' %}133.33%{% elsif section.settings.image_ratio == 'square' %}100%{% else %}100%{% endif %};
-    display: block;
-  }
   
   .section-{{ section.id }} .card__media .media img {
     position: absolute;
