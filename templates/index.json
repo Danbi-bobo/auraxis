@@ -101,27 +101,6 @@
     },
     "image_with_text_overlay_qnrYEz": {
       "type": "image-with-text-overlay",
-      "blocks": {
-        "heading_gbeDGV": {
-          "type": "heading",
-          "settings": {
-            "heading": "The Guardian Gemstone: A Merchant’s Tale of Fortune and Hope",
-            "heading_size": "h3",
-            "heading_highlight_style": "none"
-          }
-        },
-        "text_LzD9Dw": {
-          "type": "text",
-          "settings": {
-            "text": "<p>In a quiet village, a young merchant carried a Fox Queen gemstone pendant close to his heart. Each day, she noticed fortune flowing steadily—customers arrived, obstacles faded. When doubts clouded his mind, he touched the stone, feeling its warmth. To him, it wasn’t just jewelry, but a guardian of luck and hope.</p>",
-            "text_size": "text-sm"
-          }
-        }
-      },
-      "block_order": [
-        "heading_gbeDGV",
-        "text_LzD9Dw"
-      ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "fixed",
@@ -207,111 +186,126 @@
         "divider_layout": "vertical"
       }
     },
-    "product_tabs_fVXaTT": {
-      "type": "product-tabs",
-      "blocks": {
-        "tab_wPnWqU": {
-          "type": "tab",
-          "settings": {
-            "title": "{{ block.settings.collection.title }}",
-            "collection": "new-era-2026-fire-horse-🔥"
-          }
-        },
-        "tab_eMUKx4": {
-          "type": "tab",
-          "settings": {
-            "title": "{{ block.settings.collection.title }}",
-            "collection": "unlock-destiny"
-          }
-        },
-        "tab_9BdcWg": {
-          "type": "tab",
-          "settings": {
-            "title": "{{ block.settings.collection.title }}",
-            "collection": "protect-your-energy"
-          }
-        },
-        "tab_wtMame": {
-          "type": "tab",
-          "settings": {
-            "title": "{{ block.settings.collection.title }}",
-            "collection": "heal-balance"
-          }
-        }
-      },
-      "block_order": [
-        "tab_wPnWqU",
-        "tab_eMUKx4",
-        "tab_9BdcWg",
-        "tab_wtMame"
-      ],
-      "name": "t:sections.product-tabs.presets.name",
+    "featured_collection_Yznd7d": {
+      "type": "featured-collection",
+      "name": "Featured Collection (Auragems)",
       "settings": {
+        "collection": "new-era-2026-fire-horse-🔥",
+        "products_to_show": 8,
         "color_scheme": "",
-        "header_layout": "vertical",
-        "heading": "Shop by collections",
-        "heading_size": "h1",
+        "subheading": "",
+        "title": "{{ section.settings.collection.title }}",
+        "heading_size": "h2",
         "heading_highlight_style": "none",
-        "limit": 4,
-        "columns": 4,
+        "description": "",
+        "header_alignment": "left",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
         "column_gap": "medium",
-        "row_gap": "inherit",
-        "grid_layout": "standard",
-        "pcard_image_ratio": "",
-        "columns_mobile": "1",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "show_all_button_on_top": false,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "btn--primary",
-        "tabs_nav_style": "design-1",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "show_view_all": false,
+        "view_all_style": "btn--outline",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_section_divider": true,
+        "divider_width": "fixed"
+      }
+    },
+    "featured_collection_UejkyJ": {
+      "type": "featured-collection",
+      "name": "Featured Collection (Auragems)",
+      "settings": {
+        "collection": "heal-balance",
+        "products_to_show": 8,
+        "color_scheme": "",
+        "subheading": "",
+        "title": "{{ section.settings.collection.title }}",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "description": "",
+        "header_alignment": "left",
+        "columns_desktop": 5,
+        "enable_desktop_slider": false,
+        "column_gap": "medium",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "show_view_all": false,
+        "view_all_style": "btn--outline",
+        "padding_top": 36,
+        "padding_bottom": 36,
         "show_section_divider": false,
         "divider_width": "fixed"
       }
     },
-    "testimonials_bGzJVn": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_KVbq3Q": {
-          "type": "testimonial",
-          "settings": {
-            "image": "shopify://shop_images/3b1c4ae48cf4511fa6b96b64b3a888b1_720x_3b1f854d-05f7-418e-b790-dbf43731dfbe.webp",
-            "show_image": true,
-            "icon": "5-stars",
-            "text": "",
-            "author": "",
-            "bio": "Verified Buyer"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_KVbq3Q"
-      ],
-      "custom_css": [
-        ".testimonial__icon {color: #e5bb57;}"
-      ],
+    "featured_collection_TcMENx": {
+      "type": "featured-collection",
+      "name": "Featured Collection (Auragems)",
       "settings": {
-        "color_scheme": "scheme-1",
-        "heading": "Testimonials",
-        "heading_size": "h3",
-        "heading_highlight_style": "none",
+        "collection": "unlock-destiny",
+        "products_to_show": 8,
+        "color_scheme": "",
         "subheading": "",
+        "title": "{{ section.settings.collection.title }}",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
         "description": "",
-        "text_size": "text-base",
-        "card_color_scheme": "scheme-1",
-        "star_color": "#c5a059",
-        "image_ratio": "100%",
+        "header_alignment": "left",
         "columns_desktop": 5,
-        "column_gap": "large",
-        "enable_slider": true,
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "columns_mobile": "1",
+        "enable_desktop_slider": false,
+        "column_gap": "medium",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "padding_top": 50,
-        "padding_bottom": 80,
+        "show_view_all": false,
+        "view_all_style": "btn--outline",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "featured_collection_DPjj9Q": {
+      "type": "featured-collection",
+      "name": "Featured Collection (Auragems)",
+      "settings": {
+        "collection": "protect-your-energy",
+        "products_to_show": 8,
+        "color_scheme": "",
+        "subheading": "",
+        "title": "{{ section.settings.collection.title }}",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "description": "",
+        "header_alignment": "left",
+        "columns_desktop": 5,
+        "enable_desktop_slider": false,
+        "column_gap": "medium",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "show_view_all": false,
+        "view_all_style": "btn--outline",
+        "padding_top": 36,
+        "padding_bottom": 36,
         "show_section_divider": false,
         "divider_width": "fixed"
       }
@@ -347,8 +341,10 @@
     "slideshow_q3U4Jn",
     "image_with_text_overlay_qnrYEz",
     "scrolling_promotion_6TQzbJ",
-    "product_tabs_fVXaTT",
-    "testimonials_bGzJVn",
+    "featured_collection_Yznd7d",
+    "featured_collection_UejkyJ",
+    "featured_collection_TcMENx",
+    "featured_collection_DPjj9Q",
     "featured_blog_LMKAqy"
   ]
 }
