@@ -98,7 +98,7 @@
                   {%- unless displayed_products contains check_handle -%}
                     {%- if counter < total_limit -%}
                       <div class="grid-item hidden-item">
-                        {%- render 'card-product-mix',
+                        {%- render 'card-product',
                           product: product,
                           section_id: section.id,
                           index: counter,
