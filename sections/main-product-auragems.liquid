@@ -4,65 +4,70 @@
 
 <div class="product-auragems page-width" data-section-id="{{ section.id }}">
   <div class="product-auragems__container">
-    
     <div class="product-auragems__gallery">
       {% render 'auragems-media-gallery', product: product %}
     </div>
 
     <div class="product-auragems__info">
-      <div class="product-auragems__info-wrapper">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            
-            {%- when '@app' -%}
-              <div class="product-block">{% render block %}</div>
+      <product-info
+        id="MainProduct-{{ section.id }}"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        data-product-id="{{ product.id }}"
+        data-update-url="false"
+      >
+        <div class="product-auragems__info-wrapper">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div class="product-block">{% render block %}</div>
 
-            {%- when 'title' -%}
-              <div class="product-block product-block--title" {{ block.shopify_attributes }}>
-                {%- if block.settings.show_vendor -%}
-                  <span class="product-auragems__vendor">{{ product.vendor }}</span>
-                {%- endif -%}
-                <h1 class="product-auragems__title">{{ product.title }}</h1>
-              </div>
+              {%- when 'title' -%}
+                <div class="product-block product-block--title" {{ block.shopify_attributes }}>
+                  {%- if block.settings.show_vendor -%}
+                    <span class="product-auragems__vendor">{{ product.vendor }}</span>
+                  {%- endif -%}
+                  <h1 class="product-auragems__title">{{ product.title }}</h1>
+                </div>
 
-            {%- when 'price' -%}
-              <div class="product-block product-block--price" {{ block.shopify_attributes }}>
-                {% render 'auragems-price', product: product %}
-              </div>
+              {%- when 'price' -%}
+                <div class="product-block product-block--price" {{ block.shopify_attributes }}>
+                  {% render 'auragems-price', product: product %}
+                </div>
 
-            {%- when 'variant_picker' -%}
-              <div class="product-block product-block--variants" {{ block.shopify_attributes }}>
-                {% render 'auragems-variant-picker', product: product, section: section, product_form_id: 'product-form-auragems' %}
-              </div>
+              {%- when 'variant_picker' -%}
+                <div class="product-block product-block--variants" {{ block.shopify_attributes }}>
+                  {% render 'auragems-variant-picker', product: product, section: section, product_form_id: 'product-form-{{ section.id }}' %}
+                </div>
 
-            {%- when 'buy_buttons' -%}
-              <div class="product-block product-block--buy" {{ block.shopify_attributes }}>
-                {% render 'auragems-buy-buttons', product: product, section: section, product_form_id: 'product-form-auragems' %}
-              </div>
+              {%- when 'buy_buttons' -%}
+                <div class="product-block product-block--buy" {{ block.shopify_attributes }}>
+                  {% render 'auragems-buy-buttons', product: product, section: section, product_form_id: 'product-form-{{ section.id }}' %}
+                </div>
 
-            {%- when 'collapsible_tab' -%}
-              <div class="product-block product-block--accordion" {{ block.shopify_attributes }}>
-                 <details>
-                   <summary>
-                     <span>{{ block.settings.heading | default: block.settings.page.title }}</span>
-                     {% render 'icon-caret' %}
-                   </summary>
-                   <div class="accordion__content">
-                     {{ block.settings.content }}
-                     {{ block.settings.page.content }}
-                   </div>
-                 </details>
-              </div>
+              {%- when 'collapsible_tab' -%}
+                <div class="product-block product-block--accordion" {{ block.shopify_attributes }}>
+                  <details>
+                    <summary>
+                      <span>{{ block.settings.heading | default: block.settings.page.title }}</span>
+                      {% render 'icon-caret' %}
+                    </summary>
+                    <div class="accordion__content">
+                      {{ block.settings.content }}
+                      {{ block.settings.page.content }}
+                    </div>
+                  </details>
+                </div>
 
-            {%- when 'description' -%}
-              <div class="product-block product-block--description-full" {{ block.shopify_attributes }}>
-                <h3 class="description-heading">Description</h3>
-                <div class="rte">{{ product.description }}</div>
-              </div>
-
-          {%- endcase -%}
-        {%- endfor -%}
-      </div>
+              {%- when 'description' -%}
+                <div class="product-block product-block--description-full" {{ block.shopify_attributes }}>
+                  <h3 class="description-heading">Description</h3>
+                  <div class="rte">{{ product.description }}</div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </product-info>
     </div>
   </div>
 </div>
