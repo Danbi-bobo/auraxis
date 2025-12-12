@@ -59,21 +59,44 @@
                 {%- assign limit_extra = 48 -%}
 
                 {%- for product in other_products -%}
-                  {%- assign check_handle = '|' | append: product.handle | append: '|' -%}
-                  {%- unless displayed_products contains check_handle -%}
-                    {%- if counter < limit_extra -%}
-                      <div class="grid-item hidden-item">
-                        {%-
-                          render 'card-product-mix',
-                          product: product,
-                          section_id: section.id,
-                          index: forloop.index,
-                          show_vendor: false,
-                          show_rating: false
-                        -%}
-                      </div>
-                      {%- assign counter = counter | plus: 1 -%}
+                  {% comment %} --- BƯỚC 1: KIỂM TRA NẾU SẢN PHẨM THUỘC COLLECTION HIỆN TẠI THÌ BỎ QUA --- {% endcomment %}
+                  {%- assign is_in_current_collection = false -%}
+                  {%- for col in product.collections -%}
+                    {%- if col.handle == collection.handle -%}
+                      {%- assign is_in_current_collection = true -%}
+                      {%- break -%}
                     {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- unless is_in_current_collection -%}
+                    
+                    {% comment %} --- BƯỚC 2: KIỂM TRA TRÙNG LẶP VỚI CÁC SẢN PHẨM ĐÃ HIỂN THỊ Ở TRÊN --- {% endcomment %}
+                    {%- assign check_handle = '|' | append: product.handle | append: '|' -%}
+                    {%- unless displayed_products contains check_handle -%}
+                      
+                      {%- if counter < limit_extra -%}
+                        <div class="grid-item hidden-item">
+                           {% comment %} --- Lớp Link phủ (nếu bạn dùng cách Overlay) --- {% endcomment %}
+                           <a href="{{ product.url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: pointer;">
+                              <span class="visually-hidden">{{ product.title }}</span>
+                           </a>
+
+                          {%-
+                            render 'card-product-mix',
+                            product: product,
+                            section_id: section.id,
+                            index: forloop.index,
+                            show_vendor: false,
+                            show_rating: false
+                          -%}
+                        </div>
+                        {%- assign counter = counter | plus: 1 -%}
+                        
+                        {% comment %} --- Quan trọng: Đánh dấu đã hiển thị để không lặp lại --- {% endcomment %}
+                        {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                      {%- endif -%}
+                      
+                    {%- endunless -%}
                   {%- endunless -%}
                 {%- endfor -%}
               {%- endif -%}
