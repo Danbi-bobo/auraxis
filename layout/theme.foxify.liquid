@@ -101,12 +101,38 @@
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
     {% comment %} End custom metafield for head tag like GTag tracking {% endcomment %}
-  {%- render 'foxify-head' -%}</head>
+    {%- render 'foxify-head' -%}
+    <style>
+      /* --- FIX LỖI CART DRAWER BỊ ĐÈ & ẨN STICKY BAR --- */
+
+      /* 1. Đưa Cart Drawer lên lớp cao nhất */
+      cart-drawer, .drawer, #CartDrawer, .cart-drawer {
+          z-index: 2147483647 !important;
+          position: fixed !important;
+      }
+
+      /* 2. Đưa lớp màn đen xuống ngay dưới Drawer */
+      .drawer__overlay, #CartDrawer-Overlay, .cart-drawer-overlay {
+          z-index: 2147483646 !important;
+      }
+
+      /* 3. Ẩn thanh Sticky Bar khi mở Cart (để bấm được nút Checkout) */
+      body.overflow-hidden .foxify-sticky-bar,
+      body.overflow-hidden .product-sticky-bar,
+      body.overflow-hidden #shopify-section-sticky-atc-bar {
+          display: none !important;
+          z-index: -1 !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+      }
+    </style>
+  </head>
 
   <body
     class="{{ request.page_type }}-template {{ template.suffix }} blocks-corner--{{ settings.blocks_corner_radius }}{% if request.design_mode %} shopify-design-mode{% endif %}"
     data-initializing
-  > {% sections 'foxify-header-group' %}       
+  >
+    {% sections 'foxify-header-group' %}
     {% comment %} Custom metafield for body tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_body.value }}
     {% comment %} End custom metafield for body tab like GTag tracking {% endcomment %}
@@ -122,16 +148,11 @@
     -%}
 
     <div class="site-wrapper min-height-screen">
-      
-
       <main id="MainContent" class="main-content content-for-layout focus-none" role="main" tabindex="-1">
         <div class="foxify-container">{{ content_for_layout }}</div>
       </main>
-
-      
     </div>
 
-    
     {%- liquid
       if template.name == 'product'
         section 'sticky-atc-bar'
@@ -149,80 +170,87 @@
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
-  {%- render 'foxify-footer' -%}       {% sections 'foxify-footer-group' %} 
-<script>
-(function() {
-  document.addEventListener('click', function(e) {
-    // 1. Nhận diện nút bấm Add to Cart
-    const target = e.target;
-    // Tìm nút bấm (button) hoặc thẻ a có tính năng add to cart
-    const btn = target.closest('form[action*="/cart/add"] button') || 
-                target.closest('.foxify-add-to-cart') ||
-                target.closest('[name="add"]');
+    {%- render 'foxify-footer' -%}
+    {% sections 'foxify-footer-group' %}
+    <script>
+      (function () {
+        document.addEventListener(
+          'click',
+          function (e) {
+            // 1. Nhận diện nút bấm Add to Cart
+            const target = e.target;
+            // Tìm nút bấm (button) hoặc thẻ a có tính năng add to cart
+            const btn =
+              target.closest('form[action*="/cart/add"] button') ||
+              target.closest('.foxify-add-to-cart') ||
+              target.closest('[name="add"]');
 
-    if (!btn) return;
-    const form = btn.closest('form');
-    if (!form) return;
+            if (!btn) return;
+            const form = btn.closest('form');
+            if (!form) return;
 
-    // Chỉ chặn nếu đây là form thêm giỏ hàng
-    if (form.getAttribute('action').indexOf('/cart/add') === -1) return;
+            // Chỉ chặn nếu đây là form thêm giỏ hàng
+            if (form.getAttribute('action').indexOf('/cart/add') === -1) return;
 
-    // 2. Chặn chuyển trang
-    e.preventDefault();
-    e.stopPropagation();
+            // 2. Chặn chuyển trang
+            e.preventDefault();
+            e.stopPropagation();
 
-    // Hiệu ứng visual
-    const originalText = btn.innerText;
-    btn.innerText = 'Adding...';
-    btn.style.opacity = '0.7';
+            // Hiệu ứng visual
+            const originalText = btn.innerText;
+            btn.innerText = 'Adding...';
+            btn.style.opacity = '0.7';
 
-    // 3. Gửi dữ liệu lên Shopify (AJAX)
-    const formData = new FormData(form);
-    fetch(window.Shopify.routes.root + 'cart/add.js', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      // 4. Update số lượng icon giỏ hàng
-      fetch(window.location.pathname + '?section_id=cart-icon-bubble')
-        .then(res => res.text())
-        .then(html => {
-           const parser = new DOMParser();
-           const doc = parser.parseFromString(html, 'text/html');
-           const cartIconBubble = document.getElementById('cart-icon-bubble');
-           const newIconBubble = doc.getElementById('cart-icon-bubble');
-           if (cartIconBubble && newIconBubble) {
-               cartIconBubble.innerHTML = newIconBubble.innerHTML;
-           }
+            // 3. Gửi dữ liệu lên Shopify (AJAX)
+            const formData = new FormData(form);
+            fetch(window.Shopify.routes.root + 'cart/add.js', {
+              method: 'POST',
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // 4. Update số lượng icon giỏ hàng
+                fetch(window.location.pathname + '?section_id=cart-icon-bubble')
+                  .then((res) => res.text())
+                  .then((html) => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const cartIconBubble = document.getElementById('cart-icon-bubble');
+                    const newIconBubble = doc.getElementById('cart-icon-bubble');
+                    if (cartIconBubble && newIconBubble) {
+                      cartIconBubble.innerHTML = newIconBubble.innerHTML;
+                    }
 
-           // 5. KÍCH HOẠT MỞ DRAWER (QUAN TRỌNG)
-           // Tìm icon giỏ hàng và click vào nó để Theme tự mở
-           const cartTrigger = document.getElementById('cart-icon-bubble') || 
-                               document.querySelector('a[href="/cart"]') || 
-                               document.querySelector('.header__icon--cart');
-           
-           if (cartTrigger) {
-               cartTrigger.click(); 
-           } else {
-               window.location.href = '/cart';
-           }
-        });
+                    // 5. KÍCH HOẠT MỞ DRAWER (QUAN TRỌNG)
+                    // Tìm icon giỏ hàng và click vào nó để Theme tự mở
+                    const cartTrigger =
+                      document.getElementById('cart-icon-bubble') ||
+                      document.querySelector('a[href="/cart"]') ||
+                      document.querySelector('.header__icon--cart');
 
-      // Reset nút bấm
-      btn.innerText = 'Added!';
-      setTimeout(() => { 
-          btn.innerText = originalText; 
-          btn.style.opacity = '1';
-      }, 2000);
-    })
-    .catch(error => {
-      console.error(error);
-      // Nếu lỗi thì thả cho nó chuyển trang bình thường
-      window.location.href = '/cart';
-    });
-  }, true); // Use Capture
-})();
-</script>
-</body>
+                    if (cartTrigger) {
+                      cartTrigger.click();
+                    } else {
+                      window.location.href = '/cart';
+                    }
+                  });
+
+                // Reset nút bấm
+                btn.innerText = 'Added!';
+                setTimeout(() => {
+                  btn.innerText = originalText;
+                  btn.style.opacity = '1';
+                }, 2000);
+              })
+              .catch((error) => {
+                console.error(error);
+                // Nếu lỗi thì thả cho nó chuyển trang bình thường
+                window.location.href = '/cart';
+              });
+          },
+          true
+        ); // Use Capture
+      })();
+    </script>
+  </body>
 </html>
