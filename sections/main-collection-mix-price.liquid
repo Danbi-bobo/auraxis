@@ -260,7 +260,7 @@
     // Lấy thông số từ HTML
     let itemsPerPage = parseInt(track.getAttribute('data-items-per-page')) || 12;
 
-    // Nếu màn hình nhỏ (Mobile) muốn hiện ít hơn thì mở dòng dưới ra:
+    // Config cho Mobile (tùy chọn)
     if (window.innerWidth < 768) {
       // itemsPerPage = 4; 
     }
@@ -269,27 +269,36 @@
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let currentPage = 1;
 
-    // --- HÀM 1: VẼ DÃY SỐ TRANG ---
+    // --- HÀM 1: VẼ DÃY SỐ (CÓ THÊM PREV) ---
     function renderPagination() {
         paginationContainer.innerHTML = ''; // Xóa trắng cũ
 
-        // Vẽ các số 1, 2, 3...
+        // A. VẼ NÚT PREV (Mới thêm)
+        if (currentPage > 1) {
+            const prevBtn = document.createElement('span');
+            prevBtn.innerHTML = '&lsaquo; Prev'; // Dấu mũi tên trái
+            prevBtn.className = 'pagination-prev';
+            prevBtn.onclick = function() {
+                showPage(currentPage - 1);
+            };
+            paginationContainer.appendChild(prevBtn);
+        }
+
+        // B. VẼ CÁC SỐ 1, 2, 3...
         for (let i = 1; i <= totalPages; i++) {
             const pageBtn = document.createElement('span');
             pageBtn.innerText = i;
             pageBtn.className = 'pagination-number';
             
-            // Nếu là trang hiện tại thì thêm class active
             if (i === currentPage) pageBtn.classList.add('active');
             
-            // Bắt sự kiện click
             pageBtn.onclick = function() {
                 showPage(i);
             };
             paginationContainer.appendChild(pageBtn);
         }
 
-        // Vẽ nút Next > (Nếu chưa phải trang cuối)
+        // C. VẼ NÚT NEXT
         if (currentPage < totalPages) {
             const nextBtn = document.createElement('span');
             nextBtn.innerHTML = 'Next &rsaquo;'; 
@@ -318,11 +327,10 @@
         }
       });
 
-      // Vẽ lại số trang sau khi chuyển
       renderPagination();
     }
 
-    // Chạy lần đầu tiên
+    // Chạy lần đầu
     showPage(1);
   });
 </script>
