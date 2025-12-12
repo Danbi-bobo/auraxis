@@ -172,32 +172,6 @@
     {% endif %}
     {%- render 'foxify-footer' -%}
     {% sections 'foxify-footer-group' %}
-    <style>
-  /* 1. Ép Cart Drawer nổi lên trên cùng */
-  cart-drawer, .drawer, #CartDrawer, .cart-drawer {
-      z-index: 2147483647 !important;
-      position: fixed !important;
-      visibility: visible !important; /* Đảm bảo không bị ẩn */
-  }
-  
-  /* 2. Ép lớp phủ tối màu nằm ngay dưới */
-  .drawer__overlay, #CartDrawer-Overlay, .cart-drawer-overlay {
-      z-index: 2147483646 !important;
-  }
-
-  /* 3. Ẩn thanh Sticky Bar khi Drawer mở để không bị che nút Checkout */
-  body.overflow-hidden .foxify-sticky-bar, 
-  body.overflow-hidden .product-sticky-bar {
-      display: none !important; 
-  }
-  
-  /* 4. Class ép mở Drawer (dành cho Script bên dưới) */
-  .force-open-drawer {
-      transform: translateX(0) !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      display: flex !important;
-  }
-</style>
+    <style></style>
   </body>
 </html>
