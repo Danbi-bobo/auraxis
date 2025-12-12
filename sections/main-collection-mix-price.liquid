@@ -36,50 +36,60 @@
               data-mobile-cols="{{ columns_mobile }}"
               data-items-per-page="{{ items_per_page }}"
             >
+              {% comment %} --- KHỞI TẠO BIẾN KIỂM TRA TRÙNG LẶP --- {% endcomment %}
               {%- assign displayed_products = '|' -%}
+              {%- assign displayed_titles = '|' -%} 
 
               {% comment %} --- PHẦN 1: SẢN PHẨM TRONG COLLECTION --- {% endcomment %}
               {%- for product in collection.products -%}
-                {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
-                <div class="grid-item hidden-item">
-                  {%- render 'card-product-mix',
-                    product: product,
-                    section_id: section.id,
-                    index: forloop.index,
-                    show_vendor: false,
-                    show_rating: false
-                  -%}
-                </div>
+                
+                {% comment %} --- XỬ LÝ LỌC TRÙNG TÊN --- {% endcomment %}
+                {%- assign clean_title = product.title | replace: 'FREE TODAY - ', '' | strip -%}
+                {%- assign check_title = '|' | append: clean_title | append: '|' -%}
+
+                {%- unless displayed_titles contains check_title -%}
+                  
+                  {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                  {%- assign displayed_titles = displayed_titles | append: clean_title | append: '|' -%}
+
+                  <div class="grid-item hidden-item">
+                    {% comment %} --- Overlay Link --- {% endcomment %}
+                    <a href="{{ product.url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: pointer;">
+                        <span class="visually-hidden">{{ product.title }}</span>
+                    </a>
+                    {%- render 'card-product-mix',
+                      product: product,
+                      section_id: section.id,
+                      index: forloop.index,
+                      show_vendor: false,
+                      show_rating: false
+                    -%}
+                  </div>
+
+                {%- endunless -%}
               {%- endfor -%}
 
-              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI --- {% endcomment %}
+              {% comment %} --- PHẦN 2: SẢN PHẨM CÒN LẠI (MIX) --- {% endcomment %}
               {%- if paginate.current_page == paginate.pages or paginate.pages == 0 -%}
                 {%- assign other_products = collections.all.products | sort: 'price' -%}
                 {%- assign counter = 0 -%}
                 {%- assign limit_extra = 48 -%}
 
                 {%- for product in other_products -%}
-                  {% comment %} --- BƯỚC 1: KIỂM TRA NẾU SẢN PHẨM THUỘC COLLECTION HIỆN TẠI THÌ BỎ QUA --- {% endcomment %}
-                  {%- assign is_in_current_collection = false -%}
-                  {%- for col in product.collections -%}
-                    {%- if col.handle == collection.handle -%}
-                      {%- assign is_in_current_collection = true -%}
-                      {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
+                  
+                  {% comment %} --- BƯỚC 1: LẤY TÊN GỐC (BỎ CHỮ FREE TODAY) --- {% endcomment %}
+                  {%- assign clean_title = product.title | replace: 'FREE TODAY - ', '' | strip -%}
+                  {%- assign check_title = '|' | append: clean_title | append: '|' -%}
 
-                  {%- unless is_in_current_collection -%}
+                  {% comment %} --- BƯỚC 2: KIỂM TRA XEM TÊN NÀY ĐÃ XUẤT HIỆN CHƯA --- {% endcomment %}
+                  {%- unless displayed_titles contains check_title -%}
                     
-                    {% comment %} --- BƯỚC 2: KIỂM TRA TRÙNG LẶP VỚI CÁC SẢN PHẨM ĐÃ HIỂN THỊ Ở TRÊN --- {% endcomment %}
-                    {%- assign check_handle = '|' | append: product.handle | append: '|' -%}
-                    {%- unless displayed_products contains check_handle -%}
-                      
                       {%- if counter < limit_extra -%}
                         <div class="grid-item hidden-item">
-                           {% comment %} --- Lớp Link phủ (nếu bạn dùng cách Overlay) --- {% endcomment %}
-                           <a href="{{ product.url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: pointer;">
+                          {% comment %} --- Overlay Link --- {% endcomment %}
+                          <a href="{{ product.url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: pointer;">
                               <span class="visually-hidden">{{ product.title }}</span>
-                           </a>
+                          </a>
 
                           {%-
                             render 'card-product-mix',
@@ -92,16 +102,15 @@
                         </div>
                         {%- assign counter = counter | plus: 1 -%}
                         
-                        {% comment %} --- Quan trọng: Đánh dấu đã hiển thị để không lặp lại --- {% endcomment %}
+                        {% comment %} --- GHI NHỚ LẠI TÊN ĐÃ HIỂN THỊ --- {% endcomment %}
                         {%- assign displayed_products = displayed_products | append: product.handle | append: '|' -%}
+                        {%- assign displayed_titles = displayed_titles | append: clean_title | append: '|' -%}
                       {%- endif -%}
                       
-                    {%- endunless -%}
                   {%- endunless -%}
                 {%- endfor -%}
               {%- endif -%}
             </div>
-
             <div class="carousel-footer-controls">
               <button id="btn-prev" class="carousel-btn" aria-label="Previous">
                 <svg
