@@ -172,85 +172,137 @@
     {% endif %}
     {%- render 'foxify-footer' -%}
     {% sections 'foxify-footer-group' %}
-    <script>
-      (function () {
-        document.addEventListener(
-          'click',
-          function (e) {
-            // 1. Nhận diện nút bấm Add to Cart
-            const target = e.target;
-            // Tìm nút bấm (button) hoặc thẻ a có tính năng add to cart
-            const btn =
-              target.closest('form[action*="/cart/add"] button') ||
-              target.closest('.foxify-add-to-cart') ||
-              target.closest('[name="add"]');
+    <style>
+  /* 1. Ép Cart Drawer nổi lên trên cùng */
+  cart-drawer, .drawer, #CartDrawer, .cart-drawer {
+      z-index: 2147483647 !important;
+      position: fixed !important;
+      visibility: visible !important; /* Đảm bảo không bị ẩn */
+  }
+  
+  /* 2. Ép lớp phủ tối màu nằm ngay dưới */
+  .drawer__overlay, #CartDrawer-Overlay, .cart-drawer-overlay {
+      z-index: 2147483646 !important;
+  }
 
-            if (!btn) return;
-            const form = btn.closest('form');
-            if (!form) return;
+  /* 3. Ẩn thanh Sticky Bar khi Drawer mở để không bị che nút Checkout */
+  body.overflow-hidden .foxify-sticky-bar, 
+  body.overflow-hidden .product-sticky-bar {
+      display: none !important; 
+  }
+  
+  /* 4. Class ép mở Drawer (dành cho Script bên dưới) */
+  .force-open-drawer {
+      transform: translateX(0) !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      display: flex !important;
+  }
+</style>
 
-            // Chỉ chặn nếu đây là form thêm giỏ hàng
-            if (form.getAttribute('action').indexOf('/cart/add') === -1) return;
+<script>
+(function() {
+  // Hàm trợ giúp: Mở Drawer thủ công bằng CSS
+  function forceOpenDrawer() {
+      const drawer = document.querySelector('cart-drawer') || document.querySelector('#CartDrawer');
+      const drawerInner = document.querySelector('.drawer__inner') || document.querySelector('#CartDrawer');
+      
+      if (drawer) {
+          drawer.classList.add('active'); // Class chuẩn của Dawn
+          drawer.setAttribute('open', ''); // Attribute chuẩn
+          if(drawerInner) drawerInner.classList.add('force-open-drawer'); // Class dự phòng
+      }
+      document.body.classList.add('overflow-hidden'); // Khóa cuộn trang
+  }
 
-            // 2. Chặn chuyển trang
-            e.preventDefault();
-            e.stopPropagation();
+  document.addEventListener('click', function(e) {
+    // 1. Nhận diện nút Add to Cart
+    const target = e.target;
+    // Tìm nút nằm trong form cart
+    const btn = target.closest('form[action*="/cart/add"] button') || 
+                target.closest('form[action*="/cart/add"] input[type="submit"]') ||
+                target.closest('.foxify-add-to-cart');
 
-            // Hiệu ứng visual
-            const originalText = btn.innerText;
-            btn.innerText = 'Adding...';
-            btn.style.opacity = '0.7';
+    if (!btn) return;
+    const form = btn.closest('form');
+    if (!form) return;
 
-            // 3. Gửi dữ liệu lên Shopify (AJAX)
-            const formData = new FormData(form);
-            fetch(window.Shopify.routes.root + 'cart/add.js', {
-              method: 'POST',
-              body: formData,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                // 4. Update số lượng icon giỏ hàng
-                fetch(window.location.pathname + '?section_id=cart-icon-bubble')
-                  .then((res) => res.text())
-                  .then((html) => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const cartIconBubble = document.getElementById('cart-icon-bubble');
-                    const newIconBubble = doc.getElementById('cart-icon-bubble');
-                    if (cartIconBubble && newIconBubble) {
-                      cartIconBubble.innerHTML = newIconBubble.innerHTML;
-                    }
+    // 2. Kiểm tra xem đã chọn Variant chưa (Size/Màu)
+    const formData = new FormData(form);
+    const id = formData.get('id');
+    if (!id) {
+        alert("Please select an option (Size/Color) first.");
+        return;
+    }
 
-                    // 5. KÍCH HOẠT MỞ DRAWER (QUAN TRỌNG)
-                    // Tìm icon giỏ hàng và click vào nó để Theme tự mở
-                    const cartTrigger =
-                      document.getElementById('cart-icon-bubble') ||
-                      document.querySelector('a[href="/cart"]') ||
-                      document.querySelector('.header__icon--cart');
+    // 3. Chặn hành động mặc định
+    e.preventDefault();
+    e.stopPropagation();
 
-                    if (cartTrigger) {
-                      cartTrigger.click();
-                    } else {
-                      window.location.href = '/cart';
-                    }
-                  });
+    // Hiệu ứng Loading
+    const originalText = btn.innerText;
+    btn.innerText = 'Adding...';
+    btn.style.opacity = '0.7';
 
-                // Reset nút bấm
-                btn.innerText = 'Added!';
-                setTimeout(() => {
-                  btn.innerText = originalText;
-                  btn.style.opacity = '1';
-                }, 2000);
-              })
-              .catch((error) => {
-                console.error(error);
-                // Nếu lỗi thì thả cho nó chuyển trang bình thường
-                window.location.href = '/cart';
-              });
-          },
-          true
-        ); // Use Capture
-      })();
-    </script>
+    // 4. Gửi dữ liệu (AJAX)
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Đã thêm sản phẩm:", data);
+
+      // 5. Tự tải lại nội dung Cart Drawer (Không nhờ theme)
+      // Lưu ý: Dùng section_id=cart-drawer là chuẩn cho Theme Aura/Dawn
+      fetch(window.location.pathname + '?section_id=cart-drawer')
+        .then(res => res.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Tìm và thay thế ruột của Drawer
+            const targetDrawer = document.querySelector('cart-drawer') || document.getElementById('CartDrawer');
+            const sourceDrawer = doc.querySelector('cart-drawer') || doc.getElementById('CartDrawer');
+
+            if (targetDrawer && sourceDrawer) {
+                // Thay thế toàn bộ nội dung HTML bên trong để cập nhật sản phẩm mới
+                targetDrawer.innerHTML = sourceDrawer.innerHTML;
+                
+                // Xóa class trống (nếu có)
+                targetDrawer.classList.remove('is-empty');
+                const drawerSection = document.querySelector('.cart-drawer');
+                if(drawerSection) drawerSection.classList.remove('is-empty');
+            }
+
+            // Cập nhật số lượng trên Header
+            const cartBubble = document.getElementById('cart-icon-bubble');
+            const newBubble = doc.getElementById('cart-icon-bubble');
+            if (cartBubble && newBubble) cartBubble.innerHTML = newBubble.innerHTML;
+
+            // 6. ÉP MỞ DRAWER (QUAN TRỌNG NHẤT)
+            // Thử gọi hàm của theme trước
+            if (targetDrawer && typeof targetDrawer.open === 'function') {
+                targetDrawer.open();
+            } else {
+                // Nếu hàm lỗi, dùng CSS ép mở
+                forceOpenDrawer();
+            }
+        });
+
+      // Reset nút
+      btn.innerText = 'Added';
+      setTimeout(() => { 
+          btn.innerText = originalText; 
+          btn.style.opacity = '1';
+      }, 2000);
+    })
+    .catch(error => {
+      console.error(error);
+      window.location.href = '/cart'; // Fallback nếu lỗi
+    });
+  }, true);
+})();
+</script>
   </body>
 </html>
