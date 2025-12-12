@@ -9,10 +9,17 @@
  */
 {
   "current": {
-    "type_body_font": "inter_n4",
+    "type_body_font": "jost_n4",
+    "type_header_font": "jost_n4",
+    "pcard_title_font": "heading",
     "page_width": 1410,
     "cart_type": "drawer",
-    "collection_list": [],
+    "cart_icon": "shopping-bag",
+    "collection_list": [
+      "new-era-2026-fire-horse-🔥",
+      "protect-your-energy",
+      "heal-balance"
+    ],
     "currency_code_enabled": true,
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",

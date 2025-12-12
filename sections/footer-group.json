@@ -75,14 +75,9 @@
         "show_section_divider": true,
         "divider_width": "full"
       }
-    },
-    "1764576862d3520eae": {
-      "type": "_blocks",
-      "settings": {}
     }
   },
   "order": [
-    "footer",
-    "1764576862d3520eae"
+    "footer"
   ]
 }
