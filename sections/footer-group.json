@@ -60,7 +60,9 @@
         "newsletter_3qCrWc"
       ],
       "custom_css": [
-        ".form-control {--color-border: var(--color-field);}"
+        ".form-control {--color-border: var(--color-field);}",
+        "@media (min-width: 750px) {footer {background: url(\"https://cdn.shopify.com/s/files/1/0977/7027/5097/files/image_9968f2c3-0615-43bc-bc3a-f909761b915a.webp?v=1765558703\") center/cover no-repeat; }}",
+        "@media (max-width: 749px) {footer {background: url(\"https://cdn.shopify.com/s/files/1/0977/7027/5097/files/image_9a5b4c08-2550-4104-9ee2-dd758d80fe23.webp?v=1765558702\") center/cover no-repeat; }}"
       ],
       "settings": {
         "color_scheme": "scheme-1",
