@@ -13,6 +13,9 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
+      "custom_css": [
+        ".drawer__inner {width: 80%}"
+      ],
       "settings": {
         "show_cart_note": true,
         "show_shipping_rates_calculator": true,
