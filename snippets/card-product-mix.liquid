@@ -22,28 +22,30 @@
       <div class="card__inner color-{{ settings.card_color_scheme }} gradient" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
         {%- if product.featured_media -%}
           <div class="card__media">
-            <div class="media media--transparent media--hover-effect">
-              {% comment %} Ảnh chính {% endcomment %}
-              <img
-                src="{{ product.featured_media | image_url: width: 533 }}"
-                alt="{{ product.featured_media.alt | escape }}"
-                class="motion-reduce"
-                loading="lazy"
-                width="{{ product.featured_media.width }}"
-                height="{{ product.featured_media.height }}"
-              >
-              {% comment %} Ảnh thứ 2 (Hover) {% endcomment %}
-              {%- if product.media[1] != nil -%}
+            <a href="{{ product.url }}" style="display: block; height: 100%;">
+              <div class="media media--transparent media--hover-effect">
+                {% comment %} Ảnh chính {% endcomment %}
                 <img
-                  src="{{ product.media[1] | image_url: width: 533 }}"
-                  alt="{{ product.media[1].alt | escape }}"
+                  src="{{ product.featured_media | image_url: width: 533 }}"
+                  alt="{{ product.featured_media.alt | escape }}"
                   class="motion-reduce"
                   loading="lazy"
-                  width="{{ product.media[1].width }}"
-                  height="{{ product.media[1].height }}"
+                  width="{{ product.featured_media.width }}"
+                  height="{{ product.featured_media.height }}"
                 >
-              {%- endif -%}
-            </div>
+                {% comment %} Ảnh thứ 2 (Hover) {% endcomment %}
+                {%- if product.media[1] != nil -%}
+                  <img
+                    src="{{ product.media[1] | image_url: width: 533 }}"
+                    alt="{{ product.media[1].alt | escape }}"
+                    class="motion-reduce"
+                    loading="lazy"
+                    width="{{ product.media[1].width }}"
+                    height="{{ product.media[1].height }}"
+                  >
+                {%- endif -%}
+              </div>
+            </a>
           </div>
         {%- endif -%}
 
