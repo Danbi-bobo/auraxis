@@ -111,41 +111,7 @@
                 {%- endfor -%}
               {%- endif -%}
             </div>
-            <div class="carousel-footer-controls">
-              <button id="btn-prev" class="carousel-btn" aria-label="Previous">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-
-              <span id="page-counter" class="carousel-counter">Page 1 / 1</span>
-
-              <button id="btn-next" class="carousel-btn" aria-label="Next">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-            </div>
+            <div id="custom-pagination" class="custom-pagination-container"></div>
           </div>
         </div>
       </div>
@@ -225,30 +191,105 @@
   .card:hover .card__media .media--hover-effect > img:nth-child(2) {
       opacity: 1 !important;
   }
+  /* --- CSS PHÂN TRANG MỚI (1 2 3 Next) --- */
+    .custom-pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
+        font-family: inherit;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .pagination-number {
+        cursor: pointer;
+        padding: 5px 10px;
+        transition: all 0.2s;
+        opacity: 0.6;
+        border-bottom: 2px solid transparent;
+    }
+
+    .pagination-number:hover {
+        color: #000;
+        opacity: 1;
+    }
+
+    /* Trang đang chọn */
+    .pagination-number.active {
+        font-weight: bold;
+        color: #000;
+        opacity: 1;
+        border-bottom: 2px solid #000;
+    }
+
+    .pagination-next {
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: 500;
+        display: flex; align-items: center;
+    }
+    
+    .pagination-next:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('GridTrack');
     const items = track.querySelectorAll('.grid-item');
-    const btnPrev = document.getElementById('btn-prev');
-    const btnNext = document.getElementById('btn-next');
-    const counterEl = document.getElementById('page-counter');
+    const paginationContainer = document.getElementById('custom-pagination');
 
     if (!track || items.length === 0) return;
 
-    // Lấy cấu hình số lượng từ data attribute
+    // Lấy thông số từ HTML
     let itemsPerPage = parseInt(track.getAttribute('data-items-per-page')) || 12;
 
-    // Mobile config (nếu muốn)
+    // Nếu màn hình nhỏ (Mobile) muốn hiện ít hơn thì mở dòng dưới ra:
     if (window.innerWidth < 768) {
-      // itemsPerPage = 4; // Ví dụ
+      // itemsPerPage = 4; 
     }
 
     const totalItems = items.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let currentPage = 1;
 
+    // --- HÀM 1: VẼ DÃY SỐ TRANG ---
+    function renderPagination() {
+        paginationContainer.innerHTML = ''; // Xóa trắng cũ
+
+        // Vẽ các số 1, 2, 3...
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('span');
+            pageBtn.innerText = i;
+            pageBtn.className = 'pagination-number';
+            
+            // Nếu là trang hiện tại thì thêm class active
+            if (i === currentPage) pageBtn.classList.add('active');
+            
+            // Bắt sự kiện click
+            pageBtn.onclick = function() {
+                showPage(i);
+            };
+            paginationContainer.appendChild(pageBtn);
+        }
+
+        // Vẽ nút Next > (Nếu chưa phải trang cuối)
+        if (currentPage < totalPages) {
+            const nextBtn = document.createElement('span');
+            nextBtn.innerHTML = 'Next &rsaquo;'; 
+            nextBtn.className = 'pagination-next';
+            nextBtn.onclick = function() {
+                showPage(currentPage + 1);
+            };
+            paginationContainer.appendChild(nextBtn);
+        }
+    }
+
+    // --- HÀM 2: HIỂN THỊ SẢN PHẨM ---
     function showPage(page) {
       if (page < 1) page = 1;
       if (page > totalPages) page = totalPages;
@@ -265,14 +306,11 @@
         }
       });
 
-      counterEl.innerText = `Page ${currentPage} / ${totalPages}`;
-      btnPrev.disabled = currentPage === 1;
-      btnNext.disabled = currentPage === totalPages;
+      // Vẽ lại số trang sau khi chuyển
+      renderPagination();
     }
 
-    btnPrev.addEventListener('click', () => showPage(currentPage - 1));
-    btnNext.addEventListener('click', () => showPage(currentPage + 1));
-
+    // Chạy lần đầu tiên
     showPage(1);
   });
 </script>
