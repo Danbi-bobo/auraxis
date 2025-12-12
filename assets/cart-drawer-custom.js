@@ -117,27 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return response.json();
     })
     .then(data => {
-  // 1. Mở Drawer bằng class
-  if(drawer) {
-      drawer.classList.add('active');
-      document.body.classList.add('overflow-hidden');
-      // Render lại nội dung cart
-      if(drawer.renderContents) {
-        drawer.renderContents();
-      } else {
-        // Fallback: reload cart section
-        fetch('/?sections=cart-drawer')
-          .then(r => r.json())
-          .then(sections => {
-            const html = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
-            const newContent = html.querySelector('.drawer__inner-empty, .drawer__inner');
-            if(newContent && drawer.querySelector('.drawer__inner')) {
-              drawer.querySelector('.drawer__inner').innerHTML = newContent.innerHTML;
-            }
-          });
-      }
-  }
-})
+    // 1. Mở Drawer bằng class
+    if(drawer) {
+        drawer.classList.add('active');
+        document.body.classList.add('overflow-hidden');
+        // Render lại nội dung cart
+        if(drawer.renderContents) {
+            drawer.renderContents();
+        } else {
+            // Fallback: reload cart section
+            fetch('/?sections=cart-drawer')
+            .then(r => r.json())
+            .then(sections => {
+                const html = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
+                const newContent = html.querySelector('.drawer__inner-empty, .drawer__inner');
+                if(newContent && drawer.querySelector('.drawer__inner')) {
+                drawer.querySelector('.drawer__inner').innerHTML = newContent.innerHTML;
+                }
+            });
+        }
+    }
+    })
     .catch((error) => {
       console.error('Error:', error);
     })
