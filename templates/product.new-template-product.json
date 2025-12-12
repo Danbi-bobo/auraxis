@@ -1,0 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "foxify-1765177980A3dGc": {
+      "type": "foxify-1765177980A3dGc",
+      "settings": {
+        "collection_x-7sxbulmq": "frontpage"
+      }
+    }
+  },
+  "order": [
+    "foxify-1765177980A3dGc"
+  ]
+}
