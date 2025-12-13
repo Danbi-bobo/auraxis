@@ -149,7 +149,7 @@
           {%- endif -%}
         </motion-element>
       </a>
-      
+
       {%- if product.available == false or on_sale or custom_tags.size > 0 -%}
         <div class="product-card__badge">
           {%- if product.available == false and show_soldout -%}
@@ -196,7 +196,19 @@
           aria-controls="{{ quick_view_modal_id }}"
           aria-haspopup="dialog"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-magnifying-glass icon--large">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-magnifying-glass icon--large"
+          >
             <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"/>
             <path d="M16.4434 16.4453L20.9997 21.0016"/>
           </svg>
@@ -217,13 +229,62 @@
           {{ product.type }}
         </p>
       {%- endif -%}
-      
+
       <h3 class="product-card__title text-pcard-title">
         <a class="reversed-link" href="{{ product.url }}">{{- product.title -}}</a>
       </h3>
 
-      <div class='jdgm-widget jdgm-preview-badge'>
+      <div class="jdgm-widget jdgm-preview-badge">
         {{ product.metafields.judgeme.badge }}
+        {%- comment -%} --- BẮT ĐẦU CẤU HÌNH ĐÁNH GIÁ SAO --- {%- endcomment -%}
+        {%- liquid
+          # 1. LẤY DỮ LIỆU ĐÁNH GIÁ (Ưu tiên Metafield Custom, sau đó đến App, cuối cùng là mặc định)
+
+          # Bạn có thể tạo Metafield trong Settings > Custom Data > Products
+          # Namespace: custom, Key: rating (Decimal), Key: feedback_count (Integer)
+
+          assign rating_decimal = 0
+          assign feedback_count = 0
+
+          if product.metafields.custom.rating != blank
+            assign rating_decimal = product.metafields.custom.rating
+            assign feedback_count = product.metafields.custom.feedback_count | default: 0
+          elsif product.metafields.reviews.rating.value != blank
+            # Lấy từ app đánh giá chuẩn của Shopify nếu có
+            assign rating_decimal = product.metafields.reviews.rating.value.rating
+            assign feedback_count = product.metafields.reviews.rating.value.scale_max
+          else
+            # Dữ liệu giả lập (Xóa dòng này nếu muốn ẩn khi không có đánh giá)
+            # assign rating_decimal = 4.8
+            # assign feedback_count = 13
+          endif
+
+          # Tính toán phần trăm chiều rộng để fill màu (Rating / 5 * 100)
+          assign rating_percent = rating_decimal | times: 100 | divided_by: 5
+        -%}
+
+        {%- if rating_decimal > 0 -%}
+          <div class="custom-star-rating" style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px;">
+            <div
+              class="stars-outer"
+              style="position: relative; display: inline-block; font-size: 14px; line-height: 1; color: #e0e0e0;"
+            >
+              <span style="letter-spacing: 1px;">★★★★★</span>
+
+              <div
+                class="stars-inner"
+                style="position: absolute; top: 0; left: 0; white-space: nowrap; overflow: hidden; width: {{ rating_percent }}%; color: #000;"
+              >
+                <span style="letter-spacing: 1px;">★★★★★</span>
+              </div>
+            </div>
+
+            <span class="feedback-count" style="font-size: 13px; color: #333; font-weight: 400;">
+              ({{ feedback_count }})
+            </span>
+          </div>
+        {%- endif -%}
+        {%- comment -%} --- KẾT THÚC CẤU HÌNH ĐÁNH GIÁ SAO --- {%- endcomment -%}
       </div>
       <div class="product-card__price">
         {%- if compare_at_price > price -%}
@@ -231,7 +292,10 @@
             <span class="price-item price-item--sale" style="color: #B12704; font-weight: bold; font-size: 16px;">
               {{ price | money }}
             </span>
-            <span class="price-item price-item--regular" style="text-decoration: line-through; color: #565959; font-size: 13px;">
+            <span
+              class="price-item price-item--regular"
+              style="text-decoration: line-through; color: #565959; font-size: 13px;"
+            >
               {{ compare_at_price | money }}
             </span>
             <div class="price-saved w-full" style="font-size: 12px; color: #B12704; font-weight: 500;">
@@ -249,14 +313,16 @@
       <div class="product-card__info">
         <div class="product-card__meta flex items-center justify-between">
           {%- comment -%} --- Sold Count --- {%- endcomment -%}
-          {% comment %} <div class="product-card__sold">
-            <span class="sold-count text-xs text-gray-400">
-              Sold: {{ product.metafields.custom.sold_count | default: 0 }}
-            </span>
-          </div> {% endcomment %}
+          {% comment %}
+            <div class="product-card__sold">
+              <span class="sold-count text-xs text-gray-400">
+                Sold: {{ product.metafields.custom.sold_count | default: 0 }}
+              </span>
+            </div>
+          {% endcomment %}
         </div>
       </div>
-      
+
       {%- if show_color_swatches -%}
         {%- render 'pcard-color-swatch', product: product -%}
       {%- endif -%}
