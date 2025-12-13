@@ -12,76 +12,9 @@
     "foxify-1765177980A3dGc": {
       "type": "foxify-1765177980A3dGc",
       "settings": {}
-    },
-    "manual_masonry_reviews_f4Hdkp": {
-      "type": "manual-masonry-reviews",
-      "name": "Custom Masonry Reviews",
-      "settings": {
-        "write_review_url": "",
-        "bg_color": "#ffffff",
-        "padding_left": 16,
-        "padding_right": 16,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "related_products_WHEnHe": {
-      "type": "related-products",
-      "name": "t:sections.related-products.name",
-      "settings": {
-        "color_scheme": "",
-        "heading": "<strong>You may also like</strong>",
-        "heading_size": "h2",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "limit": 8,
-        "columns": 6,
-        "column_gap": "none",
-        "row_gap": "inherit",
-        "enable_slider": true,
-        "controls_position": "inside",
-        "pcard_image_ratio": "1/1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 20,
-        "padding_bottom": 0,
-        "padding_left": 40,
-        "padding_right": 40,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
-    },
-    "recently_viewed_products_mbPGje": {
-      "type": "recently-viewed-products",
-      "name": "t:sections.recently-viewed-products.name",
-      "settings": {
-        "color_scheme": "",
-        "heading": "<strong>Recently viewed products</strong>",
-        "heading_size": "h2",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "limit": 12,
-        "columns": 6,
-        "column_gap": "none",
-        "row_gap": "inherit",
-        "enable_slider": true,
-        "controls_position": "inside",
-        "pcard_image_ratio": "1/1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
     }
   },
   "order": [
-    "foxify-1765177980A3dGc",
-    "manual_masonry_reviews_f4Hdkp",
-    "related_products_WHEnHe",
-    "recently_viewed_products_mbPGje"
+    "foxify-1765177980A3dGc"
   ]
 }
