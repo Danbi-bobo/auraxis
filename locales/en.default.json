@@ -760,7 +760,8 @@
       "x-lyyqskz8-title_html": "REFUND POLICY",
       "x-0f6jgtcr-text_html": "<span style=\"color: rgb(0, 0, 0);\">{{ x_0f6jgtcr_text }}</span>",
       "x-igq2blzy-text_html": "{{ x_igq2blzy_text }}",
-      "x-ki4cjx8q-button_label_html": "Write a review"
+      "x-ki4cjx8q-button_label_html": "Write a review",
+      "x-mvr33xzk-text_html": "<strong>Recently Viewed Products</strong>"
     }
   },
   "templates": {
