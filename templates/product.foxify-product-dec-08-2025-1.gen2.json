@@ -12,9 +12,116 @@
     "foxify-1765177980A3dGc": {
       "type": "foxify-1765177980A3dGc",
       "settings": {}
+    },
+    "related_products_WHEnHe": {
+      "type": "related-products",
+      "name": "t:sections.related-products.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "<strong>You may also like</strong>",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "limit": 8,
+        "columns": 6,
+        "column_gap": "none",
+        "row_gap": "inherit",
+        "enable_slider": true,
+        "controls_position": "inside",
+        "pcard_image_ratio": "1/1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "recently_viewed_products_mbPGje": {
+      "type": "recently-viewed-products",
+      "name": "t:sections.recently-viewed-products.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "<strong>Recently viewed products</strong>",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "limit": 12,
+        "columns": 6,
+        "column_gap": "none",
+        "row_gap": "inherit",
+        "enable_slider": true,
+        "controls_position": "inside",
+        "pcard_image_ratio": "1/1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "manual_masonry_reviews_f4Hdkp": {
+      "type": "manual-masonry-reviews",
+      "blocks": {
+        "review_tdRdGM": {
+          "type": "review",
+          "settings": {
+            "author_name": "Darilyn M.",
+            "is_verified": true,
+            "review_date": "10/31/2024",
+            "rating": 5,
+            "review_title": "Great product!",
+            "review_body": "I love it alot and always wear it everyday...",
+            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
+          }
+        },
+        "review_mxe8wH": {
+          "type": "review",
+          "settings": {
+            "author_name": "Kj J.",
+            "is_verified": true,
+            "review_date": "10/31/2024",
+            "rating": 5,
+            "review_title": "Great product!",
+            "review_body": "Was good",
+            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
+          }
+        },
+        "review_aVeE7W": {
+          "type": "review",
+          "settings": {
+            "author_name": "Marc K.",
+            "is_verified": true,
+            "review_date": "10/31/2024",
+            "rating": 5,
+            "review_title": "Great product!",
+            "review_body": "Dear, It is wonderful...",
+            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
+          }
+        }
+      },
+      "block_order": [
+        "review_tdRdGM",
+        "review_mxe8wH",
+        "review_aVeE7W"
+      ],
+      "name": "Custom Masonry Reviews",
+      "settings": {
+        "total_reviews": "7",
+        "write_review_url": "",
+        "bg_color": "#ffffff",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "foxify-1765177980A3dGc"
+    "foxify-1765177980A3dGc",
+    "manual_masonry_reviews_f4Hdkp",
+    "related_products_WHEnHe",
+    "recently_viewed_products_mbPGje"
   ]
 }
