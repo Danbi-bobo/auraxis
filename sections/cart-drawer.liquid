@@ -217,7 +217,7 @@
         </a>
       </div>
       <div class="cart-item__prices">
-        <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
+        {% comment %} <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
           {%- liquid
             assign money_price = item.original_price | money
             if settings.currency_code_enabled
@@ -240,7 +240,7 @@
           {%- else -%}
             {{- money_price -}}
           {%- endif -%}
-        </div>
+        </div> {% endcomment %}
         {%- if item.variant.available and item.unit_price_measurement -%}
           <div>
             <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
