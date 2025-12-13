@@ -164,7 +164,7 @@
       endif
     -%}
 
-    {%- if logo != blank -%}
+    {%- if logo != blank or logo_mobile != blank -%}
       {%- if logo_mobile -%}
         <img
           srcset="{{ logo_mobile | image_url: width: logo_width_mobile }} 1x, {{ logo_mobile | image_url: width: logo_width_mobile_2x }} 2x"
@@ -176,15 +176,19 @@
           class="logo header__logo--mobile md:hidden"
         >
       {%- endif -%}
-      <img
-        srcset="{{ logo | image_url: width: logo_width }} 1x, {{ logo | image_url: width: logo_width_2x }} 2x"
-        src="{{ logo | image_url: width: logo_width }}"
-        loading="eager"
-        width="{{ logo.width }}"
-        height="{{ logo.height }}"
-        alt="{{ logo.alt | default: shop.name | escape }}"
-        class="logo header__logo--desktop md:block hidden"
-      >
+      
+      {%- if logo != blank -%}
+        <img
+          srcset="{{ logo | image_url: width: logo_width }} 1x, {{ logo | image_url: width: logo_width_2x }} 2x"
+          src="{{ logo | image_url: width: logo_width }}"
+          loading="eager"
+          width="{{ logo.width }}"
+          height="{{ logo.height }}"
+          alt="{{ logo.alt | default: shop.name | escape }}"
+          class="logo header__logo--desktop md:block hidden"
+        >
+      {%- endif -%}
+
       {%- if enable_transparent_header and logo_transparent != blank -%}
           <img
             srcset="{{ logo_transparent | image_url: width: logo_width }} 1x, {{ logo_transparent | image_url: width: logo_width_2x }} 2x"
