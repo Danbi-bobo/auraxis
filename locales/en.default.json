@@ -264,7 +264,7 @@
     "cart": {
       "title": "Your cart",
       "view": "View Cart ({{ count }})",
-      "view_empty_cart": "View cart",
+      "view_empty_cart": "View Cart",
       "item_added": "Item added to your cart",
       "remove": "Remove",
       "continue_shopping": "Continue shopping",
