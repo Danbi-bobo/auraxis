@@ -71,7 +71,7 @@
   
   @media (min-width: 990px) {
     .masonry-grid-{{ section.id }} {
-      column-count: 4; /* Giống hình mẫu 4 cột */
+      column-count: 4; 
     }
   }
 
@@ -81,7 +81,7 @@
     border: 1px solid #eee;
     border-radius: 8px;
     margin-bottom: 20px;
-    break-inside: avoid; /* Quan trọng: Ngăn thẻ bị cắt đôi giữa các cột */
+    break-inside: avoid;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     display: flex;
@@ -129,7 +129,7 @@
   }
 
   .star-rating {
-    color: #000; /* Màu sao đen như hình */
+    color: #000;
     letter-spacing: 2px;
   }
 
@@ -153,14 +153,32 @@
     font-weight: 400;
     color: #999;
   }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    grid-column: span 4;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding">
   
+  {%- assign review_list = product.metafields.custom.featured_reviews.value -%}
+  {%- assign review_count = review_list | size -%}
+
   <div class="review-header-{{ section.id }}">
     <div class="review-summary">
       <span class="stars">★★★★★</span>
-      <span>{{ section.settings.total_reviews }} Reviews</span>
+      <span>
+        {% if review_count > 0 %}
+          {{ review_count }} Reviews
+        {% else %}
+          0 Reviews
+        {% endif %}
+      </span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="review-actions">
@@ -172,67 +190,73 @@
   </div>
 
   <div class="masonry-grid-{{ section.id }}">
-    {%- for block in section.blocks -%}
-      <div class="review-card" {{ block.shopify_attributes }}>
-        
-        {%- if block.settings.review_image != blank -%}
-          <div class="review-image-container">
-            <img 
-              src="{{ block.settings.review_image | image_url: width: 600 }}" 
-              loading="lazy" 
-              width="{{ block.settings.review_image.width }}"
-              height="{{ block.settings.review_image.height }}"
-              alt="{{ block.settings.author_name }}">
-          </div>
-        {%- endif -%}
-
-        <div class="reviewer-info">
-          <div>
-            <div class="reviewer-name">
-              {{ block.settings.author_name }}
-              {%- if block.settings.is_verified -%}
-                <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-              {%- endif -%}
+    {%- if review_list != blank -%}
+      {%- for review in review_list -%}
+        <div class="review-card">
+          
+          {%- if review.review_image != blank -%}
+            <div class="review-image-container">
+              <img 
+                src="{{ review.review_image | image_url: width: 600 }}" 
+                loading="lazy" 
+                width="{{ review.review_image.width }}"
+                height="{{ review.review_image.height }}"
+                alt="{{ review.author_name }}">
             </div>
-            <div class="review-date">{{ block.settings.review_date }}</div>
-          </div>
-        </div>
-
-        <div class="star-rating">
-          {%- for i in (1..5) -%}
-            {%- if i <= block.settings.rating -%}★{%- else -%}☆{%- endif -%}
-          {%- endfor -%}
-        </div>
-
-        <div class="review-body">
-          {%- if block.settings.review_title != blank -%}
-            <strong>{{ block.settings.review_title }}</strong><br>
           {%- endif -%}
-          {{ block.settings.review_body }}
-        </div>
 
-        {%- if block.settings.product_variant != blank -%}
-          <div class="item-type">
-            <strong>Item type:</strong>
-            {{ block.settings.product_variant }}
+          <div class="reviewer-info">
+            <div>
+              <div class="reviewer-name">
+                {{ review.author_name }}
+                {%- if review.verified == true -%}
+                  <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                {%- endif -%}
+              </div>
+              <div class="review-date">
+                {% if review.review_date %}
+                  {{ review.review_date | date: "%m/%d/%Y" }}
+                {% endif %}
+              </div>
+            </div>
           </div>
-        {%- endif -%}
-        
-      </div>
-    {%- endfor -%}
+
+          <div class="star-rating">
+            {%- assign rating_num = review.rating | default: 5 -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= rating_num -%}★{%- else -%}☆{%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <div class="review-body">
+            {{ review.review_body | newline_to_br }}
+          </div>
+
+          {%- if review.product_variant_text != blank -%}
+            <div class="item-type">
+              <strong>Item type:</strong>
+              {{ review.product_variant_text }}
+            </div>
+          {%- endif -%}
+          
+        </div>
+      {%- endfor -%}
+    
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div class="empty-state">
+          <h3>No Reviews Selected</h3>
+          <p>Go to <strong>Products > Metafields > Featured Reviews</strong> to select reviews for this product.</p>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Custom Masonry Reviews",
+  "name": "Metafield Reviews",
   "settings": [
-    {
-      "type": "text",
-      "id": "total_reviews",
-      "label": "Total Reviews Count",
-      "default": "7"
-    },
     {
       "type": "url",
       "id": "write_review_url",
@@ -265,93 +289,9 @@
       "default": 36
     }
   ],
-  "blocks": [
-    {
-      "type": "review",
-      "name": "Review Card",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "review_image",
-          "label": "Review Image (Optional)"
-        },
-        {
-          "type": "text",
-          "id": "author_name",
-          "label": "Author Name",
-          "default": "Customer Name"
-        },
-        {
-          "type": "checkbox",
-          "id": "is_verified",
-          "label": "Verified Buyer Badge",
-          "default": true
-        },
-        {
-          "type": "text",
-          "id": "review_date",
-          "label": "Date",
-          "default": "10/31/2024"
-        },
-        {
-          "type": "range",
-          "id": "rating",
-          "min": 1,
-          "max": 5,
-          "step": 1,
-          "label": "Star Rating",
-          "default": 5
-        },
-        {
-          "type": "text",
-          "id": "review_title",
-          "label": "Review Title (Optional)",
-          "default": "Great product!"
-        },
-        {
-          "type": "textarea",
-          "id": "review_body",
-          "label": "Review Content",
-          "default": "Love how they look and feel."
-        },
-        {
-          "type": "text",
-          "id": "product_variant",
-          "label": "Item Type / Variant",
-          "default": "Absorbing Negative Energies Obsidian Bundle"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Custom Masonry Reviews",
-      "blocks": [
-        {
-          "type": "review",
-          "settings": {
-            "author_name": "Darilyn M.",
-            "review_body": "I love it alot and always wear it everyday...",
-            "rating": 5
-          }
-        },
-        {
-          "type": "review",
-          "settings": {
-            "author_name": "Kj J.",
-            "review_body": "Was good",
-            "rating": 5
-          }
-        },
-        {
-          "type": "review",
-          "settings": {
-            "author_name": "Marc K.",
-            "review_body": "Dear, It is wonderful...",
-            "rating": 5
-          }
-        }
-      ]
+      "name": "Metafield Reviews (Masonry)"
     }
   ]
 }
