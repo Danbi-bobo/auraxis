@@ -1,0 +1,358 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Header Styles */
+  .review-header-{{ section.id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+  }
+  
+  .review-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .review-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-write-review {
+    padding: 10px 20px;
+    border: 1px solid #e0e0e0;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s;
+  }
+  .btn-write-review:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Masonry Layout */
+  .masonry-grid-{{ section.id }} {
+    column-count: 1;
+    column-gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  @media (min-width: 600px) {
+    .masonry-grid-{{ section.id }} {
+      column-count: 2;
+    }
+  }
+  
+  @media (min-width: 990px) {
+    .masonry-grid-{{ section.id }} {
+      column-count: 4; /* Giống hình mẫu 4 cột */
+    }
+  }
+
+  /* Card Styles */
+  .review-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    break-inside: avoid; /* Quan trọng: Ngăn thẻ bị cắt đôi giữa các cột */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .review-image-container {
+    margin: -20px -20px 15px -20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .review-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .reviewer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .reviewer-name {
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .verified-badge {
+    color: #000;
+    height: 14px;
+    width: 14px;
+  }
+
+  .review-date {
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  .star-rating {
+    color: #000; /* Màu sao đen như hình */
+    letter-spacing: 2px;
+  }
+
+  .review-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  .item-type {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+  
+  .item-type strong {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 400;
+    color: #999;
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  
+  <div class="review-header-{{ section.id }}">
+    <div class="review-summary">
+      <span class="stars">★★★★★</span>
+      <span>{{ section.settings.total_reviews }} Reviews</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="review-actions">
+      <a href="{{ section.settings.write_review_url }}" class="btn-write-review">Write a review</a>
+      <button class="btn-write-review" aria-label="Filter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="masonry-grid-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      <div class="review-card" {{ block.shopify_attributes }}>
+        
+        {%- if block.settings.review_image != blank -%}
+          <div class="review-image-container">
+            <img 
+              src="{{ block.settings.review_image | image_url: width: 600 }}" 
+              loading="lazy" 
+              width="{{ block.settings.review_image.width }}"
+              height="{{ block.settings.review_image.height }}"
+              alt="{{ block.settings.author_name }}">
+          </div>
+        {%- endif -%}
+
+        <div class="reviewer-info">
+          <div>
+            <div class="reviewer-name">
+              {{ block.settings.author_name }}
+              {%- if block.settings.is_verified -%}
+                <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              {%- endif -%}
+            </div>
+            <div class="review-date">{{ block.settings.review_date }}</div>
+          </div>
+        </div>
+
+        <div class="star-rating">
+          {%- for i in (1..5) -%}
+            {%- if i <= block.settings.rating -%}★{%- else -%}☆{%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="review-body">
+          {%- if block.settings.review_title != blank -%}
+            <strong>{{ block.settings.review_title }}</strong><br>
+          {%- endif -%}
+          {{ block.settings.review_body }}
+        </div>
+
+        {%- if block.settings.product_variant != blank -%}
+          <div class="item-type">
+            <strong>Item type:</strong>
+            {{ block.settings.product_variant }}
+          </div>
+        {%- endif -%}
+        
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Masonry Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "total_reviews",
+      "label": "Total Reviews Count",
+      "default": "7"
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write Review Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Review Image (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_verified",
+          "label": "Verified Buyer Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Date",
+          "default": "10/31/2024"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review Title (Optional)",
+          "default": "Great product!"
+        },
+        {
+          "type": "textarea",
+          "id": "review_body",
+          "label": "Review Content",
+          "default": "Love how they look and feel."
+        },
+        {
+          "type": "text",
+          "id": "product_variant",
+          "label": "Item Type / Variant",
+          "default": "Absorbing Negative Energies Obsidian Bundle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Masonry Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Darilyn M.",
+            "review_body": "I love it alot and always wear it everyday...",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Kj J.",
+            "review_body": "Was good",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Marc K.",
+            "review_body": "Dear, It is wonderful...",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
