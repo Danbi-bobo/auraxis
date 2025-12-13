@@ -17,9 +17,8 @@
 -%}
 {% style %}
   #MenuDrawer {
-    --logo-width: {{ settings.logo_width }}px;
-    --logo-width-mobile: {{ settings.logo_width_mobile }}px;
-  }
+    --logo-width: {{ settings.logo_width | default: settings.logo_width_mobile | times: 1.5 }}px;
+    --logo-width-mobile: {{ section.settings.logo_width_mobile | default: settings.logo_width_mobile | times: 1.5 }}px;  }
 {% endstyle %}
 <menu-drawer id="MenuDrawer" class="menu-drawer drawer drawer--left" hidden>
   <div class="fixed-overlay" aria-controls="MenuDrawer"></div>
