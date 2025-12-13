@@ -263,7 +263,7 @@
     },
     "cart": {
       "title": "Your cart",
-      "view": "View cart ({{ count }})",
+      "view": "View Cart ({{ count }})",
       "view_empty_cart": "View cart",
       "item_added": "Item added to your cart",
       "remove": "Remove",
