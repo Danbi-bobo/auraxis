@@ -36,7 +36,12 @@
 >
   <div
     class="hidden section section-{{ section.id }} section--padding section--recently-viewed-products page-width color-{{ section.settings.color_scheme }}"
-    style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+    style="
+      --section-padding-top: {{ section.settings.padding_top }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --section-padding-left: {{ section.settings.padding_left }}px;
+      --section-padding-right: {{ section.settings.padding_right }}px;
+    "
     data-id="{{ section.id }}"
   >
     {% render 'section-heading', section_settings: section.settings %}
@@ -399,6 +404,26 @@
       "step": 2,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_left",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_right",
       "default": 50
     },
     {
