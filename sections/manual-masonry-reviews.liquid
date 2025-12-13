@@ -220,9 +220,11 @@
           </div>
 
           <div class="star-rating">
-            {%- comment -%} Ép kiểu về số bằng 'plus: 0' và xử lý nếu chưa nhập thì mặc định 5 sao {%- endcomment -%}
-            {%- assign rating_num = review.rating | plus: 0 -%}
-            {%- if rating_num == 0 -%}{%- assign rating_num = 5 -%}{%- endif -%}
+            {%- comment -%} 
+              Vì type là "Rating", cần thêm .value để lấy số thực (ví dụ: 5)
+              Nếu không có giá trị, mặc định là 5 
+            {%- endcomment -%}
+            {%- assign rating_num = review.rating.value | default: 5 -%}
             
             {%- for i in (1..5) -%}
               {%- if i <= rating_num -%}
