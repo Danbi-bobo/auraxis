@@ -265,7 +265,7 @@
                           </ul>
                         {%- endif -%}
                       </div>
-                      <div class="cart-item__action flex flex-col items-end justify-end gap-4">
+                      <div class="cart-item__action flex flex-col items-end justify-start gap-4">
                         <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="cart-item__remove flex items-center justify-center relative" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           <span class="flex">
                             {%- render 'icon-close', size: 'small' -%}
@@ -354,7 +354,7 @@
                             {%- endif -%}
                           {%- endcapture -%}
                         {%- endif -%}
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 mt-2">
                           {% if has_qty_rules or has_vol_pricing %}
                             <button class="btn btn--plain" aria-controls="VolumnPricing-{{ section.id }}-{{ item.key }}">
                               <svg class="icon icon-info icon--medium" viewBox="0 0 25 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
