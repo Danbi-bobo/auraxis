@@ -448,6 +448,16 @@
         </button>
       </div>
     {%- endunless -%}
+    <div class="cart-item__line-price font-body-bolder">
+      {%- liquid
+        assign line_price = item.final_line_price
+        if settings.currency_code_enabled
+          echo line_price | money_with_currency
+        else
+          echo line_price | money
+        endif
+      -%}
+    </div>
   </div>
 </div>
                     {%- if section.settings.enable_cart_recommendations -%}
