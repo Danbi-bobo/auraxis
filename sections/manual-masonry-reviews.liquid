@@ -221,10 +221,19 @@
 
           <div class="star-rating">
             {%- comment -%} 
-              Vì type là "Rating", cần thêm .value để lấy số thực (ví dụ: 5)
-              Nếu không có giá trị, mặc định là 5 
+               1. Lấy giá trị rating từ Object (.value.rating)
+               2. Dùng 'plus: 0' để chắc chắn nó là số
             {%- endcomment -%}
-            {%- assign rating_num = review.rating.value | default: 5 -%}
+            {%- assign rating_obj = review.rating.value -%}
+            
+            {%- if rating_obj.rating -%}
+              {%- assign rating_num = rating_obj.rating | plus: 0 -%}
+            {%- else -%}
+              {%- assign rating_num = rating_obj | plus: 0 -%}
+            {%- endif -%}
+
+            {%- comment -%} Nếu không tìm thấy số hoặc bằng 0 thì mặc định 5 sao {%- endcomment -%}
+            {%- if rating_num == 0 -%}{%- assign rating_num = 5 -%}{%- endif -%}
             
             {%- for i in (1..5) -%}
               {%- if i <= rating_num -%}
