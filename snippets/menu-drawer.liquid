@@ -36,7 +36,7 @@
             loading="eager"
             width="{{ logo_mobile.width }}"
             height="{{ logo_mobile.height }}"
-            alt="{{ logo_mobile.alt | default: shop.name | escape }}"
+            alt="{{ logo_mobile.alt | escape }}"
           >
         {%- else -%}
           {{ shop.name }}
