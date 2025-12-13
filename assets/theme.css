@@ -2635,7 +2635,7 @@ input:is([type=radio])::after {
   text-align: center;
   background-color: transparent;
   border: 0;
-  border-radius: 15px;
+  border-radius: 15px !important;
   padding-inline: var(--quantity-button-width, 4.5rem);
   width: 100%;
   flex-grow: 1;
