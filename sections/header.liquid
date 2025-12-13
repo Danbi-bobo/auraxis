@@ -182,7 +182,7 @@
         loading="eager"
         width="{{ logo_mobile.width }}"
         height="{{ logo_mobile.height }}"
-        alt="{{ logo_mobile.alt | default: shop.name | escape }}"
+        alt="{{ logo_mobile.alt| escape }}"
         class="logo header__logo--mobile md:hidden"
       >
       
@@ -192,7 +192,7 @@
         loading="eager"
         width="{{ logo.width }}"
         height="{{ logo.height }}"
-        alt="{{ logo.alt | default: shop.name | escape }}"
+        alt="{{ logo.alt | escape }}"
         class="logo header__logo--desktop md:block hidden"
       >
 
@@ -203,7 +203,7 @@
           loading="eager"
           width="{{ logo_transparent.width }}"
           height="{{ logo_transparent.height }}"
-          alt="{{ logo_transparent.alt | default: shop.name | escape }}"
+          alt="{{ logo_transparent.alt | escape }}"
           class="logo header__logo--desktop header__logo--transparent hidden md:block absolute"
         >
       {%- endif -%}
