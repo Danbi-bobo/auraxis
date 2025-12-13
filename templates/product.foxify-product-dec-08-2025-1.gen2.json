@@ -13,6 +13,16 @@
       "type": "foxify-1765177980A3dGc",
       "settings": {}
     },
+    "manual_masonry_reviews_f4Hdkp": {
+      "type": "manual-masonry-reviews",
+      "name": "Custom Masonry Reviews",
+      "settings": {
+        "write_review_url": "",
+        "bg_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "related_products_WHEnHe": {
       "type": "related-products",
       "name": "t:sections.related-products.name",
@@ -61,60 +71,6 @@
         "padding_bottom": 0,
         "show_section_divider": false,
         "divider_width": "fixed"
-      }
-    },
-    "manual_masonry_reviews_f4Hdkp": {
-      "type": "manual-masonry-reviews",
-      "blocks": {
-        "review_tdRdGM": {
-          "type": "review",
-          "settings": {
-            "author_name": "Darilyn M.",
-            "is_verified": true,
-            "review_date": "10/31/2024",
-            "rating": 5,
-            "review_title": "Great product!",
-            "review_body": "I love it alot and always wear it everyday...",
-            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
-          }
-        },
-        "review_mxe8wH": {
-          "type": "review",
-          "settings": {
-            "author_name": "Kj J.",
-            "is_verified": true,
-            "review_date": "10/31/2024",
-            "rating": 5,
-            "review_title": "Great product!",
-            "review_body": "Was good",
-            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
-          }
-        },
-        "review_aVeE7W": {
-          "type": "review",
-          "settings": {
-            "author_name": "Marc K.",
-            "is_verified": true,
-            "review_date": "10/31/2024",
-            "rating": 5,
-            "review_title": "Great product!",
-            "review_body": "Dear, It is wonderful...",
-            "product_variant": "Absorbing Negative Energies Obsidian Bundle"
-          }
-        }
-      },
-      "block_order": [
-        "review_tdRdGM",
-        "review_mxe8wH",
-        "review_aVeE7W"
-      ],
-      "name": "Custom Masonry Reviews",
-      "settings": {
-        "total_reviews": "7",
-        "write_review_url": "",
-        "bg_color": "#ffffff",
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     }
   },
