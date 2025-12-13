@@ -160,7 +160,7 @@
 .cart-quantity {
   --buttons-height: 3.8rem;
   --quantity-button-width: 3.5rem;
-  width: 9rem;
+  width: 15rem;
   min-height: calc(var(--inputs-border-width) * 2 + 3.8rem);
 }
 .cart-quantity-gift-wrap .quantity__input {
