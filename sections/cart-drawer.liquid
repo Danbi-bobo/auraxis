@@ -276,8 +276,8 @@
     </div>
   </div>
   
-  <div class="cart-item__row-bottom flex items-center gap-2">
-    {%- liquid 
+  <div class="cart-item__row-bottom flex items-center justify-between gap-2">
+      {%- liquid 
       assign has_qty_rules = false
       if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
         assign has_qty_rules = true
