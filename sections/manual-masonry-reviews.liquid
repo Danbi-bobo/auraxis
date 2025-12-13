@@ -179,7 +179,6 @@
           0 Reviews
         {% endif %}
       </span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>    
   </div>
 
@@ -216,9 +215,16 @@
           </div>
 
           <div class="star-rating">
-            {%- assign rating_num = review.rating | default: 5 -%}
+            {%- comment -%} Ép kiểu về số bằng 'plus: 0' và xử lý nếu chưa nhập thì mặc định 5 sao {%- endcomment -%}
+            {%- assign rating_num = review.rating | plus: 0 -%}
+            {%- if rating_num == 0 -%}{%- assign rating_num = 5 -%}{%- endif -%}
+            
             {%- for i in (1..5) -%}
-              {%- if i <= rating_num -%}★{%- else -%}☆{%- endif -%}
+              {%- if i <= rating_num -%}
+                ★
+              {%- else -%}
+                <span style="opacity: 0.3">★</span>
+              {%- endif -%}
             {%- endfor -%}
           </div>
 
