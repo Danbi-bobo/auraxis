@@ -14,6 +14,7 @@
     "type_header_font": "jost_n4",
     "pcard_title_font": "heading",
     "page_width": 1410,
+    "pcard_mobile_hide_quick_add": true,
     "cart_type": "drawer",
     "cart_icon": "shopping-bag",
     "collection_list": [
