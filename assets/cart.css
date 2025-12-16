@@ -130,6 +130,15 @@
   padding-block-end: 1.6rem;
   border-bottom: 0.1rem solid rgb(var(--color-border));
 }
+
+.cart-drawer .drawer {
+  overflow: visible;
+} 
+.cart-drawer .drawer__inner {
+  width: 80%;
+  margin-inline: auto;
+  padding-inline: 0; /* hoặc giảm padding */
+}
 .cart-drawer .drawer__footer-buttons {
   width: 80%;
   margin-inline: auto;   /* căn giữa trong drawer__inner */
