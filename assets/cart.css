@@ -130,11 +130,21 @@
   padding-block-end: 1.6rem;
   border-bottom: 0.1rem solid rgb(var(--color-border));
 }
+.cart-drawer .drawer__footer-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
 .cart-drawer .drawer__footer-buttons .btn {
-  height: auto;
-  white-space: normal;
+  flex: 1 1 0%;
+  height: var(--buttons-height);
   min-height: var(--buttons-height);
-  line-height: 1.25;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 .cart-item__media {
