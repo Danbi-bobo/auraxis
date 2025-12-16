@@ -139,12 +139,14 @@
 
 .cart-drawer .drawer__footer-buttons .btn {
   flex: 1 1 0%;
+  height: var(--buttons-height);
+  min-height: var(--buttons-height);
+  white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--buttons-height);
-  white-space: nowrap;
   line-height: 1;
+  box-sizing: border-box;
 }
 
 .cart-item__media {
