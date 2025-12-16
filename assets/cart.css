@@ -130,6 +130,9 @@
   padding-block-end: 1.6rem;
   border-bottom: 0.1rem solid rgb(var(--color-border));
 }
+.cart-drawer .drawer__footer{
+  padding-inline: 1rem;
+}
 .cart-drawer .drawer__footer-buttons .btn {
   height: auto;
   white-space: normal;
