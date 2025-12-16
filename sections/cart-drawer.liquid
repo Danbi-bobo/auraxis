@@ -712,12 +712,12 @@
                 action="{{ routes.cart_url }}"
                 method="POST"
                 novalidate
-                class="drawer__footer-buttons flex flex-wrap gap-2"
+                class="drawer__footer-buttons flex flex-nowrap gap-2 w-full"
               >
-                <a href="{{ routes.cart_url }}" class="btn btn--secondary">
+                <a href="{{ routes.cart_url }}" class="btn btn--secondary flex-1">
                   {{ 'general.cart.view_empty_cart' | t }}
                 </a>
-                <button class="btn btn--primary flex-grow" type="submit" name="checkout">
+                <button class="btn btn--primary flex-1" type="submit" name="checkout">
                   {{ 'sections.cart.checkout' | t }}
                 </button>
               </form>
