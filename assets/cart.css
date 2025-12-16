@@ -134,7 +134,7 @@
   padding-inline: 1rem;
 }
 .cart-drawer .drawer__footer-buttons .btn {
-  height: auto;
+  padding:0;
   min-height: var(--buttons-height);
   line-height: 1.25;
 }
