@@ -135,7 +135,6 @@
 }
 .cart-drawer .drawer__footer-buttons .btn {
   height: auto;
-  white-space: normal;
   min-height: var(--buttons-height);
   line-height: 1.25;
 }
