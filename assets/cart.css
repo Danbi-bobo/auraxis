@@ -130,32 +130,11 @@
   padding-block-end: 1.6rem;
   border-bottom: 0.1rem solid rgb(var(--color-border));
 }
-
-.cart-drawer .drawer {
-  overflow: visible;
-} 
-.cart-drawer .drawer__inner {
-  width: 80%;
-  margin-inline: auto;
-  padding-inline: 0; /* hoặc giảm padding */
-}
-.cart-drawer .drawer__footer-buttons {
-  width: 80%;
-  margin-inline: auto;   /* căn giữa trong drawer__inner */
-  display: flex;
-  gap: 0.8rem;
-}
-
 .cart-drawer .drawer__footer-buttons .btn {
-  flex: 1 1 0%;
-  height: var(--buttons-height);
+  height: auto;
+  white-space: normal;
   min-height: var(--buttons-height);
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  box-sizing: border-box;
+  line-height: 1.25;
 }
 
 .cart-item__media {
