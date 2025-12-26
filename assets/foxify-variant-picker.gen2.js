@@ -43,7 +43,6 @@ if (!customElements.get('x-variant-picker')) {
       }
 
       this.section = this.closest('.x-section')
-      this.productContainer = this.closest('.x-product-form')
       this.enableFetching = Number(this.dataset.variantCount || 0) > 250;
 
       this.waitForUtils(() => {
@@ -53,8 +52,6 @@ if (!customElements.get('x-variant-picker')) {
         this.productId = this.dataset.productId;
         this.sectionId = this.dataset.sectionId;
         this.hideUnavailableOptions = this.dataset.hideUnavailableOptions === 'true';
-        this.buyButtons = this.productContainer ? this.productContainer.querySelectorAll('x-buy-button:not([data-in-card="true"])') : [];
-        this.domNodes = this.Utils.queryDomNodes(this.selectors, this.productContainer);
 
         if (this.enableFetching) {
           this.currentVariant = this.getSelectedVariant(this);
@@ -83,6 +80,20 @@ if (!customElements.get('x-variant-picker')) {
           this.initOptionSwatches();
         }
       });
+    }
+
+    get productContainer() {
+      const quickviewElement = document.getElementById('x-foxify-product-quickview');
+      return quickviewElement || this.closest('.x-product-form');
+    }
+
+    get buyButtons() {
+      return this.productContainer ? this.productContainer.querySelectorAll('x-buy-button:not([data-in-card="true"])') : [];
+    }
+
+    get domNodes() {
+      if (!this.Utils) return {};
+      return this.Utils.queryDomNodes(this.selectors, this.productContainer);
     }
 
     get selectedOptionValues() {

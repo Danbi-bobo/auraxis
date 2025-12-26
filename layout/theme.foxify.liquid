@@ -101,38 +101,12 @@
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
     {% comment %} End custom metafield for head tag like GTag tracking {% endcomment %}
-    {%- render 'foxify-head' -%}
-    <style>
-      /* --- FIX LỖI CART DRAWER BỊ ĐÈ & ẨN STICKY BAR --- */
-
-      /* 1. Đưa Cart Drawer lên lớp cao nhất */
-      cart-drawer, .drawer, #CartDrawer, .cart-drawer {
-          z-index: 2147483647 !important;
-          position: fixed !important;
-      }
-
-      /* 2. Đưa lớp màn đen xuống ngay dưới Drawer */
-      .drawer__overlay, #CartDrawer-Overlay, .cart-drawer-overlay {
-          z-index: 2147483646 !important;
-      }
-
-      /* 3. Ẩn thanh Sticky Bar khi mở Cart (để bấm được nút Checkout) */
-      body.overflow-hidden .foxify-sticky-bar,
-      body.overflow-hidden .product-sticky-bar,
-      body.overflow-hidden #shopify-section-sticky-atc-bar {
-          display: none !important;
-          z-index: -1 !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-      }
-    </style>
-  </head>
+  {%- render 'foxify-head' -%}</head>
 
   <body
     class="{{ request.page_type }}-template {{ template.suffix }} blocks-corner--{{ settings.blocks_corner_radius }}{% if request.design_mode %} shopify-design-mode{% endif %}"
     data-initializing
-  >
-    {% sections 'foxify-header-group' %}
+  > {% sections 'foxify-header-group' %}         
     {% comment %} Custom metafield for body tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_body.value }}
     {% comment %} End custom metafield for body tab like GTag tracking {% endcomment %}
@@ -148,11 +122,16 @@
     -%}
 
     <div class="site-wrapper min-height-screen">
+      
+
       <main id="MainContent" class="main-content content-for-layout focus-none" role="main" tabindex="-1">
         <div class="foxify-container">{{ content_for_layout }}</div>
       </main>
+
+      
     </div>
 
+    
     {%- liquid
       if template.name == 'product'
         section 'sticky-atc-bar'
@@ -170,71 +149,5 @@
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
-    {%- render 'foxify-footer' -%}
-    {% sections 'foxify-footer-group' %}
-    {% section 'cart-drawer' %}
-  
-  <script src="{{ 'cart-drawer-custom.js' | asset_url }}" defer="defer"></script>
-
-  <style>
-    /* CSS chuẩn cho Drawer hoạt động */
-    cart-drawer {
-      visibility: hidden; /* Mặc định ẩn */
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 999999; /* Cao hơn mọi thứ của Foxify */
-      pointer-events: none; /* Không chặn click khi ẩn */
-    }
-
-    cart-drawer.active {
-      visibility: visible;
-      pointer-events: auto;
-    }
-    
-    .drawer__inner {
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      background: #fff;
-      height: 100%;
-      max-width: 400px;
-      width: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-    }
-
-    cart-drawer.active .drawer__inner {
-      transform: translateX(0);
-    }
-
-    .drawer__overlay, .fixed-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    cart-drawer.active .drawer__overlay, 
-    cart-drawer.active .fixed-overlay {
-      opacity: 1;
-    }
-
-    /* Ẩn sticky bar của Foxify khi Drawer mở để tránh che nút Checkout */
-    body.cart-drawer-open .foxify-sticky-bar,
-    body.cart-drawer-open .x-sticky-atc {
-      display: none !important;
-    }
-  </style>
-  </body>
+  {%- render 'foxify-footer' -%}        <div class="shopify-dynamic-checkout---buttons" style="display:none!important;">{{ content_for_additional_checkout_buttons }}</div> {% sections 'foxify-footer-group' %} </body>
 </html>
